@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Interior Service Request</title>
+      <link rel="icon" href="../images/beige-logo.png" type="image/png">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Cairo&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --main-bg: #f8f5f0;
+      --form-bg: #fffdfa;
+      --accent: #c8aa88;
+      --accent-dark: #a48a6d;
+      --text-color: #4b3e2d;
+      --input-bg: #fcf9f4;
+    }
+
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: linear-gradient(to bottom right, var(--main-bg), #e8dfd2);
+      color: var(--text-color);
+      margin: 0;
+      padding: 30px;
+    }
+
+    .container {
+      max-width: 650px;
+      margin: auto;
+      background: var(--form-bg);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+      animation: fadeIn 1.2s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      text-align: center;
+      color: var(--accent-dark);
+      font-size: 28px;
+      margin-bottom: 25px;
+      letter-spacing: 1px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 20px;
+      border: 1px solid #d8cfc3;
+      border-radius: 10px;
+      background: var(--input-bg);
+      font-size: 15px;
+      transition: 0.3s ease;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 8px rgba(200, 170, 136, 0.3);
+      outline: none;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      background: var(--accent);
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    button:hover {
+      background: var(--accent-dark);
+      transform: translateY(-2px);
+    }
+
+    .logo img {
+      display: block;
+      margin: 0 auto 20px;
+      max-width: 200px;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+    }
+
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--main-bg);
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(to bottom, var(--accent), var(--accent-dark));
+      border-radius: 10px;
+    }
+
+    @media (min-width: 300px) and (max-width: 608px) {
+      input, select, textarea {
+        width: 90%;
+        max-width: 400px;
+      }
+      
+      button {
+        width: 90%;
+        max-width: 400px;
+      }
+    }
+    
+    @media (max-width: 600px) {
+      body {
+        padding: 15px;
+      }
+      
+      .container {
+        padding: 20px;
+        margin: 10px;
+      }
+      
+      h1 {
+        font-size: 24px;
+      }
+      
+      input, select, textarea {
+        padding: 12px;
+        font-size: 14px;
+      }
+      
+      button {
+        padding: 12px;
+        font-size: 15px;
+      }
+      
+      .logo img {
+        max-width: 150px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      body {
+        padding: 10px;
+      }
+      
+      .container {
+        padding: 15px;
+        margin: 5px;
+      }
+      
+      h1 {
+        font-size: 22px;
+        margin-bottom: 20px;
+      }
+      
+      input, select, textarea {
+        padding: 10px;
+        font-size: 13px;
+        margin-bottom: 15px;
+      }
+      
+      button {
+        padding: 10px;
+        font-size: 14px;
+      }
+      
+      .logo img {
+        max-width: 120px;
+      }
+    }
+    
+    @media (max-width: 360px) {
+      .container {
+        padding: 12px;
+      }
+      
+      h1 {
+        font-size: 20px;
+      }
+      
+      input, select, textarea {
+        padding: 8px;
+        font-size: 12px;
+      }
+      
+      button {
+        padding: 8px;
+        font-size: 13px;
+      }
+    }
+    
+    @media (min-width: 768px) {
+      .container {
+        max-width: 700px;
+        padding: 50px;
+      }
+      
+      h1 {
+        font-size: 32px;
+      }
+      
+      input, select, textarea {
+        padding: 16px;
+        font-size: 16px;
+      }
+      
+      button {
+        padding: 16px;
+        font-size: 18px;
+      }
+    }
+    
+    @media (min-width: 1024px) {
+      .container {
+        max-width: 800px;
+        padding: 60px;
+      }
+      
+      h1 {
+        font-size: 36px;
+      }
+    }
+
+    select {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c8aa88' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 15px center;
+      background-size: 16px;
+      padding-right: 45px;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 8px rgba(200, 170, 136, 0.3);
+      outline: none;
+      transform: translateY(-1px);
+    }
+
+    select:hover {
+      border-color: var(--accent);
+      box-shadow: 0 2px 8px rgba(200, 170, 136, 0.2);
+    }
+
+    /* تنسيق مربع الخيارات */
+    select:focus option {
+      background: var(--form-bg);
+      color: var(--text-color);
+      padding: 15px 20px;
+      font-size: 15px;
+      border-bottom: 1px solid rgba(200, 170, 136, 0.1);
+      transition: all 0.2s ease;
+    }
+
+    select option {
+      background: var(--form-bg);
+      color: var(--text-color);
+      padding: 15px 20px;
+      font-size: 15px;
+      border-bottom: 1px solid rgba(200, 170, 136, 0.1);
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    select option:hover {
+      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+      color: white;
+      transform: translateX(5px);
+      box-shadow: 0 2px 8px rgba(200, 170, 136, 0.3);
+    }
+
+    select option:checked {
+      background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+      color: white;
+      font-weight: 600;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    select option:first-child {
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+    }
+
+    select option:last-child {
+      border-bottom-left-radius: 8px;
+      border-bottom-right-radius: 8px;
+      border-bottom: none;
+    }
+
+    /* تحسين مظهر dropdown في المتصفحات المختلفة */
+    select::-ms-expand {
+      display: none;
+    }
+
+    /* تأثير إضافي عند فتح القائمة */
+    select:focus {
+      background-color: rgba(255, 255, 255, 0.95);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+              <img src="../images/beige-logo.png" alt="Samar Ammar Logo" loading="lazy">
+    </div>
+    <h1>Interior Design Request</h1>
+    <form action="https://getform.io/f/azywqpqb" method="POST" enctype="multipart/form-data">
+      <input type="hidden" name="Service" value="Interior Design">
+
+      <label for="name">Full Name</label>
+      <input type="text" id="name" name="name" placeholder="Your full name" required>
+
+      <label for="phone">Phone Number</label>
+      <input type="tel" id="phone" name="phone" placeholder="Your phone number" required>
+
+      <label for="location">Location</label>
+      <input type="text" id="location" name="location" placeholder="City / Area" required>
+
+      <label for="construction-status">Construction Status</label>
+      <select id="construction-status" name="construction-status" required>
+        <option value="" disabled selected>Select status</option>
+        <option value="empty-land">Empty Land</option>
+        <option value="renovation">Renovation</option>
+        <option value="from-scratch">From Scratch</option>
+        <option value="structure-only">Concrete Structure (عظم)</option>
+      </select>
+
+      <label for="approx-area">Approximate Area (m²)</label>
+      <input type="number" id="approx-area" name="approx-area" placeholder="e.g. 150" required>
+
+      <label for="project-type">Project Type</label>
+      <select id="project-type" name="project-type" required>
+        <option value="" disabled selected>Select type</option>
+        <option value="residential">Residential</option>
+        <option value="commercial">Commercial</option>
+      </select>
+
+      <label for="notes">Additional Notes</label>
+      <textarea id="notes" name="notes" placeholder="Any additional information..."></textarea>
+
+      <input type="hidden" name="_redirect" value="thanks-page-interior.html">
+      <button type="submit">Submit Request</button>
+    </form>
+  </div>
+</body>
+</html>

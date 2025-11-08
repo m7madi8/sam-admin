@@ -1,0 +1,274 @@
+/* Card Controls - Easy Customization for Project Cards */
+/* This file allows you to easily control the dimensions and styling of project cards */
+
+/* ===== CARD SIZE PRESETS ===== */
+
+/* Large Cards (Default) */
+.card-size-large {
+  --card-height: 800px;
+  --image-height: 600px;
+  --card-title-size: 1.8rem;
+  --card-text-size: 1.4rem;
+  --card-body-padding: 3rem;
+}
+
+/* Medium Cards */
+.card-size-medium {
+  --card-height: 600px;
+  --image-height: 400px;
+  --card-title-size: 1.4rem;
+  --card-text-size: 1.1rem;
+  --card-body-padding: 2rem;
+}
+
+/* Small Cards */
+.card-size-small {
+  --card-height: 450px;
+  --image-height: 300px;
+  --card-title-size: 1.2rem;
+  --card-text-size: 1rem;
+  --card-body-padding: 1.5rem;
+}
+
+/* Compact Cards */
+.card-size-compact {
+  --card-height: 350px;
+  --image-height: 250px;
+  --card-title-size: 1.1rem;
+  --card-text-size: 0.9rem;
+  --card-body-padding: 1rem;
+}
+
+/* ===== CARD STYLE PRESETS ===== */
+
+/* Modern Style */
+.card-style-modern {
+  --card-border-radius: 16px;
+  --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  --card-hover-shadow: 0 16px 48px rgba(166, 124, 82, 0.2);
+  --card-hover-transform: translateY(-8px);
+  --image-hover-scale: 1.08;
+}
+
+/* Classic Style */
+.card-style-classic {
+  --card-border-radius: 8px;
+  --card-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  --card-hover-shadow: 0 8px 24px rgba(166, 124, 82, 0.15);
+  --card-hover-transform: translateY(-4px);
+  --image-hover-scale: 1.03;
+}
+
+/* Minimal Style */
+.card-style-minimal {
+  --card-border-radius: 4px;
+  --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --card-hover-shadow: 0 4px 16px rgba(166, 124, 82, 0.1);
+  --card-hover-transform: translateY(-2px);
+  --image-hover-scale: 1.02;
+}
+
+/* Rounded Style */
+.card-style-rounded {
+  --card-border-radius: 24px;
+  --card-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  --card-hover-shadow: 0 12px 32px rgba(166, 124, 82, 0.18);
+  --card-hover-transform: translateY(-6px);
+  --image-hover-scale: 1.05;
+}
+
+/* ===== CUSTOM CARD DIMENSIONS ===== */
+
+/* Custom Height */
+.card-height-500 { --card-height: 500px; }
+.card-height-550 { --card-height: 550px; }
+.card-height-600 { --card-height: 600px; }
+.card-height-650 { --card-height: 650px; }
+.card-height-700 { --card-height: 700px; }
+.card-height-750 { --card-height: 750px; }
+.card-height-800 { --card-height: 800px; }
+.card-height-850 { --card-height: 850px; }
+.card-height-900 { --card-height: 900px; }
+
+/* Custom Image Height */
+.card-image-300 { --image-height: 300px; }
+.card-image-350 { --image-height: 350px; }
+.card-image-400 { --image-height: 400px; }
+.card-image-450 { --image-height: 450px; }
+.card-image-500 { --image-height: 500px; }
+.card-image-550 { --image-height: 550px; }
+.card-image-600 { --image-height: 600px; }
+.card-image-650 { --image-height: 650px; }
+.card-image-700 { --image-height: 700px; }
+
+/* ===== CUSTOM SPACING ===== */
+
+/* Custom Padding */
+.card-padding-small { --card-body-padding: 1rem; }
+.card-padding-medium { --card-body-padding: 1.5rem; }
+.card-padding-large { --card-body-padding: 2rem; }
+.card-padding-xl { --card-body-padding: 2.5rem; }
+.card-padding-xxl { --card-body-padding: 3rem; }
+
+/* Custom Margins */
+.card-margin-small { --card-margin-bottom: 1rem; }
+.card-margin-medium { --card-margin-bottom: 1.5rem; }
+.card-margin-large { --card-margin-bottom: 2rem; }
+.card-margin-xl { --card-margin-bottom: 2.5rem; }
+
+/* ===== CUSTOM TYPOGRAPHY ===== */
+
+/* Custom Title Sizes */
+.card-title-xs { --card-title-size: 0.9rem; }
+.card-title-sm { --card-title-size: 1rem; }
+.card-title-md { --card-title-size: 1.2rem; }
+.card-title-lg { --card-title-size: 1.5rem; }
+.card-title-xl { --card-title-size: 1.8rem; }
+.card-title-xxl { --card-title-size: 2.1rem; }
+
+/* Custom Text Sizes */
+.card-text-xs { --card-text-size: 0.8rem; }
+.card-text-sm { --card-text-size: 0.9rem; }
+.card-text-md { --card-text-size: 1rem; }
+.card-text-lg { --card-text-size: 1.2rem; }
+.card-text-xl { --card-text-size: 1.4rem; }
+
+/* ===== CUSTOM EFFECTS ===== */
+
+/* Custom Hover Effects */
+.card-hover-subtle {
+  --card-hover-transform: translateY(-2px);
+  --image-hover-scale: 1.02;
+}
+
+.card-hover-medium {
+  --card-hover-transform: translateY(-6px);
+  --image-hover-scale: 1.05;
+}
+
+.card-hover-dramatic {
+  --card-hover-transform: translateY(-12px);
+  --image-hover-scale: 1.1;
+}
+
+/* Custom Shadows */
+.card-shadow-light {
+  --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --card-hover-shadow: 0 4px 16px rgba(166, 124, 82, 0.08);
+}
+
+.card-shadow-medium {
+  --card-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+  --card-hover-shadow: 0 12px 36px rgba(166, 124, 82, 0.15);
+}
+
+.card-shadow-heavy {
+  --card-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+  --card-hover-shadow: 0 20px 60px rgba(166, 124, 82, 0.25);
+}
+
+/* ===== RESPONSIVE ADJUSTMENTS ===== */
+
+@media (max-width: 1200px) {
+  .card-size-large {
+    --card-height: 750px;
+    --image-height: 550px;
+  }
+  
+  .card-size-medium {
+    --card-height: 550px;
+    --image-height: 350px;
+  }
+  
+  .card-size-small {
+    --card-height: 400px;
+    --image-height: 250px;
+  }
+  
+  .card-size-compact {
+    --card-height: 300px;
+    --image-height: 200px;
+  }
+}
+
+@media (max-width: 900px) {
+  .card-size-large {
+    --card-height: 700px;
+    --image-height: 500px;
+    --card-body-padding: 2.5rem;
+  }
+  
+  .card-size-medium {
+    --card-height: 500px;
+    --image-height: 300px;
+    --card-body-padding: 1.5rem;
+  }
+  
+  .card-size-small {
+    --card-height: 350px;
+    --image-height: 200px;
+    --card-body-padding: 1rem;
+  }
+  
+  .card-size-compact {
+    --card-height: 250px;
+    --image-height: 150px;
+    --card-body-padding: 0.8rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .card-size-large {
+    --card-height: 600px;
+    --image-height: 400px;
+    --card-title-size: 1.4rem;
+    --card-text-size: 1.1rem;
+  }
+  
+  .card-size-medium {
+    --card-height: 450px;
+    --image-height: 250px;
+    --card-title-size: 1.2rem;
+    --card-text-size: 1rem;
+  }
+  
+  .card-size-small {
+    --card-height: 300px;
+    --image-height: 150px;
+    --card-title-size: 1rem;
+    --card-text-size: 0.9rem;
+  }
+  
+  .card-size-compact {
+    --card-height: 200px;
+    --image-height: 100px;
+    --card-title-size: 0.9rem;
+    --card-text-size: 0.8rem;
+  }
+}
+
+/* ===== USAGE INSTRUCTIONS ===== */
+/*
+To use these controls, add the appropriate classes to your HTML:
+
+1. For size presets:
+   <div class="gallery-item card-size-medium">
+   
+2. For style presets:
+   <div class="gallery-item card-style-modern">
+   
+3. For custom dimensions:
+   <div class="gallery-item card-height-600 card-image-400">
+   
+4. For custom spacing:
+   <div class="gallery-item card-padding-large card-margin-xl">
+   
+5. For custom typography:
+   <div class="gallery-item card-title-lg card-text-md">
+   
+6. For custom effects:
+   <div class="gallery-item card-hover-dramatic card-shadow-heavy">
+   
+7. Combine multiple classes:
+   <div class="gallery-item card-size-large card-style-modern card-hover-dramatic">
+*/ 

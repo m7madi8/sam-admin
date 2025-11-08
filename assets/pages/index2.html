@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Samar Ammar Interior Designer</title>
+    <meta name="description" content="A stunning gallery of interior, exterior, and landscape design projects by Samar Ammar.">
+    <link rel="icon" href="../images/beige-logo.png" sizes="128x128" type="image/png">
+    <!-- Google Fonts: Montserrat & Cairo -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="../../style.css" rel="stylesheet">
+    <link href="../css/style2.css" rel="stylesheet">
+    <link href="../css/card-controls.css" rel="stylesheet">
+    <style>
+        /* Ensure header is on top */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            /* Always keep scrolled state style */
+            background-color: rgba(253, 250, 246, 0.95) !important;
+            backdrop-filter: blur(10px) !important;
+            -webkit-backdrop-filter: blur(10px) !important;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05) !important;
+            padding: 1rem 3rem !important;
+        }
+        
+        /* Logo styling */
+        .header #logo {
+            width: 60px;
+            height: auto;
+            max-height: 60px;
+            object-fit: contain;
+            transition: all 0.3s ease;
+        }
+        
+        /* Navigation container - better spacing for fewer items */
+        .header .navigation {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            margin: 0 2rem;
+        }
+        
+        .header .navigation ul {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: nowrap;
+        }
+        
+        /* Keep navigation links with scrolled colors */
+        .header .navigation .menu-link {
+            color: var(--first-color) !important;
+            background: none !important;
+            -webkit-background-clip: unset !important;
+            background-clip: unset !important;
+            filter: none !important;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .header .navigation .menu-link:hover {
+            background-color: rgba(166, 124, 82, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        /* Keep menu icon with scrolled color */
+        .header #menu-icon {
+            color: var(--first-color) !important;
+            background: none !important;
+            -webkit-background-clip: unset !important;
+            background-clip: unset !important;
+            filter: none !important;
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .header #menu-icon:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Overlay menu improvements */
+        #menu {
+            padding: 2rem 1.5rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            overflow-y: auto;
+            justify-content: space-between;
+        }
+        
+        /* MENU label styling */
+        #menu::before {
+            content: 'MENU';
+            display: block;
+            color: var(--text-color-light);
+            font-size: 0.75rem;
+            letter-spacing: 0.18em;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+        
+        #menu ul {
+            margin-top: 0.8rem;
+            flex: 0 0 auto;
+        }
+        
+        #menu ul li {
+            margin-bottom: 0;
+            padding: 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        #menu ul li:first-child {
+            border-top: 1px solid var(--border-color);
+        }
+        
+        #menu ul li:last-child {
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        #menu .menu-link {
+            font-size: 0.95rem;
+            padding: 0.7rem 0.8rem;
+            display: block;
+            transition: all 0.3s ease;
+        }
+        
+        #menu .menu-link:hover {
+            background-color: rgba(166, 124, 82, 0.08);
+        }
+        
+        #menu .menu-social {
+            margin-top: 1.5rem;
+            gap: 1rem;
+            flex: 0 0 auto;
+        }
+        
+        #menu .menu-social a {
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: rgba(166, 124, 82, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        #menu .menu-social a:hover {
+            background-color: var(--first-color);
+            transform: scale(1.1);
+        }
+        
+        #menu .menu-social i {
+            font-size: 1.3rem;
+            color: var(--first-color);
+            transition: color 0.3s ease;
+        }
+        
+        #menu .menu-social a:hover i {
+            color: white;
+        }
+        
+        /* Menu footer with logo */
+        #menu .menu-footer {
+            margin-top: 1.2rem;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 0 0 auto;
+        }
+        
+        #menu .menu-footer img {
+            width: 110px !important;
+            height: auto !important;
+            max-width: 100%;
+            object-fit: contain;
+        }
+        
+        /* Add padding to body to account for fixed header */
+        body {
+            padding-top: 85px;
+        }
+        
+        /* Ensure gallery section starts below header */
+        .sharp-header {
+            margin-top: 30px;
+            padding-top: 2rem;
+        }
+        
+        /* Ensure filter buttons are below header */
+        nav.d-flex {
+            position: relative;
+            z-index: 10;
+            margin-top: 1.5rem;
+        }
+        
+        /* Responsive adjustments */
+        @media screen and (max-width: 1200px) {
+            .header .navigation ul {
+                gap: 1.8rem;
+            }
+            
+            .header .navigation .menu-link {
+                font-size: 0.88rem;
+                padding: 0.4rem 0.8rem;
+            }
+        }
+        
+        @media screen and (max-width: 968px) {
+            .header {
+                padding: 0.8rem 1.5rem !important;
+            }
+            
+            .header #logo {
+                width: 52px;
+                max-height: 52px;
+            }
+            
+            .header .navigation {
+                display: none;
+            }
+            
+            body {
+                padding-top: 75px;
+            }
+            
+            /* Tablet menu adjustments */
+            #menu .menu-footer img {
+                width: 100px !important;
+            }
+        }
+        
+        @media screen and (max-width: 576px) {
+            .header {
+                padding: 0.7rem 1rem !important;
+            }
+            
+            .header #logo {
+                width: 45px;
+                max-height: 45px;
+            }
+            
+            body {
+                padding-top: 70px;
+            }
+            
+            .sharp-header {
+                margin-top: 20px;
+                padding-top: 1rem;
+            }
+            
+            /* Mobile menu adjustments */
+            #menu {
+                padding: 1.8rem 1.2rem 1.2rem;
+            }
+            
+            #menu .menu-link {
+                font-size: 0.9rem;
+                padding: 0.6rem 0.6rem;
+            }
+            
+            #menu .menu-footer {
+                margin-top: 1rem;
+                padding: 0;
+            }
+            
+            #menu .menu-footer img {
+                width: 85px !important;
+            }
+            
+            #menu .menu-social {
+                margin-top: 1.2rem;
+                gap: 0.8rem;
+            }
+            
+            #menu .menu-social a {
+                width: 38px;
+                height: 38px;
+            }
+            
+            #menu .menu-social i {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body class="page-fade" style="background: var(--body-color);">
+    <!-- Loader -->
+    <div class="loader-wrapper">
+        <div class="loader">
+            <div class="loader-card">
+                <img src="../images/beige-logo.png" alt="Samar Ammar Interior Designer Logo" class="loader-logo" width="160" height="160" />
+                <div class="loader-progress" aria-hidden="true">
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <header id="header1-unique" class="header scrolled">
+    <img src="../images/beige-logo.png" alt="Samar Ammar Interior, Exterior, and Landscape Designer Logo in Palestine Ramallah" id="logo" loading="eager" width="60" height="60"/>
+    <nav class="navigation">
+      <ul>
+        <li><a href="../../index.html#home" class="menu-link slide-up">home</a></li>
+        <li><a href="../../index.html#about" class="menu-link slide-up">about</a></li>
+        <li><a href="../../index.html#map2" class="menu-link slide-up">our projects</a></li>
+        <li><a href="../../index.html#faq" class="menu-link slide-up">FAQ</a></li>
+        <li><a href="../../index.html#contact-us" class="menu-link slide-up">contact us</a></li>
+      </ul>
+    </nav>
+    <i class='bx bx-menu' id="menu-icon"></i>
+    
+    </header>
+    <div id="overlay">
+        <button id="close-icon" aria-label="إغلاق القائمة" type="button">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <defs>
+              <linearGradient id="closeGrad" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#ffffff"/>
+                <stop offset="100%" stop-color="#a67c52"/>
+              </linearGradient>
+            </defs>
+            <line x1="12" y1="12" x2="24" y2="24" stroke="url(#closeGrad)"/>
+            <line x1="24" y1="12" x2="12" y2="24" stroke="url(#closeGrad)"/>
+          </svg>
+        </button>
+        <div id="menu">
+            <ul>
+                <li><a href="../../index.html#home" class="menu-link slide-up">home</a></li>
+                <li><a href="../../index.html#about" class="menu-link slide-up">about</a></li>
+                <li><a href="../../index.html#map2" class="menu-link slide-up">our projects</a></li>
+                <li><a href="../../index.html#faq" class="menu-link slide-up">FAQ</a></li>
+                <li><a href="../../index.html#contact-us" class="menu-link slide-up">contact us</a></li>
+            </ul>
+            <div class="menu-social">
+              <a href="https://wa.me/+972569126200" target="_blank" aria-label="WhatsApp"><i class='bx bxl-whatsapp'></i></a>
+              <a href="https://www.instagram.com/samarammarinterior?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" aria-label="Instagram"><i class='bx bxl-instagram'></i></a>
+              <a href="https://www.facebook.com/share/18o8oJW7R9/" target="_blank" aria-label="Facebook"><i class='bx bxl-facebook-circle'></i></a>
+            </div>
+            <div class="menu-footer">
+              <img src="../images/beige-logo.png" alt="Samar Ammar Interior Designer Logo" loading="lazy" width="110" height="110"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="sharp-header text-center">
+        <div class="circle-deco"></div>
+        <h1 class="gallery-title">Gallery</h1>
+        <p class="gallery-subtitle">A selection of our best interior, exterior, and landscape projects</p>
+        <div class="gallery-desc">Discover the beauty of our work through a curated collection of inspiring spaces.</div>
+    </div>
+    
+    <nav class="d-flex justify-content-center gap-2 my-3">
+        <button class="sharp-btn active" data-filter="all">All</button>
+        <button class="sharp-btn" data-filter="interior">Interior</button>
+        <button class="sharp-btn" data-filter="landscape">Landscape</button>
+        <button class="sharp-btn" data-filter="exterior">Exterior</button>
+        <button class="sharp-btn" id="completedphotos" data-filter="completed">Completed</button>
+    </nav>
+    
+    <main class="container-fluid">
+
+        
+        <div class="row g-4 justify-content-center" id="gallery-grid">
+          
+            <!-- Exterior Projects Section -->
+            <div 
+                class="col-12 col-sm-6 col-md-6 col-lg-4 gallery-item" 
+                data-category="exterior" 
+                data-lightbox-images='[
+                    "../images/exterior-photos/منزل عيسى/d64c72e6-8f4a-48ed-bc50-c230ae598e42.jpg",
+                    "../images/exterior-photos/منزل عيسى/0f3f2970-c763-465e-a987-9281d1a74c43.jpg",
+                    "../images/exterior-photos/منزل عيسى/c0c880ec-fe3d-485b-a131-82d9895d89af.jpg",
+                    "../images/exterior-photos/منزل عيسى/b05303c5-9472-4db3-97e1-be11bdaa4a8d.jpg",
+                    "../images/exterior-photos/منزل عيسى/Ex90.jpg",
+                    "../images/exterior-photos/منزل عيسى/fddc5b0d-be02-4bf7-8135-88a3daef3a54.jpg",
+                    "../images/exterior-photos/منزل عيسى/fbca0346-04ac-40f8-b009-53a3220da301.jpg",
+                    "../images/exterior-photos/منزل عيسى/412df752-31bc-408c-a04a-6e72033bb5dc.jpg",
+                    "../images/exterior-photos/منزل عيسى/7c0d419c-d901-4fb9-8e7a-c38e1dfcf84a.jpg",
+                    "../images/exterior-photos/منزل عيسى/664.jpg"
+                ]'>
+                <div class="card gallery-card h-100">
+                    <img 
+                        data-src="../images/exterior-photos/منزل عيسى/d64c72e6-8f4a-48ed-bc50-c230ae598e42.jpg" 
+                        alt="منزل السيد عيسى" 
+                        class="card-img-top lazy" 
+                        loading="lazy" 
+                        width="400" 
+                        height="300"/>
+                    <noscript>
+                        <img 
+                            src="../images/exterior-photos/منزل عيسى/d64c72e6-8f4a-48ed-bc50-c230ae598e42.jpg" 
+                            alt="منزل السيد عيسى" 
+                            class="card-img-top" 
+                            width="400" 
+                            height="300"/>
+                    </noscript>
+                    <div class="card-body">
+                        <h5 class="card-title">منزل السيد عيسى</h5>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div 
+                class="col-12 col-sm-6 col-md-6 col-lg-4 gallery-item" 
+                data-category="exterior" 
+                data-lightbox-images='[
+                    "../images/exterior-photos/منزل السيد ادم في ابو غوش/dd232729-dea4-4a32-b13b-9c1503c47589.jpg",
+                    "../images/exterior-photos/منزل السيد ادم في ابو غوش/f5447324-5c33-4c06-918d-ddfd71872785.jpg",
+                    "../images/exterior-photos/منزل السيد ادم في ابو غوش/9c618c58-beb1-49ba-9bcb-f1e4d04216ab.jpg",
+                    "../images/exterior-photos/منزل السيد ادم في ابو غوش/ec77be73-1f39-4432-a7b7-1f7d48473e8c.jpg",
+                    "../images/exterior-photos/منزل السيد ادم في ابو غوش/4246b57b-2510-485d-a1ac-0a63770a2e33.jpg",
+                    "../images/exterior-photos/منزل السيد ادم في ابو غوش/2efb8832-e28a-40c0-88ec-3c2185e0ab84.jpg",
+                    "../images/exterior-photos/منزل السيد ادم في ابو غوش/b6c99e9e-d188-4c80-90a8-e377440d2a45.jpg",
+                    "../images/exterior-photos/منزل السيد ادم في ابو غوش/dd232729-dea4-4a32-b13b-9c1503c47589.jpg",
+                    "../images/exterior-photos/منزل السيد ادم في ابو غوش/f5447324-5c33-4c06-918d-ddfd71872785.jpg",
+                    "../images/exterior-photos/منزل السيد ادم في ابو غوش/9c618c58-beb1-49ba-9bcb-f1e4d04216ab.jpg"
+                ]'>
+                <div class="card gallery-card h-100">
+                    <img 
+                        src="../images/exterior-photos/منزل السيد ادم في ابو غوش/dd232729-dea4-4a32-b13b-9c1503c47589.jpg" 
+                        alt="منزل السيد آدم" 
+                        class="card-img-top" />
+                    <div class="card-body">
+                        <h5 class="card-title">منزل السيد آدم</h5>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div 
+                class="col-12 col-sm-6 col-md-6 col-lg-4 gallery-item" 
+                data-category="exterior" 
+                data-lightbox-images='[
+                    "../images/exterior-photos/فيلا السيدة خولة/3a6954a7-9151-4bc1-a53f-4b653e41720d.jpg",
+                    "../images/exterior-photos/فيلا السيدة خولة/0724c38b-f667-4db4-a705-a4b281c3ef07.jpg",
+                    "../images/exterior-photos/فيلا السيدة خولة/c9e098b4-362d-4d93-820d-6dc7980ac11a.jpg",
+                    "../images/exterior-photos/فيلا السيدة خولة/21334502-87ae-48ae-94f8-56fafed9d208.jpg",
+                    "../images/exterior-photos/فيلا السيدة خولة/38a0c9da-793a-4214-a5d1-d23e7cebea60.jpg",
+                    "../images/exterior-photos/فيلا السيدة خولة/74aaebcb-9665-4cce-aaf7-75539ba3dae8.jpg",
+                    "../images/exterior-photos/فيلا السيدة خولة/c2e9dd04-c779-4592-83c4-b5988383fdef.jpg",
+                    "../images/exterior-photos/فيلا السيدة خولة/e52f1806-5313-4d2a-88a8-9424b8716a63.jpg",
+                    "../images/exterior-photos/فيلا السيدة خولة/11111111111111.jpg",
+                    "../images/exterior-photos/فيلا السيدة خولة/29a5bfdd-497b-40cb-b809-8e0c649dccb7.jpg"
+                ]'>
+                <div class="card gallery-card h-100">
+                    <img 
+                        src="../images/exterior-photos/فيلا السيدة خولة/3a6954a7-9151-4bc1-a53f-4b653e41720d.jpg" 
+                        alt="فيلا السيده خوله" 
+                        class="card-img-top" />
+                    <div class="card-body">
+                        <h5 class="card-title">فيلا السيده خوله</h5>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+            </div>
+                       
+            <!-- Interior Projects Section -->
+            <div 
+                class="col-12 col-sm-6 col-md-6 col-lg-4 gallery-item" 
+                data-category="interior"
+                data-completed="true" 
+                data-lightbox-images='[
+                    "../images/interior-photos/منزل السيد مصطفى/WhatsApp Image 2025-03-11 at 8.10.38 PM.jpeg",
+                    "../images/interior-photos/منزل السيد مصطفى/WhatsApp Image 2025-03-11 at 8.10.39 PM.jpeg",
+                    "../images/interior-photos/منزل السيد مصطفى/WhatsApp Image 2025-03-11 at 8.10.40 PM.jpeg",
+                    "../images/interior-photos/منزل السيد مصطفى/WhatsApp Image 2025-03-11 at 8.10.36 PM.jpeg",
+                    "../images/interior-photos/منزل السيد مصطفى/WhatsApp Image 2025-03-11 at 8.10.37 PM.jpeg",
+                    "../images/interior-photos/منزل السيد مصطفى/WhatsApp Image 2025-03-11 at 8.10.34 PM.jpeg",
+                    "../images/interior-photos/منزل السيد مصطفى/WhatsApp Image 2025-03-11 at 8.10.35 PM.jpeg",
+                    "../images/interior-photos/منزل السيد مصطفى/WhatsApp Image 2025-03-11 at 8.10.14 PM.jpeg",
+                    "../images/interior-photos/منزل السيد مصطفى/WhatsApp Image 2025-03-11 at 8.10.15 PM.jpeg",
+                    "../images/interior-photos/منزل السيد مصطفى/WhatsApp Image 2025-03-11 at 8.10.16 PM.jpeg",
+                    "../images/interior-photos/منزل السيد مصطفى/WhatsApp Image 2025-03-11 at 8.10.17 PM.jpeg",
+                    "../images/interior-photos/منزل السيد مصطفى/WhatsApp Image 2025-03-11 at 8.10.18 PM.jpeg",
+                    "../images/interior-photos/منزل السيد مصطفى/WhatsApp Image 2025-03-11 at 8.10.19 PM.jpeg",
+                    "../images/interior-photos/منزل السيد مصطفى/WhatsApp Image 2025-03-11 at 8.10.20 PM.jpeg",
+                    "../images/interior-photos/منزل السيد مصطفى/WhatsApp Image 2025-03-11 at 8.10.21 PM.jpeg"
+                ]'>
+                <div class="card gallery-card h-100">
+                    <img 
+                        src="../images/interior-photos/منزل السيد مصطفى/WhatsApp Image 2025-03-11 at 8.10.38 PM.jpeg" 
+                        alt="منزل السيد مصطفى" 
+                        class="card-img-top" />
+                    <div class="card-body">
+                        <h5 class="card-title">منزل السيد مصطفى</h5>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div 
+                class="col-12 col-sm-6 col-md-6 col-lg-4 gallery-item" 
+                data-category="interior"
+                data-completed="true" 
+                data-lightbox-images='[
+                    "../images/interior-photos/منزل السيد عيسى/الطابق الارضي/7be7e56d-58ba-4097-8b45-0545552aa0e0.jpg",
+                    "../images/interior-photos/منزل السيد عيسى/الطابق الارضي/12a3878c-14a1-4ea6-9781-ee4d011375eb.jpg",
+                    "../images/interior-photos/منزل السيد عيسى/الطابق الارضي/fb974579-8bb3-4f1b-936f-8a869ba10322.jpg",
+                    "../images/interior-photos/منزل السيد عيسى/الطابق الارضي/4c4c135f-cda8-4bc2-812b-2e059d96e76e.jpg",
+                    "../images/interior-photos/منزل السيد عيسى/الطابق الارضي/ce2735a1-96a5-49bd-8c71-fdd768b527ff.jpg",
+                    "../images/interior-photos/منزل السيد عيسى/الطابق الارضي/bd60da3d-3eb4-46af-bef2-b93dc859edc2.jpg",
+                    "../images/interior-photos/منزل السيد عيسى/الطابق الارضي/68697020-7a2e-4ba1-a6c1-1b65ad4af1c5.jpg",
+                    "../images/interior-photos/منزل السيد عيسى/الطابق الارضي/66f85bab-5a90-4813-9ff8-55d8844d8ace.jpg",
+                    "../images/interior-photos/منزل السيد عيسى/الطابق الاول/5b0ea6e7-1457-45a8-ab64-6e387611b574.jpg",
+                    "../images/interior-photos/منزل السيد عيسى/الطابق الاول/08f1b294-1bb7-4e81-a488-168bbfa3e1ef.jpg"
+                ]'>
+                <div class="card gallery-card h-100">
+                    <img 
+                        src="../images/interior-photos/منزل السيد عيسى/الطابق الارضي/7be7e56d-58ba-4097-8b45-0545552aa0e0.jpg" 
+                        alt="منزل السيد عيسى" 
+                        class="card-img-top" />
+                    <div class="card-body">
+                        <h5 class="card-title">منزل السيد عيسى</h5>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div 
+                class="col-12 col-sm-6 col-md-6 col-lg-4 gallery-item" 
+                data-category="interior"
+                data-completed="true" 
+                data-lightbox-images='[
+                    "../images/interior-photos/منزل السيده فيفان/1.jpg",
+                    "../images/interior-photos/منزل السيده فيفان/2.jpg",
+                    "../images/interior-photos/منزل السيده فيفان/3.jpg",
+                    "../images/interior-photos/منزل السيده فيفان/4.jpg",
+                    "../images/interior-photos/منزل السيده فيفان/5.jpg",
+                    "../images/interior-photos/منزل السيده فيفان/6.jpg",
+                    "../images/interior-photos/منزل السيده فيفان/7.jpg",
+                    "../images/interior-photos/منزل السيده فيفان/8.jpg",
+                    "../images/interior-photos/منزل السيده فيفان/9.jpg",
+                    "../images/interior-photos/منزل السيده فيفان/10.jpg"
+                ]'>
+                <div class="card gallery-card h-100">
+                    <img 
+                        src="../images/interior-photos/منزل السيده فيفان/1.jpg" 
+                        alt="منزل السيده فيفان" 
+                        class="card-img-top" />
+                    <div class="card-body">
+                        <h5 class="card-title">منزل السيده فيفان</h5>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div 
+                class="col-12 col-sm-6 col-md-6 col-lg-4 gallery-item" 
+                data-category="interior"
+                data-completed="true" 
+                data-lightbox-images='[
+                    "../images/interior-photos/تصميم فيلا السيد داوود -اريحا/الطابق الارضي/in130.webp",
+                    "../images/interior-photos/تصميم فيلا السيد داوود -اريحا/الطابق الارضي/WhatsApp Image 2024-10-12 at 11.01.54 AM.webp",
+                    "../images/interior-photos/تصميم فيلا السيد داوود -اريحا/الطابق الارضي/WhatsApp Image 2024-10-12 at 11.01.54 AM (1).webp",
+                    "../images/interior-photos/تصميم فيلا السيد داوود -اريحا/الطابق الارضي/WhatsApp Image 2024-10-12 at 11.01.54 AM (2).webp",
+                    "../images/interior-photos/تصميم فيلا السيد داوود -اريحا/الطابق الارضي/WhatsApp Image 2024-10-12 at 11.01.54 AM (3).webp",
+                    "../images/interior-photos/تصميم فيلا السيد داوود -اريحا/الطابق الارضي/WhatsApp Image 2024-10-12 at 11.01.55 AM.webp",
+                    "../images/interior-photos/تصميم فيلا السيد داوود -اريحا/الطابق الارضي/WhatsApp Image 2024-10-12 at 11.01.55 AM (1).webp",
+                    "../images/interior-photos/تصميم فيلا السيد داوود -اريحا/الطابق الارضي/WhatsApp Image 2024-10-12 at 11.01.55 AM (2).webp",
+                    "../images/interior-photos/تصميم فيلا السيد داوود -اريحا/الطابق الارضي/WhatsApp Image 2024-10-12 at 11.01.55 AM (3).webp",
+                    "../images/interior-photos/تصميم فيلا السيد داوود -اريحا/الطابق الاول-1/WhatsApp Image 2024-10-12 at 2.40.31 PM.webp"
+                ]'>
+                <div class="card gallery-card h-100">
+                    <img 
+                        src="../images/interior-photos/تصميم فيلا السيد داوود -اريحا/الطابق الارضي/in130.webp" 
+                        alt="منزل السيد داوود" 
+                        class="card-img-top" />
+                    <div class="card-body">
+                        <h5 class="card-title">منزل السيد داوود</h5>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+            <div 
+                class="col-12 col-sm-6 col-md-6 col-lg-4 gallery-item" 
+                data-category="interior"
+                data-completed="true" 
+                data-lightbox-images='[
+                    "../images/interior-photos/صالون جميلة -الداخل/WhatsApp Image 2025-05-20 at 10.13.17 AM.webp",
+                    "../images/interior-photos/صالون جميلة -الداخل/WhatsApp Image 2025-05-20 at 10.13.17 AM (1).webp",
+                    "../images/interior-photos/صالون جميلة -الداخل/WhatsApp Image 2025-05-20 at 10.13.18 AM.webp",
+                    "../images/interior-photos/صالون جميلة -الداخل/WhatsApp Image 2025-05-20 at 10.13.18 AM (1).webp",
+                    "../images/interior-photos/صالون جميلة -الداخل/WhatsApp Image 2025-05-20 at 10.13.18 AM (2).webp",
+                    "../images/interior-photos/صالون جميلة -الداخل/WhatsApp Image 2025-05-20 at 10.13.19 AM.webp",
+                    "../images/interior-photos/صالون جميلة -الداخل/WhatsApp Image 2025-05-20 at 10.13.19 AM (1).webp",
+                    "../images/interior-photos/صالون جميلة -الداخل/WhatsApp Image 2025-06-04 at 12.40.24 PM.webp",
+                    "../images/interior-photos/صالون جميلة -الداخل/WhatsApp Image 2025-06-04 at 12.40.25 PM.webp",
+                    "../images/interior-photos/صالون جميلة -الداخل/WhatsApp Image 2025-06-04 at 12.40.25 PM (1).webp"
+                ]'>
+                <div class="card gallery-card h-100">
+                    <img 
+                        src="../images/interior-photos/صالون جميلة -الداخل/WhatsApp Image 2025-05-20 at 10.13.17 AM.webp" 
+                        alt="صالون السيده جميلة" 
+                        class="card-img-top" />
+                    <div class="card-body">
+                        <h5 class="card-title">صالون السيده جميلة</h5>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div 
+                class="col-12 col-sm-6 col-md-6 col-lg-4 gallery-item" 
+                data-category="interior"
+                data-completed="true" 
+                data-lightbox-images='[
+                    "../images/interior-photos/شقة السيد علي -الطيرة/WhatsApp Image 2024-12-16 at 10.55.19 AM.webp",
+                    "../images/interior-photos/شقة السيد علي -الطيرة/WhatsApp Image 2024-12-16 at 10.55.20 AM (1).webp",
+                    "../images/interior-photos/شقة السيد علي -الطيرة/WhatsApp Image 2024-12-16 at 10.55.20 AM (2).webp",
+                    "../images/interior-photos/شقة السيد علي -الطيرة/WhatsApp Image 2024-12-16 at 10.55.20 AM.webp",
+                    "../images/interior-photos/شقة السيد علي -الطيرة/WhatsApp Image 2024-12-16 at 10.55.21 AM (1).webp",
+                    "../images/interior-photos/شقة السيد علي -الطيرة/WhatsApp Image 2024-12-16 at 10.55.21 AM (2).webp",
+                    "../images/interior-photos/شقة السيد علي -الطيرة/WhatsApp Image 2024-12-16 at 10.55.21 AM.webp",
+                    "../images/interior-photos/شقة السيد علي -الطيرة/WhatsApp Image 2024-12-16 at 10.55.22 AM (1).webp",
+                    "../images/interior-photos/شقة السيد علي -الطيرة/WhatsApp Image 2024-12-16 at 10.55.22 AM (2).webp",
+                    "../images/interior-photos/شقة السيد علي -الطيرة/WhatsApp Image 2024-12-16 at 10.55.22 AM.webp"
+                ]'>
+                <div class="card gallery-card h-100">
+                    <img 
+                        src="../images/interior-photos/شقة السيد علي -الطيرة/WhatsApp Image 2024-12-16 at 10.55.19 AM.webp" 
+                        alt="شقة السيد علي" 
+                        class="card-img-top" />
+                    <div class="card-body">
+                        <h5 class="card-title">شقة السيد علي</h5>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div 
+                class="col-12 col-sm-6 col-md-6 col-lg-4 gallery-item" 
+                data-category="interior"
+                data-completed="true" 
+                data-lightbox-images='[
+                    "../images/interior-photos/مطعم perfeito -يقع برام الله/WhatsApp Image 2025-06-23 at 3.37.17 PM.jpeg",
+                    "../images/interior-photos/مطعم perfeito -يقع برام الله/WhatsApp Image 2025-06-23 at 3.37.17 PM (1).jpeg",
+                    "../images/interior-photos/مطعم perfeito -يقع برام الله/WhatsApp Image 2025-06-23 at 3.37.17 PM (2).jpeg",
+                    "../images/interior-photos/مطعم perfeito -يقع برام الله/WhatsApp Image 2025-06-23 at 3.37.17 PM (3).jpeg",
+                    "../images/interior-photos/مطعم perfeito -يقع برام الله/WhatsApp Image 2025-06-23 at 3.37.18 PM.jpeg",
+                    "../images/interior-photos/مطعم perfeito -يقع برام الله/WhatsApp Image 2025-06-23 at 3.37.18 PM (1).jpeg",
+                    "../images/interior-photos/مطعم perfeito -يقع برام الله/WhatsApp Image 2025-06-23 at 3.37.18 PM (2).jpeg",
+                    "../images/interior-photos/مطعم perfeito -يقع برام الله/WhatsApp Image 2025-06-23 at 3.37.18 PM (3).jpeg",
+                    "../images/interior-photos/مطعم perfeito -يقع برام الله/WhatsApp Image 2025-06-23 at 3.37.18 PM (4).jpeg",
+                    "../images/interior-photos/مطعم perfeito -يقع برام الله/WhatsApp Image 2025-06-23 at 3.37.18 PM (5).jpeg"
+                ]'>
+                <div class="card gallery-card h-100">
+                    <img 
+                        src="../images/interior-photos/مطعم perfeito -يقع برام الله/WhatsApp Image 2025-06-23 at 3.37.17 PM.jpeg" 
+                        alt="مطعم Perfeito" 
+                        class="card-img-top" />
+                    <div class="card-body">
+                        <h5 class="card-title">مطعم Perfeito</h5>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div 
+                class="col-12 col-sm-6 col-md-6 col-lg-4 gallery-item" 
+                data-category="interior"
+                data-completed="true" 
+                data-lightbox-images='[
+                    "../images/interior-photos/محل فساتين السيدة رولا -رام الله/WhatsApp Image 2025-05-05 at 10.59.59 AM.jpeg",
+                    "../images/interior-photos/محل فساتين السيدة رولا -رام الله/WhatsApp Image 2025-05-05 at 11.00.00 AM.jpeg",
+                    "../images/interior-photos/محل فساتين السيدة رولا -رام الله/WhatsApp Image 2025-05-05 at 11.00.00 AM (1).jpeg",
+                    "../images/interior-photos/محل فساتين السيدة رولا -رام الله/WhatsApp Image 2025-05-05 at 11.00.00 AM (2).jpeg",
+                    "../images/interior-photos/محل فساتين السيدة رولا -رام الله/WhatsApp Image 2025-05-05 at 11.00.00 AM (3).jpeg",
+                    "../images/interior-photos/محل فساتين السيدة رولا -رام الله/WhatsApp Image 2025-05-05 at 11.00.01 AM.jpeg",
+                    "../images/interior-photos/محل فساتين السيدة رولا -رام الله/WhatsApp Image 2025-05-05 at 11.00.01 AM (1).jpeg",
+                    "../images/interior-photos/محل فساتين السيدة رولا -رام الله/WhatsApp Image 2025-05-05 at 11.00.01 AM (2).jpeg",
+                    "../images/interior-photos/محل فساتين السيدة رولا -رام الله/WhatsApp Image 2025-05-05 at 11.00.01 AM (3).jpeg",
+                    "../images/interior-photos/محل فساتين السيدة رولا -رام الله/WhatsApp Image 2025-05-05 at 11.00.01 AM (4).jpeg"
+                ]'>
+                <div class="card gallery-card h-100">
+                    <img 
+                        src="../images/interior-photos/محل فساتين السيدة رولا -رام الله/WhatsApp Image 2025-05-05 at 10.59.59 AM.jpeg" 
+                        alt="معرض فساتين السيدة رولا" 
+                        class="card-img-top" />
+                    <div class="card-body">
+                        <h5 class="card-title">معرض فساتين السيدة رولا</h5>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div 
+                class="col-12 col-sm-6 col-md-6 col-lg-4 gallery-item" 
+                data-category="interior"
+                data-completed="true" 
+                data-lightbox-images='[
+                    "../images/interior-photos/محل المجوهرات -رام الله/WhatsApp Image 2024-12-12 at 1.55.04 PM.jpeg",
+                    "../images/interior-photos/محل المجوهرات -رام الله/WhatsApp Image 2024-12-12 at 1.55.05 PM.jpeg",
+                    "../images/interior-photos/محل المجوهرات -رام الله/WhatsApp Image 2024-12-12 at 1.55.05 PM (1).jpeg",
+                    "../images/interior-photos/محل المجوهرات -رام الله/WhatsApp Image 2024-12-12 at 1.55.05 PM (2).jpeg",
+                    "../images/interior-photos/محل المجوهرات -رام الله/WhatsApp Image 2024-12-12 at 1.55.05 PM (3).jpeg",
+                    "../images/interior-photos/محل المجوهرات -رام الله/WhatsApp Image 2024-12-12 at 1.55.06 PM.jpeg",
+                    "../images/interior-photos/محل المجوهرات -رام الله/WhatsApp Image 2024-12-12 at 1.55.06 PM (1).jpeg",
+                    "../images/interior-photos/محل المجوهرات -رام الله/WhatsApp Image 2024-12-12 at 1.55.06 PM (2).jpeg",
+                    "../images/interior-photos/محل المجوهرات -رام الله/WhatsApp Image 2024-12-12 at 1.55.06 PM (3).jpeg",
+                    "../images/interior-photos/محل المجوهرات -رام الله/WhatsApp Image 2024-12-12 at 1.55.06 PM (4).jpeg"
+                ]'>
+                <div class="card gallery-card h-100">
+                    <img 
+                        src="../images/interior-photos/محل المجوهرات -رام الله/WhatsApp Image 2024-12-12 at 1.55.04 PM.jpeg" 
+                        alt="متجر مجوهرات" 
+                        class="card-img-top" />
+                    <div class="card-body">
+                        <h5 class="card-title">متجر مجوهرات</h5>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div 
+                class="col-12 col-sm-6 col-md-6 col-lg-4 gallery-item" 
+                data-category="interior"
+                data-completed="true" 
+                data-lightbox-images='[
+                    "../images/interior-photos/محل flavor/WhatsApp Image 2024-07-13 at 4.11.26 PM.jpeg",
+                    "../images/interior-photos/محل flavor/WhatsApp Image 2024-07-13 at 4.11.26 PM (1).jpeg",
+                    "../images/interior-photos/محل flavor/WhatsApp Image 2024-07-13 at 4.11.26 PM (2).jpeg",
+                    "../images/interior-photos/محل flavor/WhatsApp Image 2024-07-13 at 4.11.26 PM (3).jpeg",
+                    "../images/interior-photos/محل flavor/WhatsApp Image 2024-07-13 at 4.11.26 PM (4).jpeg",
+                    "../images/interior-photos/محل flavor/WhatsApp Image 2024-07-13 at 4.11.26 PM (5).jpeg",
+                    "../images/interior-photos/محل flavor/WhatsApp Image 2024-07-13 at 4.11.26 PM (6).jpeg",
+                    "../images/interior-photos/محل flavor/WhatsApp Image 2024-07-13 at 4.11.26 PM (7).jpeg",
+                    "../images/interior-photos/محل flavor/WhatsApp Image 2024-07-13 at 4.11.26 PM (8).jpeg",
+                    "../images/interior-photos/محل flavor/WhatsApp Image 2024-07-13 at 4.11.26 PM (9).jpeg"
+                ]'>
+                <div class="card gallery-card h-100">
+                    <img 
+                        src="../images/interior-photos/محل flavor/WhatsApp Image 2024-07-13 at 4.11.26 PM (8).jpeg" 
+                        alt="متجر Flavor" 
+                        class="card-img-top" />
+                    <div class="card-body">
+                        <h5 class="card-title">متجر Flavor</h5>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div 
+                class="col-12 col-sm-6 col-md-6 col-lg-4 gallery-item" 
+                data-category="interior"
+                data-completed="true" 
+                data-lightbox-images='[
+                    "../images/interior-photos/قصر معين حواره/الطابق الارضي/WhatsApp Image 2025-02-03 at 12.58.55 PM.webp",
+                    "../images/interior-photos/قصر معين حواره/الطابق الارضي/WhatsApp Image 2025-02-03 at 12.58.55 PM (1).webp",
+                    "../images/interior-photos/قصر معين حواره/الطابق الارضي/WhatsApp Image 2025-02-03 at 12.58.55 PM (2).webp",
+                    "../images/interior-photos/قصر معين حواره/الطابق الارضي/WhatsApp Image 2025-02-03 at 12.58.55 PM (3).webp",
+                    "../images/interior-photos/قصر معين حواره/الطابق الارضي/WhatsApp Image 2025-02-03 at 12.58.56 PM.webp",
+                    "../images/interior-photos/قصر معين حواره/الطابق الارضي/WhatsApp Image 2025-02-03 at 12.58.56 PM (1).webp",
+                    "../images/interior-photos/قصر معين حواره/الطابق الارضي/WhatsApp Image 2025-02-03 at 12.58.56 PM (2).webp",
+                    "../images/interior-photos/قصر معين حواره/الطابق الارضي/WhatsApp Image 2025-02-03 at 12.58.57 PM.webp",
+                    "../images/interior-photos/قصر معين حواره/الطابق الارضي/WhatsApp Image 2025-02-03 at 12.58.57 PM (1).webp",
+                    "../images/interior-photos/قصر معين حواره/الطابق الارضي/WhatsApp Image 2025-02-03 at 12.58.57 PM (2).webp"
+                ]'>
+                <div class="card gallery-card h-100">
+                    <img 
+                        src="../images/interior-photos/قصر معين حواره/الطابق الارضي/WhatsApp Image 2025-02-03 at 12.58.55 PM.webp" 
+                        alt="قصر السيد معين" 
+                        class="card-img-top" />
+                    <div class="card-body">
+                        <h5 class="card-title">قصر السيد معين</h5>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div 
+                class="col-12 col-sm-6 col-md-6 col-lg-4 gallery-item" 
+                data-category="interior"
+                data-completed="true" 
+                data-lightbox-images='[
+                    "../images/interior-photos/فيلا السيدة خولة/الطابق الارضي/fad6c816-926b-43a8-b74f-d8e8365ff689.webp",
+                    "../images/interior-photos/فيلا السيدة خولة/الطابق الارضي/f4b6765a-c20d-4d65-b92f-ce1dc1ec2957.webp",
+                    "../images/interior-photos/فيلا السيدة خولة/الطابق الارضي/dc107c7f-7afa-4490-9a89-d5eaac7b3ba5.webp",
+                    "../images/interior-photos/فيلا السيدة خولة/الطابق الارضي/d7a3aa70-8e68-4b58-85ad-a5aeb32ec295.webp",
+                    "../images/interior-photos/فيلا السيدة خولة/الطابق الارضي/d4efdbdd-4dd7-4ae3-9c65-99fea9dd8ec8.webp",
+                    "../images/interior-photos/فيلا السيدة خولة/الطابق الارضي/ca25aa0e-a195-4413-b6e8-56b0f7234cc2.webp",
+                    "../images/interior-photos/فيلا السيدة خولة/الطابق الارضي/96c93179-6831-491d-82cc-34da0e706f91.webp",
+                    "../images/interior-photos/فيلا السيدة خولة/الطابق الاول/fec42638-6443-4bc7-8b5c-12f5eb9740ca.webp",
+                    "../images/interior-photos/فيلا السيدة خولة/الطابق الاول/d1a0f8c2-4a1a-4a62-ab37-f635896db3a9.webp",
+                    "../images/interior-photos/فيلا السيدة خولة/الطابق الاول/bee9da24-525c-44ff-82dd-3c3e4bde97d9.webp"
+                ]'>
+                <div class="card gallery-card h-100">
+                    <img 
+                        src="../images/interior-photos/فيلا السيدة خولة/الطابق الارضي/fad6c816-926b-43a8-b74f-d8e8365ff689.webp" 
+                        alt="منزل السيده خوله" 
+                        class="card-img-top" />
+                    <div class="card-body">
+                        <h5 class="card-title">منزل السيده خوله</h5>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div 
+                class="col-12 col-sm-6 col-md-6 col-lg-4 gallery-item" 
+                data-category="interior"
+                data-completed="true" 
+                data-lightbox-images='[
+                    "../images/interior-photos/منزل السيد داوود رام الله/WhatsApp Image 2025-05-10 at 9.56.30 AM.jpeg",
+                    "../images/interior-photos/منزل السيد داوود رام الله/WhatsApp Image 2025-05-10 at 11.18.50 AM.jpeg",
+                    "../images/interior-photos/منزل السيد داوود رام الله/WhatsApp Image 2025-05-10 at 11.18.49 AM.jpeg",
+                    "../images/interior-photos/منزل السيد داوود رام الله/WhatsApp Image 2025-05-10 at 11.17.42 AM.jpeg",
+                    "../images/interior-photos/منزل السيد داوود رام الله/WhatsApp Image 2025-05-10 at 11.17.42 AM (1).jpeg",
+                    "../images/interior-photos/منزل السيد داوود رام الله/WhatsApp Image 2025-05-10 at 11.17.42 AM (2).jpeg",
+                    "../images/interior-photos/منزل السيد داوود رام الله/WhatsApp Image 2025-05-10 at 11.17.42 AM (3).jpeg",
+                    "../images/interior-photos/منزل السيد داوود رام الله/WhatsApp Image 2025-05-10 at 11.14.48 AM.jpeg",
+                    "../images/interior-photos/منزل السيد داوود رام الله/WhatsApp Image 2025-05-10 at 11.14.49 AM.jpeg",
+                    "../images/interior-photos/منزل السيد داوود رام الله/WhatsApp Image 2025-05-10 at 11.14.50 AM.jpeg"
+                ]'>
+                <div class="card gallery-card h-100">
+                    <img 
+                        src="../images/interior-photos/منزل السيد داوود رام الله/WhatsApp Image 2025-05-10 at 11.14.50 AM.jpeg" 
+                        alt="منزل السيد داوود" 
+                        class="card-img-top" />
+                    <div class="card-body">
+                        <h5 class="card-title">منزل السيد داوود</h5>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div 
+                class="col-12 col-sm-6 col-md-6 col-lg-4 gallery-item" 
+                data-category="interior"
+                data-completed="true" 
+                data-lightbox-images='[
+                    "../images/interior-photos/مكتب السياحة والسفر/Travel agency (1).jpg",
+                    "../images/interior-photos/مكتب السياحة والسفر/Travel agency (2).jpg",
+                    "../images/interior-photos/مكتب السياحة والسفر/Travel agency (3).jpg",
+                    "../images/interior-photos/مكتب السياحة والسفر/Travel agency (4).jpg",
+                    "../images/interior-photos/مكتب السياحة والسفر/Travel agency (5).jpg",
+                    "../images/interior-photos/مكتب السياحة والسفر/Travel agency (6).jpg",
+                    "../images/interior-photos/مكتب السياحة والسفر/Travel agency (7).jpg",
+                    "../images/interior-photos/مكتب السياحة والسفر/Travel agency (8).jpg",
+                    "../images/interior-photos/مكتب السياحة والسفر/Travel agency (9).jpg",
+                    "../images/interior-photos/مكتب السياحة والسفر/Travel agency (10).jpg"
+                ]'>
+                <div class="card gallery-card h-100">
+                    <img 
+                        src="../images/interior-photos/مكتب السياحة والسفر/Travel agency (1).jpg" 
+                        alt="مكتب السياحة والسفر" 
+                        class="card-img-top" />
+                    <div class="card-body">
+                        <h5 class="card-title">مكتب السياحة والسفر</h5>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div 
+                class="col-12 col-sm-6 col-md-6 col-lg-4 gallery-item" 
+                data-category="interior"
+                data-completed="true" 
+                data-lightbox-images='[
+                    "../images/interior-photos/منزل السيد ادم/2b6aa5d1-6119-4ce0-af17-bb97cc954e0a.jpg",
+                    "../images/interior-photos/منزل السيد ادم/3e6cba6e-c898-47ff-a6f5-6fa15d5bfcdc.jpg",
+                    "../images/interior-photos/منزل السيد ادم/0b4154bc-afaa-4af4-a3a3-5a38f3a2f8e9.jpg",
+                    "../images/interior-photos/منزل السيد ادم/210f4dec-6fa4-4d5a-80fe-96d7a1ce9d26.jpg",
+                    "../images/interior-photos/منزل السيد ادم/d6a7eab9-8f14-4b7b-af2d-4e9cf5a58e58.jpg",
+                    "../images/interior-photos/منزل السيد ادم/fb6f9ea5-8ce8-4c08-83ae-76df580e57c9.jpg",
+                    "../images/interior-photos/منزل السيد ادم/42b3ed1f-1303-4a63-ab0b-937bd6c843f3.jpg",
+                    "../images/interior-photos/منزل السيد ادم/48278305-5fac-408e-8268-376dcf62aefe.jpg",
+                    "../images/interior-photos/منزل السيد ادم/1acce268-9b2d-4761-b825-0f6c69c8f202.jpg",
+                    "../images/interior-photos/منزل السيد ادم/449e1b9d-4d46-454c-ad74-a74589a9aa53.jpg"
+                ]'>
+                <div class="card gallery-card h-100">
+                    <img 
+                        src="../images/interior-photos/منزل السيد ادم/2b6aa5d1-6119-4ce0-af17-bb97cc954e0a.jpg" 
+                        alt="منزل السيد ادم" 
+                        class="card-img-top" />
+                    <div class="card-body">
+                        <h5 class="card-title">منزل السيد ادم</h5>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div 
+                class="col-12 col-sm-6 col-md-6 col-lg-4 gallery-item" 
+                data-category="interior"
+                data-completed="true" 
+                data-lightbox-images='[
+                    "../images/interior-photos/منزل السيد ابو آدم/d41fdf63-a4d9-47aa-8b48-6413809cfdda.jpg",
+                    "../images/interior-photos/منزل السيد ابو آدم/09b7520d-680c-4391-bb93-46022e923e33.jpg",
+                    "../images/interior-photos/منزل السيد ابو آدم/09c47f18-3cde-4230-81b2-8cdd0e30e745.jpg",
+                    "../images/interior-photos/منزل السيد ابو آدم/56549901-57a8-4072-bd0a-bf7163ec46a3.jpg",
+                    "../images/interior-photos/منزل السيد ابو آدم/c7b11d8a-835f-436c-8664-3cfa254dcf37.jpg",
+                    "../images/interior-photos/منزل السيد ابو آدم/9dc7249b-c9b6-4905-9c53-e10ddc9b8f92.jpg",
+                    "../images/interior-photos/منزل السيد ابو آدم/efc59084-a10a-4438-af91-7a3ef25f7e33.jpg",
+                    "../images/interior-photos/منزل السيد ابو آدم/4df7f62a-561b-4e0c-8ed9-1c9653f1c666.jpg",
+                    "../images/interior-photos/منزل السيد ابو آدم/18f80a9b-1c72-45f1-a723-a125dce65517.jpg",
+                    "../images/interior-photos/منزل السيد ابو آدم/1f7a5e2c-1716-4a46-8eb5-d9ef73d18220.jpg"
+                ]'>
+                <div class="card gallery-card h-100">
+                    <img 
+                        src="../images/interior-photos/منزل السيد ابو آدم/18f80a9b-1c72-45f1-a723-a125dce65517.jpg" 
+                        alt="منزل السيد ابو آدم" 
+                        class="card-img-top" />
+                    <div class="card-body">
+                        <h5 class="card-title">منزل السيد ابو آدم</h5>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div 
+                class="col-12 col-sm-6 col-md-6 col-lg-4 gallery-item" 
+                data-category="interior"
+                data-completed="true" 
+                data-lightbox-images='[
+                    "../images/interior-photos/مكاتب جفال/WhatsApp Image 2025-06-23 at 3.36.57 PM.jpeg",
+                    "../images/interior-photos/مكاتب جفال/WhatsApp Image 2025-06-23 at 3.36.57 PM (1).jpeg",
+                    "../images/interior-photos/مكاتب جفال/WhatsApp Image 2025-06-23 at 3.36.57 PM (2).jpeg",
+                    "../images/interior-photos/مكاتب جفال/WhatsApp Image 2025-06-23 at 3.36.57 PM (3).jpeg",
+                    "../images/interior-photos/مكاتب جفال/WhatsApp Image 2025-06-23 at 3.36.57 PM (4).jpeg",
+                    "../images/interior-photos/مكاتب جفال/WhatsApp Image 2025-06-23 at 3.36.57 PM (5).jpeg",
+                    "../images/interior-photos/مكاتب جفال/WhatsApp Image 2025-06-23 at 3.36.57 PM (6).jpeg",
+                    "../images/interior-photos/مكاتب جفال/WhatsApp Image 2025-06-23 at 3.36.57 PM (7).jpeg",
+                    "../images/interior-photos/مكاتب جفال/WhatsApp Image 2025-06-23 at 3.36.57 PM (8).jpeg",
+                    "../images/interior-photos/مكاتب جفال/WhatsApp Image 2025-06-23 at 3.36.57 PM (9).jpeg"
+                ]'>
+                <div class="card gallery-card h-100">
+                    <img 
+                        src="../images/interior-photos/مكاتب جفال/WhatsApp Image 2025-06-23 at 3.36.58 PM.jpeg" 
+                        alt="مكاتب جفال" 
+                        class="card-img-top" />
+                    <div class="card-body">
+                        <h5 class="card-title">مكاتب جفال</h5>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div 
+                class="col-12 col-sm-6 col-md-6 col-lg-4 gallery-item" 
+                data-category="interior"
+                data-completed="true" 
+                data-lightbox-images='[
+                    "../images/interior-photos/مطعم بهاء/BBQ (1).jpg",
+                    "../images/interior-photos/مطعم بهاء/BBQ (2).jpg",
+                    "../images/interior-photos/مطعم بهاء/BBQ (3).jpg",
+                    "../images/interior-photos/مطعم بهاء/BBQ (4).jpg",
+                    "../images/interior-photos/مطعم بهاء/BBQ (5).jpg",
+                    "../images/interior-photos/مطعم بهاء/BBQ (6).jpg",
+                    "../images/interior-photos/مطعم بهاء/BBQ (7).jpg",
+                    "../images/interior-photos/مطعم بهاء/BBQ (8).jpg",
+                    "../images/interior-photos/مطعم بهاء/BBQ (9).jpg",
+                    "../images/interior-photos/مطعم بهاء/BBQ (10).jpg"
+                ]'>
+                <div class="card gallery-card h-100">
+                    <img 
+                        data-src="../images/interior-photos/مطعم بهاء/BBQ (1).jpg" 
+                        alt="مطعم بهاء" 
+                        class="card-img-top lazy" 
+                        loading="lazy" 
+                        width="400" 
+                        height="300"/>
+                    <noscript>
+                        <img 
+                            src="../images/interior-photos/مطعم بهاء/BBQ (1).jpg" 
+                            alt="مطعم بهاء" 
+                            class="card-img-top" 
+                            width="400" 
+                            height="300"/>
+                    </noscript>
+                    <div class="card-body">
+                        <h5 class="card-title">مطعم بهاء</h5>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div 
+                class="col-12 col-sm-6 col-md-6 col-lg-4 gallery-item" 
+                data-category="interior"
+                data-completed="true" 
+                data-lightbox-images='[
+                    "../images/interior-photos/منزل السيد مرسي/WhatsApp Image 2025-06-10 at 9.48.59 PM.jpeg",
+                    "../images/interior-photos/منزل السيد مرسي/WhatsApp Image 2025-06-10 at 9.48.59 PM (1).jpeg",
+                    "../images/interior-photos/منزل السيد مرسي/WhatsApp Image 2025-06-10 at 9.48.59 PM (2).jpeg",
+                    "../images/interior-photos/منزل السيد مرسي/WhatsApp Image 2025-06-10 at 9.48.58 PM.jpeg",
+                    "../images/interior-photos/منزل السيد مرسي/WhatsApp Image 2025-06-10 at 9.48.58 PM (1).jpeg",
+                    "../images/interior-photos/منزل السيد مرسي/WhatsApp Image 2025-06-10 at 9.48.58 PM (2).jpeg",
+                    "../images/interior-photos/منزل السيد مرسي/WhatsApp Image 2025-06-10 at 9.48.57 PM.jpeg",
+                    "../images/interior-photos/منزل السيد مرسي/WhatsApp Image 2025-06-10 at 9.48.57 PM (1).jpeg",
+                    "../images/interior-photos/منزل السيد مرسي/WhatsApp Image 2025-06-10 at 9.48.57 PM (2).jpeg",
+                    "../images/interior-photos/منزل السيد مرسي/WhatsApp Image 2025-06-10 at 9.48.56 PM.jpeg"
+                ]'>
+                <div class="card gallery-card h-100">
+                    <img 
+                        src="../images/interior-photos/منزل السيد مرسي/WhatsApp Image 2025-06-10 at 9.48.59 PM.jpeg" 
+                        alt="منزل السيد مرسي" 
+                        class="card-img-top" />
+                    <div class="card-body">
+                        <h5 class="card-title">منزل السيد مرسي</h5>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Landscape Projects Section -->
+            <div 
+                class="col-12 col-sm-6 col-md-6 col-lg-4 gallery-item" 
+                data-category="landscape" 
+                data-lightbox-images='[
+                    "../images/landscape-photos/منزل لارا/8f879473-f60a-4d46-a41b-3cdaa7a9bb1c.jpg",
+                    "../images/landscape-photos/منزل لارا/b7fe15cf-03c5-41bb-8721-17ae3a9ff89b.jpg",
+                    "../images/landscape-photos/منزل لارا/edc76621-18c0-4d0d-9d08-080c5762fe59.jpg",
+                    "../images/landscape-photos/منزل لارا/cd89f3a6-8196-45b1-9507-27c1e13c2ceb.jpg",
+                    "../images/landscape-photos/منزل لارا/2813dbd1-7d3d-4127-b05f-895bad9696df.jpg",
+                    "../images/landscape-photos/منزل لارا/2e410edf-d295-4a23-b9f7-d1bc1731f2dd.jpg",
+                    "../images/landscape-photos/منزل لارا/4ba4b32b-db2d-4d15-9b6c-5b49040293e8.jpg",
+                    "../images/landscape-photos/منزل لارا/15e464e7-34ca-4fb3-9380-337e77d0c235.jpg",
+                    "../images/landscape-photos/منزل لارا/e069fff6-0b9c-4a62-a35e-96ecc214c275.jpg",
+                    "../images/landscape-photos/منزل لارا/72859b4f-c125-4287-ad88-948225bbc098.jpg"
+                ]'>
+                <div class="card gallery-card h-100">
+                    <img 
+                        src="../images/landscape-photos/منزل لارا/8f879473-f60a-4d46-a41b-3cdaa7a9bb1c.jpg" 
+                        alt="تصميم حديقة السيده لارا" 
+                        class="card-img-top" />
+                    <div class="card-body">
+                        <h5 class="card-title">تصميم حديقة السيده لارا</h5>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div 
+                class="col-12 col-sm-6 col-md-6 col-lg-4 gallery-item" 
+                data-category="landscape" 
+                data-lightbox-images='[
+                    "../images/landscape-photos/تصميم الحديقة السيدة خولة/b1dd0ffc-7c96-4fa3-82be-9d6616e5d647.jpg",
+                    "../images/landscape-photos/تصميم الحديقة السيدة خولة/16d47c19-bbeb-4c22-817c-2c70aa232625.jpg",
+                    "../images/landscape-photos/تصميم الحديقة السيدة خولة/2a34e57a-9b64-4bc8-8dd9-26608276f91b.jpg",
+                    "../images/landscape-photos/تصميم الحديقة السيدة خولة/9c97b9cb-ab57-4500-8abd-1fa489c58324.jpg",
+                    "../images/landscape-photos/تصميم الحديقة السيدة خولة/563ce53d-3521-4a14-ae04-663a9b130011.jpg",
+                    "../images/landscape-photos/تصميم الحديقة السيدة خولة/b966cf78-0d26-4eff-9973-098149f4af2d.jpg",
+                    "../images/landscape-photos/تصميم الحديقة السيدة خولة/e92774c4-84a5-4abf-9b4e-b74425e13c5f.jpg",
+                    "../images/landscape-photos/تصميم الحديقة السيدة خولة/5e922508-83d9-4f3b-8c40-b1988b38803a.jpg",
+                    "../images/landscape-photos/تصميم الحديقة السيدة خولة/91c7b423-fb52-4440-8587-a5f1b56685f6.jpg",
+                    "../images/landscape-photos/تصميم الحديقة السيدة خولة/36021c35-816d-45e0-bae7-873f04320578.jpg"
+                ]'>
+                <div class="card gallery-card h-100">
+                    <img 
+                        src="../images/landscape-photos/تصميم الحديقة السيدة خولة/b1dd0ffc-7c96-4fa3-82be-9d6616e5d647.jpg" 
+                        alt="تصميم حديقة السيده خوله" 
+                        class="card-img-top" />
+                    <div class="card-body">
+                        <h5 class="card-title">تصميم حديقة السيده خوله</h5>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div 
+                class="col-12 col-sm-6 col-md-6 col-lg-4 gallery-item" 
+                data-category="landscape" 
+                
+                data-lightbox-images='[
+                    "../images/landscape-photos/حديقة السيد سامر -بيت دجن/la1.jpeg",
+                    "../images/landscape-photos/حديقة السيد سامر -بيت دجن/la2.jpeg",
+                    "../images/landscape-photos/حديقة السيد سامر -بيت دجن/WhatsApp Image 2025-05-15 at 7.22.21 PM.jpeg",
+                    "../images/landscape-photos/حديقة السيد سامر -بيت دجن/WhatsApp Image 2025-05-15 at 7.22.21 PM (1).jpeg",
+                    "../images/landscape-photos/حديقة السيد سامر -بيت دجن/WhatsApp Image 2025-05-15 at 7.22.21 PM (2).jpeg",
+                    "../images/landscape-photos/حديقة السيد سامر -بيت دجن/WhatsApp Image 2025-05-15 at 7.22.21 PM (8).jpeg",
+                    "../images/landscape-photos/حديقة السيد سامر -بيت دجن/WhatsApp Image 2025-05-15 at 7.22.21 PM (9).jpeg",
+                    "../images/landscape-photos/حديقة السيد سامر -بيت دجن/WhatsApp Image 2025-05-15 at 7.22.21 PM (10).jpeg",
+                    "../images/landscape-photos/حديقة السيد سامر -بيت دجن/WhatsApp Image 2025-05-15 at 7.22.21 PM (11).jpeg",
+                    "../images/landscape-photos/حديقة السيد سامر -بيت دجن/WhatsApp Image 2025-05-15 at 7.22.21 PM (12).jpeg"
+                ]'>
+                <div class="card gallery-card h-100">
+                    <img 
+                        data-src="../images/landscape-photos/حديقة السيد سامر -بيت دجن/la1.jpeg" 
+                        alt="تصميم حديقة السيد سامر" 
+                        class="card-img-top lazy" 
+                        loading="lazy" 
+                        width="400" 
+                        height="300"/>
+                    <noscript>
+                        <img 
+                            src="../images/landscape-photos/حديقة السيد سامر -بيت دجن/la1.jpeg" 
+                            alt="تصميم حديقة السيد سامر" 
+                            class="card-img-top" 
+                            width="400" 
+                            height="300"/>
+                    </noscript>
+                    <div class="card-body">
+                        <h5 class="card-title">تصميم حديقة السيد سامر</h5>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div 
+                class="col-12 col-sm-6 col-md-6 col-lg-4 gallery-item" 
+                data-category="landscape" 
+                data-lightbox-images='[
+                    "../images/landscape-photos/تصميم الحديقة السيد داوود/WhatsApp Image 2024-08-31 at 11.17.58 AM.jpeg",
+                    "../images/landscape-photos/تصميم الحديقة السيد داوود/WhatsApp Image 2024-08-31 at 11.17.58 AM (1).jpeg",
+                    "../images/landscape-photos/تصميم الحديقة السيد داوود/WhatsApp Image 2024-08-31 at 11.17.58 AM (2).jpeg",
+                    "../images/landscape-photos/تصميم الحديقة السيد داوود/WhatsApp Image 2024-08-31 at 11.17.58 AM (3).jpeg",
+                    "../images/landscape-photos/تصميم الحديقة السيد داوود/la1.jpeg",
+                    "../images/landscape-photos/تصميم الحديقة السيد داوود/WhatsApp Image 2024-08-31 at 11.17.58 AM (6).jpeg",
+                    "../images/landscape-photos/تصميم الحديقة السيد داوود/WhatsApp Image 2024-08-31 at 11.17.58 AM (7).jpeg",
+                    "../images/landscape-photos/تصميم الحديقة السيد داوود/WhatsApp Image 2024-08-31 at 11.17.58 AM (8).jpeg",
+                    "../images/landscape-photos/تصميم الحديقة السيد داوود/WhatsApp Image 2024-08-31 at 11.17.58 AM (9).jpeg",
+                    "../images/landscape-photos/تصميم الحديقة السيد داوود/la2.jpeg"
+                ]'>
+                <div class="card gallery-card h-100">
+                    <img 
+                        src="../images/landscape-photos/تصميم الحديقة السيد داوود/WhatsApp Image 2024-08-31 at 11.17.58 AM.jpeg" 
+                        alt="تصميم حديقة السيد داوود" 
+                        class="card-img-top" />
+                    <div class="card-body">
+                        <h5 class="card-title">تصميم حديقة السيد داوود</h5>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="gallery-footer text-center">
+        <small>All rights reserved to S.A. Interiors | By <a target="_blank" href="https://m7madi8.github.io/Mohammad/" rel="nofollow">Mohammad Hroub</a></small>
+    </footer>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <img class="lightbox-img" src="" alt="" />
+        <div class="lightbox-caption"></div>
+        <div class="lightbox-indicator"></div>
+        <span class="lightbox-prev"><i class='bx bx-chevron-left'></i></span>
+        <span class="lightbox-next"><i class='bx bx-chevron-right'></i></span>
+    </div>
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Main JavaScript -->
+    <script src="../../script.js"></script>
+    <!-- Gallery JavaScript -->
+    <script src="../js/script2.js"></script>
+    <script>
+        // Keep header scrolled for index2.html
+        document.addEventListener('DOMContentLoaded', function() {
+            const header = document.querySelector('.header');
+            if (header) {
+                header.classList.add('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>
