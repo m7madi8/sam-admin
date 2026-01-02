@@ -32,6 +32,7 @@
       align-items: center;
       justify-content: center;
       padding: 20px;
+      overflow-x: hidden;
     }
 
     .thank-you-container {
@@ -55,6 +56,75 @@
       right: 0;
       height: 4px;
       background: linear-gradient(90deg, var(--accent), var(--accent-dark));
+    }
+
+    .logo-section {
+      margin-bottom: 30px;
+      animation: slideUp 0.8s ease-out 0.2s both;
+    }
+
+    .logo-container {
+      width: 160px;
+      height: 160px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 15px 40px rgba(200, 170, 136, 0.4);
+      position: relative;
+      animation: pulse 3s infinite ease-in-out;
+      transition: all 0.3s ease;
+    }
+
+    .logo-container:hover {
+      transform: scale(1.05);
+      box-shadow: 0 20px 50px rgba(200, 170, 136, 0.5);
+    }
+
+    .logo-container::before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: -8px;
+      right: -8px;
+      bottom: -8px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+      z-index: -1;
+      opacity: 0.2;
+      animation: pulse-ring 2.5s infinite ease-in-out;
+      filter: blur(2px);
+    }
+
+    .logo-container::after {
+      content: '';
+      position: absolute;
+      top: -3px;
+      left: -3px;
+      right: -3px;
+      bottom: -3px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1));
+      z-index: -1;
+      opacity: 0.6;
+      animation: glow 3s infinite ease-in-out;
+    }
+
+    .logo-container img {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid white;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .logo-container:hover img {
+      transform: scale(1.02);
+      border-color: rgba(255, 255, 255, 0.9);
     }
 
     .success-icon {
@@ -117,40 +187,68 @@
       animation: slideUp 0.8s ease-out 0.6s both;
     }
 
-    .next-steps {
-      background: var(--input-bg);
-      border-radius: 15px;
-      padding: 25px;
-      margin-bottom: 40px;
-      text-align: left;
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 15px;
+      margin-bottom: 35px;
       animation: slideUp 0.8s ease-out 0.7s both;
     }
 
-    .next-steps h3 {
-      color: var(--text-color);
-      margin-bottom: 15px;
-      font-size: 1.2rem;
+    .info-card {
+      background: var(--input-bg);
+      border-radius: 15px;
+      padding: 18px 20px;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.05);
+      text-align: left;
     }
 
-    .next-steps ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    .next-steps li {
+    .info-card h3 {
       color: var(--text-color);
       margin-bottom: 10px;
-      padding-left: 25px;
-      position: relative;
-      opacity: 0.9;
+      font-size: 1.15rem;
     }
 
-    .next-steps li::before {
+    .info-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .info-card li {
+      color: var(--text-color);
+      margin-bottom: 8px;
+      padding-left: 22px;
+      position: relative;
+      opacity: 0.9;
+      line-height: 1.5;
+    }
+
+    .info-card li::before {
       content: '•';
       color: var(--accent);
       font-weight: bold;
       position: absolute;
       left: 0;
+    }
+
+    .contact-line {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-color);
+      margin-top: 6px;
+      opacity: 0.9;
+    }
+
+    .contact-line a {
+      color: var(--accent);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .contact-line a:hover {
+      text-decoration: underline;
     }
 
     .button-group {
@@ -234,6 +332,41 @@
       }
     }
 
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.03);
+      }
+    }
+
+    @keyframes pulse-ring {
+      0% {
+        transform: scale(1);
+        opacity: 0.2;
+      }
+      50% {
+        transform: scale(1.15);
+        opacity: 0.1;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 0.2;
+      }
+    }
+
+    @keyframes glow {
+      0%, 100% {
+        opacity: 0.6;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 0.8;
+        transform: scale(1.05);
+      }
+    }
+
     @media (max-width: 768px) {
       .thank-you-container {
         padding: 40px 20px;
@@ -242,6 +375,16 @@
 
       h1 {
         font-size: 2rem;
+      }
+
+      .logo-container {
+        width: 140px;
+        height: 140px;
+      }
+
+      .logo-container img {
+        width: 95px;
+        height: 95px;
       }
 
       .button-group {
@@ -254,23 +397,60 @@
         max-width: 250px;
       }
     }
+
+    @media (max-width: 480px) {
+      .logo-container {
+        width: 120px;
+        height: 120px;
+      }
+
+      .logo-container img {
+        width: 80px;
+        height: 80px;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="thank-you-container">
+    <div class="logo-section">
+      <div class="logo-container">
+        <img src="../images/white-logo.png" alt="Samar Ammar Logo" />
+      </div>
+    </div>
+
     <div class="success-icon"></div>
-    
-    <h1>Thank You</h1>
-    
-    <div class="service-type">Landscape Request Received</div>
-    
+
+    <h1>Thank You / شكراً لتواصلك</h1>
+
+    <div class="service-type">Landscape design request · تم استلام طلب تصميم اللاندسكيب</div>
+
     <p class="message">
-      We’ve received your landscape design request. We’ll review the details and contact you shortly.
+      Thank you for choosing S.A. Interiors for your landscape design project. We’ve received your request and will get back to you within 24 hours.
+      For urgent needs, you can reach us directly through the options below.
     </p>
-    
+
+    <div class="info-grid">
+      <div class="info-card">
+        <h3>What's next? / الخطوة التالية</h3>
+        <ul>
+          <li>We review your notes and match you with the right designer.</li>
+          <li>We’ll contact you within one business day to confirm a quick call.</li>
+          <li>Please keep your phone and email available for our reply.</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h3>Need it sooner? / تواصل سريع</h3>
+        <div class="contact-line">WhatsApp: <a href="https://wa.me/+972569126200" target="_blank" rel="nofollow">+972 56-912-6200</a></div>
+        <div class="contact-line">Call: <a href="tel:+972569126200">+972 56-912-6200</a></div>
+        <div class="contact-line">Email: <a href="mailto:sam.ammar1992@gmail.com">sam.ammar1992@gmail.com</a></div>
+        <div class="contact-line">Instagram: <a href="https://www.instagram.com/samarammarinterior?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="nofollow">@samarammarinterior</a></div>
+      </div>
+    </div>
+
     <div class="button-group">
       <a href="../../index.html" class="btn btn-primary">Back to Home</a>
-      <a href="../../index2.html#landscapephotos" class="btn btn-secondary">Our Projects</a>
+      <a href="../../index2.html#landscapephotos" class="btn btn-secondary">View Landscape Portfolio</a>
     </div>
   </div>
 </body>
