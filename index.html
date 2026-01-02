@@ -367,7 +367,7 @@
         </div>
         <div class="contact-form">
           <h2 class="section-title">Write To Us</h2>
-          <form id="contact-form" onsubmit="handleLocalSubmit(event, 'Message', 'assets/pages/thanks.html')">
+          <form id="contact-form" onsubmit="handleSupabaseSubmit(event, 'Message', 'assets/pages/thanks.html')">
             <div class="input-group">
               <input type="text" name="name" placeholder="Name" required>
               <input type="email" name="email" placeholder="Email" required>
@@ -390,39 +390,54 @@
     </a>
   </div>
 
+     <script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+     <script src="assets/js/supabase-client.js"></script>
      <script src="script.js"></script>
      <script>
-      // يحفظ الطلب محلياً ويظهره في لوحة التحكم
-      function handleLocalSubmit(event, serviceType, redirectUrl) {
+      async function handleSupabaseSubmit(event, serviceType, redirectUrl) {
         event.preventDefault();
         const form = event.target;
-        const formData = new FormData(form);
-        const submissions = JSON.parse(localStorage.getItem('formSubmissions') || '[]');
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn?.innerHTML;
 
-        const newItem = {
-          id: Date.now(),
-          type: serviceType,
+        if (submitBtn) {
+          submitBtn.innerHTML = 'Sending...';
+          submitBtn.disabled = true;
+        }
+
+        const formData = new FormData(form);
+        const payload = {
+          service: serviceType,
           name: formData.get('name') || 'N/A',
           phone: formData.get('phone') || 'N/A',
           email: formData.get('email') || '',
           location: formData.get('location') || '',
-          constructionStatus: formData.get('construction-status') || '',
+          construction_status: formData.get('construction-status') || '',
           area: formData.get('approx-area') || '',
-          projectType: formData.get('project-type') || '',
+          project_type: formData.get('project-type') || '',
           notes: formData.get('notes') || formData.get('message') || '',
-          date: new Date().toISOString(),
-          status: 'new'
+          status: 'new',
+          created_at: new Date().toISOString()
         };
 
-        submissions.push(newItem);
-        localStorage.setItem('formSubmissions', JSON.stringify(submissions));
-        form.reset();
-        
-        // إعادة توجيه لصفحة الشكر إن وجدت
-        if (redirectUrl) {
-          window.location.href = redirectUrl;
-        } else {
-          alert('تم إرسال الطلب محلياً. يمكنك مشاهدة الطلب في لوحة التحكم.');
+        try {
+          const supabase = getSupabaseClient();
+          const { error } = await supabase.from('requests').insert([payload]);
+          if (error) throw error;
+          form.reset();
+          if (redirectUrl) {
+            window.location.href = redirectUrl;
+          } else {
+            alert('Submitted successfully.');
+          }
+        } catch (err) {
+          console.error('Submission error:', err);
+          alert('Submission failed, please try again.');
+        } finally {
+          if (submitBtn) {
+            submitBtn.innerHTML = originalText || 'Send';
+            submitBtn.disabled = false;
+          }
         }
       }
      </script>

@@ -1425,6 +1425,8 @@
         </div>
     </div>
 
+    <script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+    <script src="assets/js/supabase-client.js"></script>
     <script>
         // Authentication
         const DEFAULT_USERNAME = 'admin';
@@ -1630,7 +1632,7 @@
             document.getElementById('date-filter').addEventListener('change', applyFilters);
         }
 
-        // Load data locally (no external API)
+        // Load data from Supabase
         async function loadData(showLoading = true) {
             const container = document.getElementById('cards-container');
             try {
@@ -1643,19 +1645,28 @@
                     `;
                 }
 
-                const storedData = localStorage.getItem('formSubmissions');
-                allData = storedData ? JSON.parse(storedData) : getSampleData();
+                const supabase = getSupabaseClient();
+                const { data, error } = await supabase
+                    .from('requests')
+                    .select('*')
+                    .order('created_at', { ascending: false });
 
-                if (!Array.isArray(allData)) {
-                    allData = [];
-                }
+                if (error) throw error;
 
-                // Sort by date (newest first)
-                allData.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-                // Save back as a single source of truth
-                localStorage.setItem('formSubmissions', JSON.stringify(allData));
-                localStorage.setItem('lastUpdate', new Date().toISOString());
+                allData = (data || []).map(item => ({
+                    id: item.id,
+                    type: item.service || 'Message',
+                    name: item.name || 'N/A',
+                    phone: item.phone || 'N/A',
+                    email: item.email || '',
+                    location: item.location || '',
+                    constructionStatus: item.construction_status || '',
+                    area: item.area || '',
+                    projectType: item.project_type || '',
+                    notes: item.notes || '',
+                    date: item.created_at || new Date().toISOString(),
+                    status: item.status || 'new'
+                }));
 
                 applyFilters();
                 updateStats();
@@ -2001,26 +2012,34 @@
             }
         });
 
-        // Change status
-        function changeStatus(id, status) {
-            const item = allData.find(d => d.id === id);
-            if (item) {
-                item.status = status;
-                localStorage.setItem('formSubmissions', JSON.stringify(allData));
-                applyFilters();
+        // Change status in Supabase
+        async function changeStatus(id, status) {
+            try {
+                const supabase = getSupabaseClient();
+                const { error } = await supabase.from('requests').update({ status }).eq('id', id);
+                if (error) throw error;
+                await loadData(false);
                 if (document.getElementById('detail-modal').classList.contains('active')) {
                     viewDetails(id);
                 }
+            } catch (err) {
+                console.error('Status update error:', err);
+                alert('تعذر تحديث الحالة، حاول مرة أخرى.');
             }
         }
 
         // Delete item
-        function deleteItem(id) {
-            if (confirm('Are you sure you want to delete this request?')) {
-                allData = allData.filter(d => d.id !== id);
-                localStorage.setItem('formSubmissions', JSON.stringify(allData));
-                applyFilters();
+        async function deleteItem(id) {
+            if (!confirm('Are you sure you want to delete this request?')) return;
+            try {
+                const supabase = getSupabaseClient();
+                const { error } = await supabase.from('requests').delete().eq('id', id);
+                if (error) throw error;
+                await loadData(false);
                 closeModal();
+            } catch (err) {
+                console.error('Delete error:', err);
+                alert('تعذر الحذف، حاول مرة أخرى.');
             }
         }
 
