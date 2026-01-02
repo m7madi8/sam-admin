@@ -327,8 +327,7 @@
               <img src="../images/beige-logo.png" alt="Samar Ammar Logo" loading="lazy">
     </div>
     <h1>Interior Design Request</h1>
-    <form action="https://getform.io/f/azywqpqb" method="POST" enctype="multipart/form-data">
-      <input type="hidden" name="Service" value="Interior Design">
+    <form onsubmit="handleLocalSubmit(event, 'Interior Design', 'thanks-page-interior.html')">
 
       <label for="name">Full Name</label>
       <input type="text" id="name" name="name" placeholder="Your full name" required>
@@ -361,9 +360,42 @@
       <label for="notes">Additional Notes</label>
       <textarea id="notes" name="notes" placeholder="Any additional information..."></textarea>
 
-      <input type="hidden" name="_redirect" value="thanks-page-interior.html">
       <button type="submit">Submit Request</button>
     </form>
   </div>
+  <script>
+    // يحفظ طلب التصميم داخلياً في المتصفح
+    function handleLocalSubmit(event, serviceType, redirectUrl) {
+      event.preventDefault();
+      const form = event.target;
+      const formData = new FormData(form);
+      const submissions = JSON.parse(localStorage.getItem('formSubmissions') || '[]');
+
+      const newItem = {
+        id: Date.now(),
+        type: serviceType,
+        name: formData.get('name') || 'N/A',
+        phone: formData.get('phone') || 'N/A',
+        email: formData.get('email') || '',
+        location: formData.get('location') || '',
+        constructionStatus: formData.get('construction-status') || '',
+        area: formData.get('approx-area') || '',
+        projectType: formData.get('project-type') || '',
+        notes: formData.get('notes') || formData.get('message') || '',
+        date: new Date().toISOString(),
+        status: 'new'
+      };
+
+      submissions.push(newItem);
+      localStorage.setItem('formSubmissions', JSON.stringify(submissions));
+      form.reset();
+      
+      if (redirectUrl) {
+        window.location.href = redirectUrl;
+      } else {
+        alert('تم إرسال الطلب محلياً. راجع لوحة التحكم لعرضه.');
+      }
+    }
+  </script>
 </body>
 </html>

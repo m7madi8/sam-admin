@@ -1347,10 +1347,6 @@
             <div class="header">
                 <h2>Design Requests & Messages</h2>
                 <div class="header-actions">
-                    <button class="btn btn-secondary" onclick="setApiKey()" aria-label="Set GetForm API Key" title="Set GetForm API Key">
-                        <i class='bx bx-key' aria-hidden="true"></i>
-                        <span>API Key</span>
-                    </button>
                     <button class="btn btn-primary" onclick="refreshData()" aria-label="Refresh data">
                         <i class='bx bx-refresh' aria-hidden="true"></i>
                         <span>Refresh</span>
@@ -1591,7 +1587,7 @@
             }
         });
 
-        // Sample data structure - Replace with actual API call to getform.io
+        // Sample data structure - local fallback
         let allData = [];
         let filteredData = [];
 
@@ -1601,6 +1597,7 @@
             if (checkAuth()) {
                 loadData();
                 setupEventListeners();
+                initializeAutoRefresh(); // Start auto-refresh
             }
         });
 
@@ -1633,86 +1630,47 @@
             document.getElementById('date-filter').addEventListener('change', applyFilters);
         }
 
-        // Load data from getform.io API
-        async function loadData() {
+        // Load data locally (no external API)
+        async function loadData(showLoading = true) {
+            const container = document.getElementById('cards-container');
             try {
-                // Get API key from localStorage (set it in browser console: localStorage.setItem('getformApiKey', 'YOUR_API_KEY'))
-                const apiKey = localStorage.getItem('getformApiKey');
-                const formEndpoint = 'azywqpqb'; // Your getform.io form endpoint
-                
-                if (apiKey) {
-                    try {
-                        // Fetch data from getform.io API
-                        const response = await fetch(`https://getform.io/f/${formEndpoint}/submissions?api_key=${apiKey}`, {
-                            method: 'GET',
-                            headers: {
-                                'Accept': 'application/json'
-                            }
-                        });
-
-                        if (response.ok) {
-                            const apiData = await response.json();
-                            // Transform getform.io data to our format
-                            allData = apiData.map((item, index) => {
-                                const formData = item.form_data || {};
-                                return {
-                                    id: item.id || index + 1,
-                                    type: formData.Service || formData.service || 'Message',
-                                    name: formData.name || formData.Name || 'N/A',
-                                    phone: formData.phone || formData.Phone || formData['phone-number'] || 'N/A',
-                                    email: formData.email || formData.Email || '',
-                                    location: formData.location || formData.Location || '',
-                                    constructionStatus: formData['construction-status'] || formData['Construction Status'] || '',
-                                    area: formData['approx-area'] || formData['Approximate Area'] || '',
-                                    projectType: formData['project-type'] || formData['Project Type'] || '',
-                                    notes: formData.notes || formData.Notes || formData.message || formData.Message || '',
-                                    date: item.created_at || item.submitted_at || new Date().toISOString(),
-                                    status: localStorage.getItem(`status_${item.id || index + 1}`) || 'new'
-                                };
-                            });
-                            
-                            // Save to localStorage as backup
-                            localStorage.setItem('formSubmissions', JSON.stringify(allData));
-                        } else {
-                            throw new Error('API request failed');
-                        }
-                    } catch (apiError) {
-                        console.warn('API fetch failed, using localStorage:', apiError);
-                        // Fallback to localStorage
-                        const storedData = localStorage.getItem('formSubmissions');
-                        if (storedData) {
-                            allData = JSON.parse(storedData);
-                        } else {
-                            allData = getSampleData();
-                            localStorage.setItem('formSubmissions', JSON.stringify(allData));
-                        }
-                    }
-                } else {
-                    // No API key, use localStorage
-                    const storedData = localStorage.getItem('formSubmissions');
-                    if (storedData) {
-                        allData = JSON.parse(storedData);
-                    } else {
-                        allData = getSampleData();
-                        localStorage.setItem('formSubmissions', JSON.stringify(allData));
-                    }
-                    
-                    // Show notification to set API key
-                    showApiKeyNotification();
+                if (showLoading && container) {
+                    container.innerHTML = `
+                        <div class="loading">
+                            <i class='bx bx-loader-circle'></i>
+                            <p>جاري تحميل البيانات...</p>
+                        </div>
+                    `;
                 }
+
+                const storedData = localStorage.getItem('formSubmissions');
+                allData = storedData ? JSON.parse(storedData) : getSampleData();
+
+                if (!Array.isArray(allData)) {
+                    allData = [];
+                }
+
+                // Sort by date (newest first)
+                allData.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+                // Save back as a single source of truth
+                localStorage.setItem('formSubmissions', JSON.stringify(allData));
+                localStorage.setItem('lastUpdate', new Date().toISOString());
 
                 applyFilters();
                 updateStats();
             } catch (error) {
-                console.error('Error loading data:', error);
-                document.getElementById('cards-container').innerHTML = `
-                    <div class="empty-state">
-                        <i class='bx bx-error-circle'></i>
-                        <h3>Error Loading Data</h3>
-                        <p>Please check your connection and try again.</p>
-                        <button class="btn btn-primary" onclick="loadData()" style="margin-top: 1rem;">Retry</button>
-                    </div>
-                `;
+                console.error('خطأ في تحميل البيانات:', error);
+                if (container) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <i class='bx bx-error-circle'></i>
+                            <h3>خطأ في تحميل البيانات</h3>
+                            <p>يرجى التحقق من الاتصال والمحاولة مرة أخرى.</p>
+                            <button class="btn btn-primary" onclick="loadData()" style="margin-top: 1rem;">إعادة المحاولة</button>
+                        </div>
+                    `;
+                }
             }
         }
 
@@ -1776,44 +1734,6 @@
                     status: 'new'
                 }
             ];
-        }
-
-        // Show API key notification
-        function showApiKeyNotification() {
-            const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: var(--warning-color);
-                color: white;
-                padding: 1rem 1.5rem;
-                border-radius: 8px;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-                z-index: 2000;
-                max-width: 400px;
-            `;
-            notification.innerHTML = `
-                <div style="display: flex; justify-content: space-between; align-items: start;">
-                    <div>
-                        <strong>API Key Not Set</strong>
-                        <p style="margin-top: 0.5rem; font-size: 0.9rem;">
-                            To fetch real data from getform.io, please set your API key in the browser console:
-                            <code style="display: block; margin-top: 0.5rem; padding: 0.5rem; background: rgba(0,0,0,0.2); border-radius: 4px; font-size: 0.85rem;">
-                                localStorage.setItem('getformApiKey', 'YOUR_API_KEY')
-                            </code>
-                        </p>
-                    </div>
-                    <button onclick="this.parentElement.parentElement.remove()" style="background: none; border: none; color: white; font-size: 1.2rem; cursor: pointer; margin-left: 1rem;">&times;</button>
-                </div>
-            `;
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                if (notification.parentElement) {
-                    notification.remove();
-                }
-            }, 10000);
         }
 
         // Apply filters
@@ -2131,7 +2051,24 @@
 
         // Refresh data
         function refreshData() {
-            loadData();
+            const refreshBtn = document.querySelector('button[onclick="refreshData()"]');
+            const originalContent = refreshBtn?.innerHTML;
+            
+            // Show loading state on button
+            if (refreshBtn) {
+                refreshBtn.innerHTML = '<i class="bx bx-loader-circle"></i> جاري التحديث...';
+                refreshBtn.disabled = true;
+            }
+            
+            loadData(true);
+            
+            // Restore button state after a delay
+            setTimeout(() => {
+                if (refreshBtn && originalContent) {
+                    refreshBtn.innerHTML = originalContent;
+                    refreshBtn.disabled = false;
+                }
+            }, 2000);
         }
 
         // Export data
@@ -2170,36 +2107,28 @@
         }
 
         // Set API Key
-        function setApiKey() {
-            const currentKey = localStorage.getItem('getformApiKey') || '';
-            const apiKey = prompt('Enter your GetForm.io API Key:\n\nYou can find it in your GetForm.io dashboard under Settings > API Keys.', currentKey);
-            if (apiKey !== null) {
-                if (apiKey.trim()) {
-                    localStorage.setItem('getformApiKey', apiKey.trim());
-                    alert('API Key saved! Refreshing data...');
-                    loadData();
-                } else {
-                    localStorage.removeItem('getformApiKey');
-                    alert('API Key removed. Using local storage.');
-                    loadData();
-                }
+        // Auto-refresh every 30 seconds for real-time updates
+        // تحديث تلقائي كل 30 ثانية للحصول على البيانات بشكل متزامن
+        let refreshInterval = null;
+        
+        function startAutoRefresh() {
+            // Clear any existing interval
+            if (refreshInterval) {
+                clearInterval(refreshInterval);
             }
+            
+            // Start new interval - 30 seconds
+            refreshInterval = setInterval(() => {
+                loadData(false); // لا نعرض شاشة التحميل عند التحديث التلقائي
+            }, 30000); // 30 seconds - 30 ثانية
+        }
+        
+        // Start auto-refresh when dashboard loads
+        // بدء التحديث التلقائي عند تحميل الداشبورد
+        function initializeAutoRefresh() {
+            startAutoRefresh();
         }
 
-        // Auto-refresh every 5 minutes
-        setInterval(() => {
-            const apiKey = localStorage.getItem('getformApiKey');
-            if (apiKey) {
-                loadData();
-            }
-        }, 300000); // 5 minutes
-
-        // Listen for new form submissions (if using getform.io webhook)
-        // This would be set up on the server side to receive webhooks from getform.io
-        // and update the localStorage or database
-        
-        // Example: Simulate receiving new data (remove in production)
-        // You would replace this with actual webhook handling
         window.addEventListener('storage', function(e) {
             if (e.key === 'formSubmissions') {
                 loadData();

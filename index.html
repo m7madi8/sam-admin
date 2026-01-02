@@ -367,14 +367,12 @@
         </div>
         <div class="contact-form">
           <h2 class="section-title">Write To Us</h2>
-          <form action="https://getform.io/f/azywqpqb" method="POST">
-            <input type="hidden" name="Service" value="Message">
+          <form id="contact-form" onsubmit="handleLocalSubmit(event, 'Message', 'assets/pages/thanks.html')">
             <div class="input-group">
               <input type="text" name="name" placeholder="Name" required>
               <input type="email" name="email" placeholder="Email" required>
             </div>
             <textarea name="message" placeholder="Message" required rows="5" cols="40"></textarea>
-            <input type="hidden" name="_redirect" value="assets/pages/thanks.html">
             <button type="submit">Send</button>
           </form>
         </div>
@@ -393,6 +391,41 @@
   </div>
 
      <script src="script.js"></script>
+     <script>
+      // يحفظ الطلب محلياً ويظهره في لوحة التحكم
+      function handleLocalSubmit(event, serviceType, redirectUrl) {
+        event.preventDefault();
+        const form = event.target;
+        const formData = new FormData(form);
+        const submissions = JSON.parse(localStorage.getItem('formSubmissions') || '[]');
+
+        const newItem = {
+          id: Date.now(),
+          type: serviceType,
+          name: formData.get('name') || 'N/A',
+          phone: formData.get('phone') || 'N/A',
+          email: formData.get('email') || '',
+          location: formData.get('location') || '',
+          constructionStatus: formData.get('construction-status') || '',
+          area: formData.get('approx-area') || '',
+          projectType: formData.get('project-type') || '',
+          notes: formData.get('notes') || formData.get('message') || '',
+          date: new Date().toISOString(),
+          status: 'new'
+        };
+
+        submissions.push(newItem);
+        localStorage.setItem('formSubmissions', JSON.stringify(submissions));
+        form.reset();
+        
+        // إعادة توجيه لصفحة الشكر إن وجدت
+        if (redirectUrl) {
+          window.location.href = redirectUrl;
+        } else {
+          alert('تم إرسال الطلب محلياً. يمكنك مشاهدة الطلب في لوحة التحكم.');
+        }
+      }
+     </script>
    
 </body>
 </html>
