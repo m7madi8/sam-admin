@@ -4,57 +4,76 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Thank You - Exterior Design</title>
+  <link rel="icon" href="../images/beige-logo.png" type="image/png" sizes="128x128">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Inter:wght@500;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #f6f1ea;
-      --card: rgba(255, 253, 250, 0.92);
+      --bg: #f7f3ec;
+      --card: rgba(255, 253, 250, 0.9);
       --accent: #c8aa88;
-      --accent-dark: #9d8367;
+      --accent-dark: #a48868;
       --text: #3f3429;
-      --muted: #6f6255;
-      --success: #38b07a;
-      --shadow: 0 24px 60px rgba(0,0,0,0.14);
+      --muted: #706456;
+      --shadow: 0 26px 60px rgba(0,0,0,0.12);
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 
     body {
-      font-family: 'Cairo', sans-serif;
+      font-family: 'Cairo', 'Inter', sans-serif;
       min-height: 100vh;
-      background: radial-gradient(circle at 18% 20%, #ffffff 0%, #f2e6d9 36%, #e7dccc 70%, #decebf 100%);
+      background:
+        radial-gradient(120% 140% at 20% 20%, rgba(200,170,136,0.18), transparent 40%),
+        radial-gradient(110% 120% at 80% 10%, rgba(150,130,110,0.12), transparent 38%),
+        linear-gradient(145deg, #fdfbf7 0%, #f4ebdf 60%, #efe4d7 100%);
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 32px 18px;
+      padding: 40px 18px;
       color: var(--text);
     }
 
     .card {
       width: min(720px, 100%);
       background: var(--card);
-      border-radius: 26px;
-      padding: 42px 36px;
+      border-radius: 28px;
+      padding: 46px 38px;
       box-shadow: var(--shadow);
-      border: 1px solid rgba(200,170,136,0.22);
+      border: 1px solid rgba(200,170,136,0.16);
       position: relative;
       overflow: hidden;
-      animation: rise 0.6s ease-out;
+      isolation: isolate;
+      text-align: center;
+      animation: fadeUp 0.65s ease;
     }
 
     .card::before,
     .card::after {
       content: "";
       position: absolute;
-      width: 180px;
-      height: 180px;
-      background: radial-gradient(circle, rgba(200,170,136,0.14), transparent 65%);
-      filter: blur(2px);
-      z-index: 0;
+      inset: 0;
+      background: radial-gradient(220px 220px at 20% 30%, rgba(200,170,136,0.12), transparent 60%);
+      z-index: -1;
+      opacity: 0.9;
     }
-    .card::before { top: -50px; right: -40px; }
-    .card::after  { bottom: -70px; left: -50px; }
+    .card::after {
+      background: radial-gradient(260px 260px at 80% 70%, rgba(164,136,104,0.1), transparent 60%);
+    }
+
+    .logo {
+      width: 92px;
+      height: 92px;
+      margin: 0 auto 16px;
+      display: grid;
+      place-items: center;
+    }
+    .logo img {
+      width: 92px;
+      height: 92px;
+      object-fit: contain;
+      display: block;
+    }
 
     .badge {
       display: inline-flex;
@@ -67,85 +86,35 @@
       font-weight: 700;
       font-size: 0.95rem;
       letter-spacing: 0.2px;
-      box-shadow: 0 12px 30px rgba(200,170,136,0.28);
+      box-shadow: 0 12px 28px rgba(200,170,136,0.24);
       position: relative;
       z-index: 1;
-    }
-
-    .icon {
-      width: 78px;
-      height: 78px;
-      border-radius: 20px;
-      background: linear-gradient(145deg, #ffffff, #f2e9dc);
-      border: 1px solid rgba(200,170,136,0.35);
-      box-shadow: 0 12px 28px rgba(0,0,0,0.08);
-      display: grid;
-      place-items: center;
-      font-size: 38px;
-      color: var(--success);
-      margin: 22px 0 12px;
-      position: relative;
-      z-index: 1;
+      justify-content: center;
+      margin: 0 auto 12px;
     }
 
     h1 {
-      font-size: 2.35rem;
-      margin-bottom: 10px;
+      font-size: 2.4rem;
+      margin-bottom: 12px;
       font-weight: 800;
-      letter-spacing: -0.4px;
+      letter-spacing: -0.3px;
       color: var(--text);
-      position: relative;
-      z-index: 1;
     }
 
     .subtitle {
       color: var(--muted);
-      line-height: 1.6;
-      margin-bottom: 18px;
+      line-height: 1.7;
+      margin: 0 auto 24px;
       font-size: 1.05rem;
-      position: relative;
-      z-index: 1;
-    }
-
-    .list {
-      display: grid;
-      gap: 10px;
-      margin: 14px 0 30px;
-      padding: 0;
-      position: relative;
-      z-index: 1;
-    }
-
-    .list li {
-      list-style: none;
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-      color: var(--text);
-      line-height: 1.5;
-      background: rgba(200,170,136,0.08);
-      padding: 10px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(200,170,136,0.16);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.55);
-    }
-
-    .dot {
-      width: 8px;
-      height: 8px;
-      margin-top: 6px;
-      border-radius: 50%;
-      background: var(--accent);
-      flex-shrink: 0;
+      max-width: 620px;
     }
 
     .actions {
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
-      margin-bottom: 20px;
-      position: relative;
-      z-index: 1;
+      margin-bottom: 18px;
+      justify-content: center;
     }
 
     .btn {
@@ -158,7 +127,7 @@
       font-weight: 800;
       text-decoration: none;
       font-size: 1rem;
-      transition: all 0.25s ease;
+      transition: all 0.22s ease;
       border: 1px solid transparent;
       min-width: 170px;
     }
@@ -168,7 +137,7 @@
       color: #fff;
       box-shadow: 0 12px 30px rgba(200,170,136,0.35);
     }
-    .btn.primary:hover { transform: translateY(-2px); box-shadow: 0 16px 36px rgba(200,170,136,0.4); }
+    .btn.primary:hover { transform: translateY(-1px); box-shadow: 0 16px 36px rgba(200,170,136,0.35); }
 
     .btn.ghost {
       background: #fff;
@@ -177,58 +146,36 @@
     }
     .btn.ghost:hover { background: rgba(200,170,136,0.08); }
 
-    .quick {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
+    .note {
+      text-align: center;
       color: var(--muted);
       font-size: 0.97rem;
-      align-items: center;
-      position: relative;
-      z-index: 1;
+      line-height: 1.55;
     }
-
-    .quick a {
-      color: var(--accent-dark);
-      font-weight: 800;
-      text-decoration: none;
-    }
-    .quick a:hover { text-decoration: underline; }
+    .note a { color: var(--accent-dark); font-weight: 800; text-decoration: none; }
+    .note a:hover { text-decoration: underline; }
 
     @media (max-width: 640px) {
-      .card { padding: 32px 22px; border-radius: 20px; }
-      h1 { font-size: 2rem; }
-      .badge { width: 100%; justify-content: center; text-align: center; }
-      .actions { flex-direction: column; }
+      .card { padding: 34px 22px; border-radius: 22px; }
+      h1 { font-size: 2.05rem; }
       .btn { width: 100%; }
+      .badge { width: 100%; justify-content: center; }
     }
 
-    @keyframes rise {
+    @keyframes fadeUp {
       from { opacity: 0; transform: translateY(18px); }
-      to { opacity: 1; transform: translateY(0); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* تحسين السكرول */
-    ::-webkit-scrollbar { width: 12px; }
-    ::-webkit-scrollbar-track { background: var(--bg); border-radius: 10px; }
-    ::-webkit-scrollbar-thumb {
-      background: linear-gradient(to bottom, var(--accent), var(--accent-dark));
-      border-radius: 10px;
-      border: 2px solid var(--bg);
-    }
-    ::-webkit-scrollbar-thumb:hover { background: linear-gradient(to bottom, var(--accent-dark), var(--accent)); }
-
-    /* تحسين التمرير السلس */
     html { scroll-behavior: smooth; }
-
-    /* تحسين الأداء */
-    * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
   </style>
 </head>
 <body>
   <div class="card">
+    <div class="logo">
+      <img src="../images/beige-logo.png" alt="Samar Ammar Interior Design Logo">
+    </div>
     <div class="badge">Exterior request received</div>
-    <div class="icon">✓</div>
     <h1>Thank you</h1>
     <p class="subtitle">
       Your exterior design request is in. Expect a follow-up within a few hours. Need it now? Message us on WhatsApp.
@@ -238,6 +185,7 @@
       <a class="btn primary" href="../../index.html">Back to Home</a>
       <a class="btn ghost" href="../../index2.html#exteriorphotos">View Exterior Projects</a>
     </div>
+
   </div>
 </body>
 </html>
