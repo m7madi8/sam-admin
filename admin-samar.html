@@ -1006,6 +1006,44 @@
             outline: none;
         }
 
+        .mobile-menu-toggle.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Sidebar close button (mobile) */
+        .sidebar-close {
+            display: none;
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            border: 1px solid rgba(200,170,136,0.45);
+            background: #fff;
+            color: var(--primary-dark);
+            font-size: 1.3rem;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+            transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+            outline: none;
+            z-index: 2;
+        }
+
+        .sidebar-close:hover {
+            background: var(--primary-color);
+            color: #fff;
+            border-color: var(--primary-color);
+        }
+
+        .sidebar-close:focus-visible {
+            outline: 3px solid rgba(200,170,136,0.4);
+            outline-offset: 2px;
+        }
+
         .mobile-menu-toggle:focus-visible {
             outline: 3px solid var(--primary-dark);
             outline-offset: 3px;
@@ -1023,6 +1061,12 @@
         .mobile-menu-toggle.active {
             background: var(--primary-dark);
             box-shadow: 0 4px 12px rgba(164, 138, 109, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .sidebar-close {
+                display: inline-flex;
+            }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -1398,6 +1442,10 @@
                 <img src="assets/images/beige-logo.png" alt="Samar Ammar Interior Design Logo" loading="lazy" decoding="async">
                 <h1>Admin Dashboard</h1>
             </div>
+            <button class="sidebar-close" id="sidebar-close" onclick="toggleMobileMenu()" aria-label="Close navigation menu">
+                <i class='bx bx-x' aria-hidden="true"></i>
+                <span class="sr-only">Close menu</span>
+            </button>
             
             <nav>
                 <ul class="nav-menu">
@@ -1622,13 +1670,17 @@
             if (!isAuthenticated) {
                 loginContainer.classList.add('active');
                 dashboardContainer.style.display = 'none';
-                if (mobileToggle) mobileToggle.style.display = 'none';
+                if (mobileToggle) {
+                    mobileToggle.style.display = 'none';
+                    mobileToggle.classList.remove('hidden');
+                }
                 return false;
             } else {
                 loginContainer.classList.remove('active');
                 dashboardContainer.style.display = 'flex';
                 if (window.innerWidth <= 768 && mobileToggle) {
                     mobileToggle.style.display = 'flex';
+                    mobileToggle.classList.remove('hidden');
                 }
                 return true;
             }
@@ -1709,22 +1761,25 @@
             const overlay = document.getElementById('mobile-overlay');
             const menuIcon = document.getElementById('menu-icon');
             const isActive = sidebar.classList.contains('active');
+            const willOpen = !isActive;
             
             sidebar.classList.toggle('active');
             toggle.classList.toggle('active');
             overlay.classList.toggle('active');
             
             // Update ARIA attributes
-            toggle.setAttribute('aria-expanded', !isActive);
+            toggle.setAttribute('aria-expanded', willOpen);
             sidebar.setAttribute('aria-hidden', isActive);
             
             // Change icon
-            if (!isActive) {
+            if (willOpen) {
                 menuIcon.className = 'bx bx-x';
                 menuIcon.setAttribute('aria-label', 'Close menu');
+                toggle.classList.add('hidden');
             } else {
                 menuIcon.className = 'bx bx-menu';
                 menuIcon.setAttribute('aria-label', 'Open menu');
+                toggle.classList.remove('hidden');
             }
         }
 
@@ -1739,6 +1794,9 @@
             toggle.classList.remove('active');
             overlay.classList.remove('active');
             menuIcon.className = 'bx bx-menu';
+            toggle.classList.remove('hidden');
+            toggle.setAttribute('aria-expanded', 'false');
+            sidebar.setAttribute('aria-hidden', 'true');
         }
 
         // Close mobile menu when clicking on nav links (setup after dashboard loads)
@@ -1751,6 +1809,56 @@
                     }
                 });
             });
+        }
+
+        // Swipe gestures to open/close sidebar on mobile
+        function setupSwipeGestures() {
+            if (swipeInitialized) return;
+            swipeInitialized = true;
+
+            document.addEventListener('touchstart', handleTouchStart, { passive: true });
+            document.addEventListener('touchmove', handleTouchMove, { passive: true });
+            document.addEventListener('touchend', resetTouch, { passive: true });
+        }
+
+        function handleTouchStart(e) {
+            if (window.innerWidth > 768) return;
+            const touch = e.touches[0];
+            touchStartX = touch.clientX;
+            touchStartY = touch.clientY;
+        }
+
+        function handleTouchMove(e) {
+            if (window.innerWidth > 768) return;
+            if (touchStartX === null || touchStartY === null) return;
+
+            const touch = e.touches[0];
+            const deltaX = touch.clientX - touchStartX;
+            const deltaY = Math.abs(touch.clientY - touchStartY);
+            const sidebar = document.getElementById('sidebar');
+            const isActive = sidebar?.classList.contains('active');
+
+            const EDGE_THRESHOLD = 25;
+            const SWIPE_THRESHOLD = 50;
+            const VERTICAL_LIMIT = 40;
+
+            // Swipe from left edge to open
+            if (!isActive && touchStartX <= EDGE_THRESHOLD && deltaX > SWIPE_THRESHOLD && deltaY < VERTICAL_LIMIT) {
+                toggleMobileMenu();
+                resetTouch();
+                return;
+            }
+
+            // Swipe left to close when open
+            if (isActive && deltaX < -SWIPE_THRESHOLD && deltaY < VERTICAL_LIMIT) {
+                closeMobileMenu();
+                resetTouch();
+            }
+        }
+
+        function resetTouch() {
+            touchStartX = null;
+            touchStartY = null;
         }
 
         // Close mobile menu on window resize
@@ -1771,6 +1879,9 @@
         // Sample data structure - local fallback
         let allData = [];
         let filteredData = [];
+        let touchStartX = null;
+        let touchStartY = null;
+        let swipeInitialized = false;
 
         // Initialize dashboard
         document.addEventListener('DOMContentLoaded', function() {
@@ -1803,6 +1914,7 @@
             
             // Setup mobile menu close
             setupMobileMenuClose();
+            setupSwipeGestures();
 
             // Filter inputs
             document.getElementById('search-input').addEventListener('input', applyFilters);
