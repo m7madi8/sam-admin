@@ -357,4 +357,46 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // --- Visit Tracking (Supabase) ---
+    const VISIT_STORAGE_KEY = 'sa_visit_logged_at';
+    const VISIT_TTL_MS = 12 * 60 * 60 * 1000; // 12 hours cooldown
+
+    async function trackVisit() {
+        // Skip if Supabase SDK/client not available (e.g., some standalone pages)
+        if (typeof getSupabaseClient !== 'function' || !window.supabase) return;
+
+        try {
+            // Respect cookie preference
+            const cookieChoice = localStorage.getItem('cookieConsent');
+            if (cookieChoice === 'declined') return;
+
+            const lastVisit = Number(localStorage.getItem(VISIT_STORAGE_KEY) || 0);
+            const now = Date.now();
+
+            // Avoid duplicate inserts within the cooldown window
+            if (now - lastVisit < VISIT_TTL_MS) {
+                return;
+            }
+
+            const supabase = getSupabaseClient();
+            const payload = {
+                path: window.location.pathname + window.location.search,
+                referrer: document.referrer || null,
+                user_agent: navigator.userAgent || null,
+                language: navigator.language || null,
+                screen: window.screen ? `${window.screen.width}x${window.screen.height}` : null,
+                created_at: new Date().toISOString()
+            };
+
+            const { error } = await supabase.from('visits').insert([payload]);
+            if (error) throw error;
+
+            localStorage.setItem(VISIT_STORAGE_KEY, String(now));
+        } catch (err) {
+            console.error('Visit tracking failed:', err);
+        }
+    }
+
+    trackVisit();
+
 });

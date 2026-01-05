@@ -850,6 +850,31 @@
         const mapContainer = document.getElementById('professional-map');
         if (!mapContainer || typeof L === 'undefined') return;
 
+        // Require two-finger gestures on touch devices to move/zoom the map
+        const enableTwoFingerTouch = (map) => {
+          if (!('ontouchstart' in window)) return; // keep mouse/trackpad behavior unchanged
+
+          const disableTouchDrag = () => {
+            map.dragging.disable();
+            map.touchZoom.disable();
+          };
+
+          const handleTouch = (e) => {
+            const touches = e.touches ? e.touches.length : 0;
+            if (touches >= 2) {
+              map.dragging.enable();
+              map.touchZoom.enable();
+            } else {
+              disableTouchDrag();
+            }
+          };
+
+          disableTouchDrag();
+          ['touchstart', 'touchmove', 'touchend', 'touchcancel'].forEach(evt => {
+            mapContainer.addEventListener(evt, handleTouch, { passive: true });
+          });
+        };
+
         const initMap = () => {
           const map = L.map('professional-map', {
             center: [31.9048, 35.2038],
@@ -858,6 +883,8 @@
             scrollWheelZoom: true,
             attributionControl: true
           });
+
+          enableTwoFingerTouch(map);
 
           L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
