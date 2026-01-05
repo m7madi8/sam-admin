@@ -56,6 +56,297 @@
         margin-right: 8px;
         vertical-align: middle;
       }
+
+      /* Professional map */
+      .map-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+      }
+
+      #professional-map {
+        width: 100%;
+        height: 500px;
+        border-radius: 30px;
+        overflow: hidden;
+        box-shadow: 0 15px 50px rgba(166, 124, 82, 0.2);
+        border: 2px solid var(--border-color);
+        transition: box-shadow 0.3s ease, transform 0.3s ease;
+      }
+
+      #professional-map:hover {
+        box-shadow: 0 20px 60px rgba(166, 124, 82, 0.3);
+        transform: translateY(-2px);
+      }
+
+      #professional-map .leaflet-container {
+        background-color: var(--body-color);
+        font-family: var(--body-font);
+      }
+
+      #professional-map .leaflet-popup-content-wrapper {
+        background: linear-gradient(135deg, #ffffff 0%, #fdfaf6 100%);
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(166, 124, 82, 0.25);
+        border: 1.5px solid var(--first-color);
+        padding: 0;
+      }
+
+      #professional-map .leaflet-popup-content {
+        margin: 0.8rem;
+        color: var(--text-color);
+        font-size: 0.75rem;
+        line-height: 1.4;
+      }
+
+      #professional-map .leaflet-popup-content h3 {
+        color: var(--first-color);
+        font-family: var(--title-font);
+        margin-bottom: 0.3rem;
+        font-size: 0.95rem;
+      }
+
+      #professional-map .leaflet-popup-tip {
+        background: var(--first-color);
+        border: 2px solid var(--first-color);
+      }
+
+      #professional-map .leaflet-popup-close-button {
+        color: var(--first-color);
+        font-size: 1.2rem;
+        padding: 0.3rem;
+        transition: color 0.3s ease;
+      }
+
+      #professional-map .leaflet-popup-close-button:hover {
+        color: var(--first-color-alt);
+      }
+
+      #professional-map .leaflet-control-zoom a {
+        background-color: var(--container-color);
+        color: var(--first-color);
+        border: 1px solid var(--border-color);
+        transition: all 0.3s ease;
+      }
+
+      #professional-map .leaflet-control-zoom a:hover {
+        background-color: var(--first-color);
+        color: white;
+        border-color: var(--first-color);
+      }
+
+      #professional-map .leaflet-control-attribution {
+        background-color: rgba(255, 255, 255, 0.8);
+        color: var(--text-color);
+        font-size: 0.75rem;
+        padding: 0.25rem 0.5rem;
+        border-radius: 5px;
+      }
+
+      @media screen and (max-width: 576px) {
+        #professional-map {
+          height: 400px;
+          border-radius: 20px;
+        }
+        .map-container {
+          padding: 0 1rem;
+        }
+      }
+
+      /* Cookie consent */
+      .cookie-consent {
+        position: fixed;
+        bottom: -100%;
+        left: 0;
+        right: 0;
+        z-index: 10000;
+        padding: 0;
+        transition: bottom 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        pointer-events: none;
+      }
+
+      .cookie-consent.show {
+        bottom: 0;
+        pointer-events: auto;
+      }
+
+      .cookie-backdrop {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(253, 250, 246, 0.98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-top: 1px solid rgba(166, 124, 82, 0.2);
+      }
+
+      .cookie-content {
+        position: relative;
+        max-width: 1280px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        padding: 2rem 2.5rem;
+        flex-wrap: wrap;
+        will-change: opacity, transform;
+      }
+
+      .cookie-icon-wrapper {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .cookie-icon {
+        width: 56px;
+        height: 56px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: none;
+        border-radius: 0;
+        font-size: 2rem;
+        color: var(--first-color);
+        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        position: relative;
+        overflow: visible;
+      }
+
+      .cookie-icon svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+        transition: transform 0.3s ease;
+      }
+
+      .cookie-consent.show .cookie-icon svg {
+        animation: cookiePulse 2s ease-in-out infinite;
+      }
+
+      @keyframes cookiePulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+      }
+
+      .cookie-text { flex: 1; min-width: 280px; }
+      .cookie-text h3 {
+        font-family: var(--title-font);
+        font-size: 1.375rem;
+        color: var(--title-color);
+        margin: 0 0 0.625rem 0;
+        font-weight: var(--font-semi-bold);
+        letter-spacing: -0.02em;
+        line-height: 1.4;
+      }
+      .cookie-text p {
+        font-size: 0.9375rem;
+        color: var(--text-color);
+        line-height: 1.7;
+        margin: 0;
+        letter-spacing: 0.01em;
+      }
+
+      .cookie-buttons {
+        display: flex;
+        gap: 0.875rem;
+        flex-shrink: 0;
+        align-items: center;
+      }
+
+      .cookie-btn {
+        position: relative;
+        padding: 0.875rem 1.75rem;
+        border: none;
+        border-radius: 12px;
+        font-size: 0.9375rem;
+        font-weight: var(--font-medium);
+        cursor: pointer;
+        transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        font-family: var(--body-font);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        overflow: hidden;
+        letter-spacing: 0.02em;
+        white-space: nowrap;
+      }
+
+      .cookie-btn span { position: relative; z-index: 1; }
+      .cookie-btn i { position: relative; z-index: 1; font-size: 1.125rem; transition: transform 0.3s ease; }
+
+      .accept-btn {
+        background: linear-gradient(135deg, var(--first-color) 0%, var(--first-color-alt) 100%);
+        color: #ffffff;
+        box-shadow: 0 4px 16px rgba(166, 124, 82, 0.25), 0 2px 8px rgba(166, 124, 82, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .accept-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.5s ease;
+      }
+
+      .accept-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(166, 124, 82, 0.35), 0 4px 12px rgba(166, 124, 82, 0.2);
+      }
+
+      .accept-btn:hover::before { left: 100%; }
+      .accept-btn:hover i { transform: scale(1.1); }
+      .accept-btn:active { transform: translateY(0); box-shadow: 0 2px 8px rgba(166, 124, 82, 0.25); }
+
+      .decline-btn {
+        background: rgba(255, 255, 255, 0.8);
+        color: var(--text-color);
+        border: 1.5px solid var(--border-color);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
+
+      .decline-btn:hover {
+        background: rgba(253, 250, 246, 0.95);
+        border-color: var(--first-color);
+        color: var(--first-color);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(166, 124, 82, 0.1);
+      }
+
+      .decline-btn:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 6px rgba(166, 124, 82, 0.08);
+      }
+
+      @media screen and (max-width: 968px) {
+        .cookie-content { gap: 1.5rem; padding: 1.75rem 2rem; }
+      }
+      @media screen and (max-width: 768px) {
+        .cookie-content { flex-direction: row; text-align: left; gap: 1rem; padding: 1.25rem 1.5rem; align-items: flex-start; }
+        .cookie-icon { width: 40px; height: 40px; font-size: 1.625rem; flex-shrink: 0; }
+        .cookie-text { min-width: 0; flex: 1; }
+        .cookie-text h3 { font-size: 1rem; margin-bottom: 0.375rem; }
+        .cookie-text p { font-size: 0.8125rem; line-height: 1.5; }
+        .cookie-buttons { flex-direction: column; width: auto; gap: 0.5rem; flex-shrink: 0; min-width: 100px; }
+        .cookie-btn { width: 100%; padding: 0.625rem 1.25rem; font-size: 0.8125rem; min-width: 0; white-space: nowrap; }
+      }
+      @media screen and (max-width: 480px) {
+        .cookie-content { flex-direction: row; padding: 0.875rem 1rem; gap: 0.75rem; align-items: flex-start; }
+        .cookie-icon { width: 32px; height: 32px; font-size: 1.4rem; }
+        .cookie-text h3 { font-size: 0.95rem; }
+        .cookie-text p { font-size: 0.78rem; }
+        .cookie-buttons { width: 100%; flex-direction: column; align-items: stretch; }
+        .cookie-btn { width: 100%; }
+      }
     </style>
 </head>
 <body>
@@ -274,15 +565,8 @@
         </div>
       </div>
       <h3 class="section-title scale-in" style="margin-top: 3rem; margin-bottom: 1.5rem;">Our Location</h3>
-      <div class="mb-5 scale-in">
-        <iframe
-          style="border:0; width: 100%; height: 400px; border-radius: 30px;"
-          src="https://maps.google.com/maps?q=31.9,35.2&hl=ar&z=4&output=embed"
-          frameborder="0"
-          allowfullscreen=""
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
+      <div class="mb-5 scale-in map-container">
+        <div id="professional-map"></div>
       </div>
     </section>
 
@@ -390,6 +674,59 @@
     </a>
   </div>
 
+  <!-- Cookie Consent Box -->
+  <div id="cookie-consent" class="cookie-consent">
+    <div class="cookie-backdrop"></div>
+    <div class="cookie-content">
+      <div class="cookie-icon-wrapper">
+        <div class="cookie-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="currentColor" stroke="currentColor">
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+            <g id="SVGRepo_iconCarrier">
+              <defs>
+                <path id="cookie-a" d="M6,9 C5.44771525,9 5,8.55228475 5,8 C5,7.44771525 5.44771525,7 6,7 C6.55228475,7 7,7.44771525 7,8 C7,8.55228475 6.55228475,9 6,9 Z M0.5,5 C0.776142375,5 1,5.22385763 1,5.5 C1,5.77614237 0.776142375,6 0.5,6 C0.223857625,6 0,5.77614237 0,5.5 C0,5.22385763 0.223857625,5 0.5,5 Z M1.5,0 C1.77614237,0 2,0.223857625 2,0.5 C2,0.776142375 1.77614237,1 1.5,1 C1.22385763,1 1,0.776142375 1,0.5 C1,0.223857625 1.22385763,0 1.5,0 Z"></path>
+                <path id="cookie-c" d="M16.8992102,14.9839236 C14.7272404,14.8015227 12.9908067,13.088137 12.7726677,10.9265249 C10.116756,10.8076787 8,8.61683725 8,5.93160095 C8,4.83650549 8.35205437,3.82363673 8.94915779,3 C5.02749115,3.51454809 2,6.8695203 2,10.931601 C2,15.3498789 5.581722,18.931601 10,18.931601 C12.9394797,18.931601 15.5086798,17.3462452 16.8992102,14.9839236 Z M18.6227822,15.9984676 C16.8387419,19.0293088 13.583442,20.931601 10,20.931601 C4.4771525,20.931601 0,16.4544484 0,10.931601 C0,5.89735407 3.73996215,1.66633856 8.6889748,1.01699601 C10.4293224,0.788651127 11.5986551,2.75278519 10.5684097,4.17389234 C10.2003223,4.68162738 10,5.2888805 10,5.93160095 C10,7.53739843 11.265248,8.85706984 12.8620738,8.92852431 C13.8538041,8.97290207 14.6628867,9.73800888 14.762561,10.7257149 C14.8842704,11.9317746 15.8571673,12.8893732 17.06658,12.990939 C18.5347344,13.1142339 19.3701575,14.7287789 18.6227822,15.9984676 Z M10,18 C8.34314575,18 7,16.6568542 7,15 C7,13.3431458 8.34314575,12 10,12 C11.6568542,12 13,13.3431458 13,15 C13,16.6568542 11.6568542,18 10,18 Z M10,16 C10.5522847,16 11,15.5522847 11,15 C11,14.4477153 10.5522847,14 10,14 C9.44771525,14 9,14.4477153 9,15 C9,15.5522847 9.44771525,16 10,16 Z M4.5,14 C3.67157288,14 3,13.3284271 3,12.5 C3,11.6715729 3.67157288,11 4.5,11 C5.32842712,11 6,11.6715729 6,12.5 C6,13.3284271 5.32842712,14 4.5,14 Z M4.5,12 C4.22385763,12 4,12.2238576 4,12.5 C4,12.7761424 4.22385763,13 4.5,13 C4.77614237,13 5,12.7761424 5,12.5 C5,12.2238576 4.77614237,12 4.5,12 Z M5.5,9 C4.67157288,9 4,8.32842712 4,7.5 C4,6.67157288 4.67157288,6 5.5,6 C6.32842712,6 7,6.67157288 7,7.5 C7,8.32842712 6.32842712,9 5.5,9 Z M5.5,7 C5.22385763,7 5,7.22385763 5,7.5 C5,7.77614237 5.22385763,8 5.5,8 C5.77614237,8 6,7.77614237 6,7.5 C6,7.22385763 5.77614237,7 5.5,7 Z"></path>
+                <path id="cookie-c" d="M16.8992102,14.9839236 C14.7272404,14.8015227 12.9908067,13.088137 12.7726677,10.9265249 C10.116756,10.8076787 8,8.61683725 8,5.93160095 C8,4.83650549 8.35205437,3.82363673 8.94915779,3 C5.02749115,3.51454809 2,6.8695203 2,10.931601 C2,15.3498789 5.581722,18.931601 10,18.931601 C12.9394797,18.931601 15.5086798,17.3462452 16.8992102,14.9839236 Z M18.6227822,15.9984676 C16.8387419,19.0293088 13.583442,20.931601 10,20.931601 C4.4771525,20.931601 0,16.4544484 0,10.931601 C0,5.89735407 3.73996215,1.66633856 8.6889748,1.01699601 C10.4293224,0.788651127 11.5986551,2.75278519 10.5684097,4.17389234 C10.2003223,4.68162738 10,5.2888805 10,5.93160095 C10,7.53739843 11.265248,8.85706984 12.8620738,8.92852431 C13.8538041,8.97290207 14.6628867,9.73800888 14.762561,10.7257149 C14.8842704,11.9317746 15.8571673,12.8893732 17.06658,12.990939 C18.5347344,13.1142339 19.3701575,14.7287789 18.6227822,15.9984676 Z M10,18 C8.34314575,18 7,16.6568542 7,15 C7,13.3431458 8.34314575,12 10,12 C11.6568542,12 13,13.3431458 13,15 C13,16.6568542 11.6568542,18 10,18 Z M10,16 C10.5522847,16 11,15.5522847 11,15 C11,14.4477153 10.5522847,14 10,14 C9.44771525,14 9,14.4477153 9,15 C9,15.5522847 9.44771525,16 10,16 Z M4.5,14 C3.67157288,14 3,13.3284271 3,12.5 C3,11.6715729 3.67157288,11 4.5,11 C5.32842712,11 6,11.6715729 6,12.5 C6,13.3284271 5.32842712,14 4.5,14 Z M4.5,12 C4.22385763,12 4,12.2238576 4,12.5 C4,12.7761424 4.22385763,13 4.5,13 C4.77614237,13 5,12.7761424 5,12.5 C5,12.2238576 4.77614237,12 4.5,12 Z M5.5,9 C4.67157288,9 4,8.32842712 4,7.5 C4,6.67157288 4.67157288,6 5.5,6 C6.32842712,6 7,6.67157288 7,7.5 C7,8.32842712 6.32842712,9 5.5,9 Z M5.5,7 C5.22385763,7 5,7.22385763 5,7.5 C5,7.77614237 5.22385763,8 5.5,8 C5.77614237,8 6,7.77614237 6,7.5 C6,7.22385763 5.77614237,7 5.5,7 Z"></path>
+              </defs>
+              <g fill="none" fill-rule="evenodd" transform="translate(3 1)">
+                <g transform="translate(4 7)">
+                  <mask id="cookie-b" fill="#ffffff">
+                    <use xlink:href="#cookie-a"></use>
+                  </mask>
+                  <use fill="currentColor" fill-opacity="0.3" fill-rule="nonzero" xlink:href="#cookie-a"></use>
+                  <g fill="currentColor" fill-opacity="0.5" mask="url(#cookie-b)">
+                    <rect width="24" height="24" transform="translate(-7 -8)"></rect>
+                  </g>
+                </g>
+                <mask id="cookie-d" fill="#ffffff">
+                  <use xlink:href="#cookie-c"></use>
+                </mask>
+                <use fill="currentColor" fill-rule="nonzero" xlink:href="#cookie-c"></use>
+                <g fill="currentColor" fill-opacity="0.8" mask="url(#cookie-d)">
+                  <rect width="24" height="24" transform="translate(-3 -1)"></rect>
+                </g>
+              </g>
+            </g>
+          </svg>
+        </div>
+      </div>
+      <div class="cookie-text">
+        <h3>Cookie Preferences</h3>
+        <p>We use cookies to enhance your browsing experience, analyze site traffic, and personalize content. By clicking "Accept All", you consent to our use of cookies.</p>
+      </div>
+      <div class="cookie-buttons">
+        <button id="decline-cookies" class="cookie-btn decline-btn">
+          <span>Decline</span>
+        </button>
+        <button id="accept-cookies" class="cookie-btn accept-btn">
+          <span>Accept All</span>
+          <i class='bx bx-check'></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
      <script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
      <script src="assets/js/supabase-client.js"></script>
      <script src="script.js"></script>
@@ -441,6 +778,196 @@
         }
       }
      </script>
+    <script>
+      // Cookie consent
+      (function() {
+        const cookieConsent = document.getElementById('cookie-consent');
+        const acceptBtn = document.getElementById('accept-cookies');
+        const declineBtn = document.getElementById('decline-cookies');
+
+        const hasCookieChoice = () => localStorage.getItem('cookieConsent') !== null;
+
+        const showCookieConsent = () => {
+          if (!cookieConsent || hasCookieChoice()) return;
+          cookieConsent.classList.add('show');
+          const content = cookieConsent.querySelector('.cookie-content');
+          if (content) {
+            content.style.opacity = '0';
+            content.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+              content.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+              content.style.opacity = '1';
+              content.style.transform = 'translateY(0)';
+            }, 50);
+          }
+        };
+
+        const hideCookieConsent = () => {
+          if (!cookieConsent) return;
+          const content = cookieConsent.querySelector('.cookie-content');
+          if (content) {
+            content.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+            content.style.opacity = '0';
+            content.style.transform = 'translateY(20px)';
+          }
+          setTimeout(() => {
+            cookieConsent.classList.remove('show');
+            if (content) {
+              content.style.opacity = '';
+              content.style.transform = '';
+              content.style.transition = '';
+            }
+          }, 400);
+        };
+
+        acceptBtn?.addEventListener('click', (e) => {
+          e.preventDefault();
+          acceptBtn.style.transform = 'scale(0.95)';
+          setTimeout(() => {
+            acceptBtn.style.transform = '';
+            localStorage.setItem('cookieConsent', 'accepted');
+            hideCookieConsent();
+          }, 150);
+        });
+
+        declineBtn?.addEventListener('click', (e) => {
+          e.preventDefault();
+          declineBtn.style.transform = 'scale(0.95)';
+          setTimeout(() => {
+            declineBtn.style.transform = '';
+            localStorage.setItem('cookieConsent', 'declined');
+            hideCookieConsent();
+          }, 150);
+        });
+
+        window.addEventListener('load', () => {
+          setTimeout(showCookieConsent, 500);
+        });
+      })();
+
+      // Professional map
+      (function() {
+        const mapContainer = document.getElementById('professional-map');
+        if (!mapContainer || typeof L === 'undefined') return;
+
+        const initMap = () => {
+          const map = L.map('professional-map', {
+            center: [31.9048, 35.2038],
+            zoom: 15,
+            zoomControl: true,
+            scrollWheelZoom: true,
+            attributionControl: true
+          });
+
+          L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+            subdomains: 'abcd',
+            maxZoom: 19
+          }).addTo(map);
+
+          const customIcon = L.divIcon({
+            className: 'custom-marker',
+            html: `
+              <div style="
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                animation: markerFloat 3s ease-in-out infinite;
+              ">
+                <svg width="35" height="30" viewBox="0 0 50 45" style="filter: drop-shadow(0 3px 10px rgba(166, 124, 82, 0.5));">
+                  <defs>
+                    <linearGradient id="pinGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" style="stop-color:#a67c52;stop-opacity:1" />
+                      <stop offset="100%" style="stop-color:#8b6b4a;stop-opacity:1" />
+                    </linearGradient>
+                    <filter id="glow">
+                      <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+                      <feMerge>
+                        <feMergeNode in="coloredBlur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                      </feMerge>
+                    </filter>
+                  </defs>
+                  <path d="M25 0 C32 0 38 5 38 15 C38 24 25 45 25 45 C25 45 12 24 12 15 C12 5 18 0 25 0 Z"
+                        fill="url(#pinGradient)"
+                        stroke="#ffffff"
+                        stroke-width="1.5"
+                        filter="url(#glow)"/>
+                  <circle cx="25" cy="15" r="9" fill="#ffffff" opacity="0.3"/>
+                  <circle cx="25" cy="15" r="5.5" fill="#ffffff"/>
+                  <circle cx="25" cy="15" r="3" fill="#a67c52"/>
+                </svg>
+                <style>
+                  @keyframes markerFloat {
+                    0%, 100% { transform: translateY(0) scale(1); }
+                    50% { transform: translateY(-5px) scale(1.04); }
+                  }
+                </style>
+              </div>
+            `,
+            iconSize: [35, 30],
+            iconAnchor: [17.5, 30],
+            popupAnchor: [0, -30]
+          });
+
+          const marker = L.marker([31.9048, 35.2038], { icon: customIcon }).addTo(map);
+
+          const popupContent = `
+            <div style="text-align: center;">
+              <h3 style="margin: 0 0 0.3rem 0; color: #a67c52; font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 600;">Samar Ammar Interior Design</h3>
+              <p style="margin: 0.3rem 0; color: #555555; font-size: 0.75rem; line-height: 1.4;">
+                <i class='bx bx-map' style="color: #a67c52; margin-right: 4px; font-size: 0.85rem;"></i>
+                Ahlia College Street, Al-Asaad Building, 3rd Floor
+              </p>
+              <p style="margin: 0.3rem 0; color: #555555; font-size: 0.75rem; line-height: 1.4;">
+                <i class='bx bx-map-pin' style="color: #a67c52; margin-right: 4px; font-size: 0.85rem;"></i>
+                Ramallah, Palestine
+              </p>
+              <a href="https://www.google.com/maps/dir/?api=1&destination=31.9048,35.2038"
+                 target="_blank"
+                 style="
+                   display: inline-block;
+                   margin-top: 0.5rem;
+                   padding: 0.4rem 0.8rem;
+                   background: linear-gradient(135deg, #a67c52 0%, #8b6b4a 100%);
+                   color: white;
+                   text-decoration: none;
+                   border-radius: 15px;
+                   font-size: 0.75rem;
+                   transition: transform 0.3s ease;
+                 "
+                 onmouseover="this.style.transform='scale(1.05)'"
+                 onmouseout="this.style.transform='scale(1)'">
+                <i class='bx bx-directions' style="margin-right: 4px; font-size: 0.8rem;"></i>
+                Get Directions
+              </a>
+            </div>
+          `;
+
+          marker.bindPopup(popupContent, {
+            maxWidth: 220,
+            className: 'custom-popup',
+            closeButton: false
+          });
+
+          setTimeout(() => {
+            map.setView([31.9048, 35.2038], 16, { animate: true, duration: 1.5 });
+          }, 300);
+        };
+
+        const mapObserver = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              observer.unobserve(entry.target);
+              initMap();
+            }
+          });
+        }, { threshold: 0.1 });
+
+        mapObserver.observe(mapContainer);
+      })();
+    </script>
    
 </body>
 </html>
