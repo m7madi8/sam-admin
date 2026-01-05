@@ -784,6 +784,7 @@
         const cookieConsent = document.getElementById('cookie-consent');
         const acceptBtn = document.getElementById('accept-cookies');
         const declineBtn = document.getElementById('decline-cookies');
+        const loaderWrapper = document.querySelector('.loader-wrapper');
 
         const hasCookieChoice = () => localStorage.getItem('cookieConsent') !== null;
 
@@ -840,8 +841,39 @@
           }, 150);
         });
 
+        const isLoaderGone = () => {
+          if (!loaderWrapper) return true;
+          const style = window.getComputedStyle(loaderWrapper);
+          return (
+            style.display === 'none' ||
+            style.visibility === 'hidden' ||
+            style.opacity === '0'
+          );
+        };
+
+        const waitForLoaderThenShowCookies = () => {
+          // Safety timeout: if something goes wrong, don't block the cookie banner forever.
+          const MAX_WAIT_MS = 8000;
+          const start = performance.now();
+
+          const tick = () => {
+            if (hasCookieChoice()) return;
+            if (isLoaderGone()) {
+              showCookieConsent();
+              return;
+            }
+            if (performance.now() - start > MAX_WAIT_MS) {
+              showCookieConsent();
+              return;
+            }
+            requestAnimationFrame(tick);
+          };
+
+          tick();
+        };
+
         window.addEventListener('load', () => {
-          setTimeout(showCookieConsent, 500);
+          waitForLoaderThenShowCookies();
         });
       })();
 

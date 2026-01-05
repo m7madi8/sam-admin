@@ -16,6 +16,10 @@
             box-sizing: border-box;
         }
 
+        html, body {
+            overflow-x: hidden;
+        }
+
         :root {
             --primary-color: #c8aa88;
             --primary-dark: #a48a6d;
@@ -34,6 +38,28 @@
             background: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
+        }
+
+        /* Global scrollbar */
+        html {
+            scrollbar-color: var(--primary-color) #f1ede7;
+            scrollbar-width: thin;
+        }
+        ::-webkit-scrollbar {
+            width: 12px;
+            background-color: #f1ede7;
+        }
+        ::-webkit-scrollbar-track {
+            background-color: #f1ede7;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--primary-color), #fceabb);
+            border-radius: 10px;
+            border: 2px solid #f1ede7;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, var(--primary-dark), #fcd4a0);
         }
 
         /* Reduced motion preferences */
@@ -1506,6 +1532,109 @@
             background: #6c757d;
             color: white;
         }
+
+        .status-agreed {
+            background: var(--success-color);
+            color: white;
+        }
+
+        /* Status Modal (modern picker) */
+        #status-modal .modal-content {
+            max-width: 520px !important;
+        }
+
+        .status-picker {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        .status-option {
+            appearance: none;
+            border: 1.5px solid var(--border-color);
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 0.9rem 0.95rem;
+            cursor: pointer;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+            position: relative;
+            overflow: hidden;
+            min-height: 84px;
+        }
+
+        .status-option::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 6px;
+            background: var(--border-color);
+        }
+
+        .status-option:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .status-option:active {
+            transform: translateY(0);
+        }
+
+        .status-option:focus-visible {
+            outline: 3px solid rgba(166, 124, 82, 0.45);
+            outline-offset: 2px;
+        }
+
+        .status-option .title {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 700;
+            color: var(--title-color);
+        }
+
+        .status-option .title i {
+            font-size: 1.15rem;
+            line-height: 1;
+        }
+
+        .status-option .desc {
+            font-size: 0.82rem;
+            color: var(--text-color);
+            opacity: 0.9;
+        }
+
+        .status-option[data-value="new"]::before { background: var(--info-color); }
+        .status-option[data-value="viewed"]::before { background: #b9a892; }
+        .status-option[data-value="agreed"]::before { background: var(--success-color); }
+
+        .status-option.is-selected {
+            border-color: var(--primary-color);
+            box-shadow: 0 14px 28px rgba(166, 124, 82, 0.22);
+            background: rgba(253, 250, 246, 0.95);
+        }
+
+        .status-option.is-selected .title {
+            color: var(--primary-color);
+        }
+
+        @media (max-width: 520px) {
+            .status-picker {
+                grid-template-columns: 1fr;
+            }
+            .status-option {
+                min-height: auto;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1671,7 +1800,7 @@
                             <option value="all">All Status</option>
                             <option value="new">New</option>
                             <option value="viewed">Viewed</option>
-                            <option value="archived">Archived</option>
+                            <option value="agreed">Agreed</option>
                         </select>
                     </div>
                     <div class="filter-group">
@@ -1739,6 +1868,42 @@
                 <div style="display: flex; gap: 0.75rem; justify-content: flex-end; flex-wrap: wrap;">
                     <button class="btn btn-secondary" onclick="closeDeleteModal()">Cancel</button>
                     <button class="btn btn-primary" onclick="confirmDelete()">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Status Modal -->
+    <div class="modal" id="status-modal">
+        <div class="modal-content" style="max-width: 440px;">
+            <div class="modal-header">
+                <h3>Set Status</h3>
+                <button class="close-modal" onclick="closeStatusModal()">
+                    <i class='bx bx-x'></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group" style="margin-bottom: 1.25rem;">
+                    <label>Status</label>
+                    <div class="status-picker" role="radiogroup" aria-label="Status">
+                        <button type="button" class="status-option" data-value="new" role="radio" aria-checked="false" onclick="selectStatusOption(this)">
+                            <span class="title"><i class='bx bx-bell'></i> New</span>
+                            <span class="desc">Not opened yet</span>
+                        </button>
+                        <button type="button" class="status-option" data-value="viewed" role="radio" aria-checked="false" onclick="selectStatusOption(this)">
+                            <span class="title"><i class='bx bx-show'></i> Viewed</span>
+                            <span class="desc">Already reviewed</span>
+                        </button>
+                        <button type="button" class="status-option" data-value="agreed" role="radio" aria-checked="false" onclick="selectStatusOption(this)">
+                            <span class="title"><i class='bx bx-check-circle'></i> Agreed</span>
+                            <span class="desc">Deal confirmed</span>
+                        </button>
+                    </div>
+                    <input type="hidden" id="status-selected" value="new">
+                </div>
+                <div style="display: flex; gap: 0.75rem; justify-content: flex-end; flex-wrap: wrap;">
+                    <button class="btn btn-secondary" onclick="closeStatusModal()">Cancel</button>
+                    <button class="btn btn-primary" onclick="saveStatus()">Save</button>
                 </div>
             </div>
         </div>
@@ -1986,6 +2151,25 @@
         let touchStartX = null;
         let touchStartY = null;
         let swipeInitialized = false;
+        let pendingStatusId = null;
+
+        function normalizeStatus(status) {
+            const s = (status || '').toString().toLowerCase();
+            if (!s) return 'new';
+            // Backward compatibility: treat archived as agreed
+            if (s === 'archived') return 'agreed';
+            if (s === 'new' || s === 'viewed' || s === 'agreed') return s;
+            return 'new';
+        }
+
+        function getStatusLabel(status) {
+            switch (normalizeStatus(status)) {
+                case 'viewed': return 'Viewed';
+                case 'agreed': return 'Agreed';
+                case 'new':
+                default: return 'New';
+            }
+        }
 
         // Initialize dashboard
         document.addEventListener('DOMContentLoaded', function() {
@@ -2061,7 +2245,7 @@
                     projectType: item.project_type || '',
                     notes: item.notes || '',
                     date: item.created_at || new Date().toISOString(),
-                    status: item.status || 'new'
+                    status: normalizeStatus(item.status)
                 }));
 
                 applyFilters();
@@ -2231,7 +2415,7 @@
                         <div class="card-header">
                             <div>
                                 <span class="card-type ${typeClass}">${item.type}</span>
-                                <span class="status-badge status-${item.status}" style="margin-left: 0.5rem;">${item.status}</span>
+                                <span class="status-badge status-${item.status}" style="margin-left: 0.5rem;">${getStatusLabel(item.status)}</span>
                             </div>
                             <div class="card-date">${dateStr}</div>
                         </div>
@@ -2282,9 +2466,9 @@
                                 <i class='bx bxl-whatsapp'></i>
                                 WhatsApp
                             </button>
-                            <button class="btn btn-small btn-primary" onclick="viewDetails(${item.id})">
-                                <i class='bx bx-detail'></i>
-                                Details
+                            <button class="btn btn-small btn-secondary" onclick="openStatusModal('${item.id}')" title="Set Status">
+                                <i class='bx bx-check-shield'></i>
+                                Status
                             </button>
                             <button class="btn btn-small btn-delete" data-id="${item.id}" onclick="openDeleteModal('single', this.dataset.id)">
                                 <i class='bx bx-trash'></i>
@@ -2293,6 +2477,47 @@
                     </div>
                 `;
             }).join('');
+        }
+
+        // Status modal
+        function openStatusModal(id) {
+            pendingStatusId = String(id);
+            const item = allData.find(d => String(d.id) === String(id));
+            const modal = document.getElementById('status-modal');
+            setStatusSelection(normalizeStatus(item?.status || 'new'));
+            if (modal) modal.classList.add('active');
+        }
+
+        function closeStatusModal() {
+            const modal = document.getElementById('status-modal');
+            if (modal) modal.classList.remove('active');
+            pendingStatusId = null;
+        }
+
+        function setStatusSelection(status) {
+            const value = normalizeStatus(status || 'new');
+            const hidden = document.getElementById('status-selected');
+            if (hidden) hidden.value = value;
+
+            document.querySelectorAll('#status-modal .status-option').forEach(btn => {
+                const isSelected = btn.dataset.value === value;
+                btn.classList.toggle('is-selected', isSelected);
+                btn.setAttribute('aria-checked', isSelected ? 'true' : 'false');
+            });
+        }
+
+        function selectStatusOption(buttonEl) {
+            if (!buttonEl) return;
+            const value = buttonEl.dataset.value || 'new';
+            setStatusSelection(value);
+        }
+
+        async function saveStatus() {
+            const hidden = document.getElementById('status-selected');
+            const status = normalizeStatus(hidden?.value || 'new');
+            if (!pendingStatusId) return;
+            await changeStatus(pendingStatusId, status);
+            closeStatusModal();
         }
 
         // View details
@@ -2390,11 +2615,6 @@
             `;
 
             modal.classList.add('active');
-
-            // Mark as viewed if new
-            if (item.status === 'new') {
-                changeStatus(id, 'viewed');
-            }
         }
 
         // Close modal
@@ -2421,6 +2641,12 @@
             }
         });
 
+        document.getElementById('status-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeStatusModal();
+            }
+        });
+
         // Change status in Supabase
         async function changeStatus(id, status) {
             try {
@@ -2428,9 +2654,6 @@
                 const { error } = await supabase.from('requests').update({ status }).eq('id', id);
                 if (error) throw error;
                 await loadData(false);
-                if (document.getElementById('detail-modal').classList.contains('active')) {
-                    viewDetails(id);
-                }
             } catch (err) {
                 console.error('Status update error:', err);
                 alert('تعذر تحديث الحالة، حاول مرة أخرى.');
