@@ -325,6 +325,109 @@
             }
         }
 
+        .hero-banner {
+            background: linear-gradient(135deg, rgba(200,170,136,0.15), rgba(255,255,255,0.9));
+            border: 1px solid rgba(200,170,136,0.25);
+            box-shadow: 0 15px 45px rgba(0,0,0,0.06);
+            border-radius: 18px;
+            padding: 1.5rem 1.75rem;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: center;
+            gap: 1rem;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-banner::after {
+            content: '';
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(200,170,136,0.25), transparent 65%);
+            top: -60px;
+            right: -40px;
+            pointer-events: none;
+        }
+
+        .hero-kicker {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 0.35rem;
+        }
+
+        .hero-title {
+            font-size: 1.65rem;
+            font-weight: 800;
+            color: var(--text-color);
+            margin-bottom: 0.35rem;
+        }
+
+        .hero-sub {
+            color: var(--text-color);
+            opacity: 0.8;
+            font-size: 0.98rem;
+        }
+
+        .hero-pills {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.4rem 0.85rem;
+            border-radius: 999px;
+            background: rgba(200,170,136,0.2);
+            color: var(--primary-dark);
+            font-weight: 700;
+            font-size: 0.9rem;
+            border: 1px solid rgba(200,170,136,0.35);
+        }
+
+        .hero-banner .mobile-menu-toggle {
+            position: static;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            padding: 0;
+            font-size: 1.2rem;
+            background: #fff;
+            color: var(--primary-dark);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            justify-self: end;
+            border: 1px solid rgba(200,170,136,0.45);
+            transition: all 0.2s ease;
+        }
+
+        .hero-banner .mobile-menu-toggle:hover {
+            background: var(--primary-color);
+            color: #fff;
+            border-color: var(--primary-color);
+        }
+
+        .hero-banner .mobile-menu-toggle:focus-visible {
+            outline: 3px solid rgba(200,170,136,0.4);
+            outline-offset: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .hero-banner {
+                grid-template-columns: 1fr;
+                align-items: flex-start;
+            }
+        }
+
         .header {
             display: flex;
             justify-content: space-between;
@@ -515,6 +618,11 @@
         .card-type.message {
             background: #fff3e0;
             color: #f57c00;
+        }
+
+        .card-type.booking {
+            background: #e0f7fa;
+            color: #00796b;
         }
 
         .card-date {
@@ -1283,12 +1391,6 @@
     <!-- Mobile Overlay -->
     <div class="mobile-overlay" id="mobile-overlay" onclick="closeMobileMenu()" role="button" aria-label="Close menu" tabindex="-1"></div>
 
-    <!-- Mobile Menu Toggle -->
-    <button class="mobile-menu-toggle" id="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="sidebar">
-        <i class='bx bx-menu' id="menu-icon" aria-hidden="true"></i>
-        <span class="sr-only">Menu</span>
-    </button>
-
     <div class="dashboard-container" id="dashboard-container" style="display: none;">
         <!-- Sidebar -->
         <aside class="sidebar" id="sidebar" role="navigation" aria-label="Main navigation">
@@ -1315,6 +1417,10 @@
                         <i class='bx bx-tree' aria-hidden="true"></i>
                         <span>Landscape Design</span>
                     </a></li>
+                    <li><a href="#" class="nav-link" data-filter="booking" role="button" aria-label="Show bookings">
+                        <i class='bx bx-calendar' aria-hidden="true"></i>
+                        <span>Bookings</span>
+                    </a></li>
                     <li><a href="#" class="nav-link" data-filter="message" role="button" aria-label="Show messages">
                         <i class='bx bx-message' aria-hidden="true"></i>
                         <span>Messages</span>
@@ -1335,8 +1441,12 @@
                     <div class="stat-number" id="today-count">0</div>
                     <div class="stat-label">Today</div>
                 </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="visits-count">0</div>
+                    <div class="stat-label">Site Visits</div>
+                </div>
             </div>
-            <button class="logout-btn" onclick="logout()" aria-label="Logout from admin dashboard">
+            <button class="logout-btn" onclick="openLogoutModal()" aria-label="Logout from admin dashboard">
                 <i class='bx bx-log-out' aria-hidden="true"></i> 
                 <span>Logout</span>
             </button>
@@ -1344,6 +1454,18 @@
 
         <!-- Main Content -->
         <main class="main-content">
+            <div class="hero-banner">
+                <div>
+                    <div class="hero-kicker">samar ammar Admin</div>
+                    <div class="hero-title">Dashboard Overview</div>
+                    <div class="hero-sub">Manage requests, bookings, and messages in one place.</div>
+                </div>
+            
+                <button class="mobile-menu-toggle" id="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="sidebar">
+                    <i class='bx bx-menu' id="menu-icon" aria-hidden="true"></i>
+                    <span class="sr-only">Menu</span>
+                </button>
+            </div>
             <div class="header">
                 <h2>Design Requests & Messages</h2>
                 <div class="header-actions">
@@ -1354,6 +1476,14 @@
                     <button class="btn btn-secondary" onclick="exportData()" aria-label="Export data to CSV">
                         <i class='bx bx-download' aria-hidden="true"></i>
                         <span>Export</span>
+                    </button>
+                    <a class="btn btn-secondary" href="assets/pages/booking.html" target="_blank" rel="noopener" aria-label="Open booking page">
+                        <i class='bx bx-calendar' aria-hidden="true"></i>
+                        <span>Booking Page</span>
+                    </a>
+                    <button class="btn btn-secondary" onclick="openDeleteModal('all-messages')" aria-label="Delete all messages">
+                        <i class='bx bx-trash' aria-hidden="true"></i>
+                        <span>Delete Messages</span>
                     </button>
                 </div>
             </div>
@@ -1373,6 +1503,7 @@
                             <option value="Interior Design">Interior Design</option>
                             <option value="Exterior Design">Exterior Design</option>
                             <option value="Landscape Design">Landscape Design</option>
+                            <option value="Booking">Booking</option>
                             <option value="Message">Contact Message</option>
                         </select>
                     </div>
@@ -1425,12 +1556,50 @@
         </div>
     </div>
 
+    <!-- Logout Confirmation Modal -->
+    <div class="modal" id="logout-modal">
+        <div class="modal-content" style="max-width: 420px;">
+            <div class="modal-header">
+                <h3>Confirm Logout</h3>
+                <button class="close-modal" onclick="closeLogoutModal()">
+                    <i class='bx bx-x'></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p style="margin-bottom: 1.5rem; color: var(--text-color);">Are you sure you want to logout?</p>
+                <div style="display: flex; gap: 0.75rem; justify-content: flex-end; flex-wrap: wrap;">
+                    <button class="btn btn-secondary" onclick="closeLogoutModal()">Cancel</button>
+                    <button class="btn btn-primary" onclick="confirmLogout()">Logout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal" id="delete-modal">
+        <div class="modal-content" style="max-width: 440px;">
+            <div class="modal-header">
+                <h3>Confirm Delete</h3>
+                <button class="close-modal" onclick="closeDeleteModal()">
+                    <i class='bx bx-x'></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="delete-message" style="margin-bottom: 1.5rem; color: var(--text-color);">Are you sure you want to delete?</p>
+                <div style="display: flex; gap: 0.75rem; justify-content: flex-end; flex-wrap: wrap;">
+                    <button class="btn btn-secondary" onclick="closeDeleteModal()">Cancel</button>
+                    <button class="btn btn-primary" onclick="confirmDelete()">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
     <script src="assets/js/supabase-client.js"></script>
     <script>
         // Authentication
         const DEFAULT_USERNAME = 'admin';
-        const DEFAULT_PASSWORD = 'samar2025'; // Change this password!
+        const DEFAULT_PASSWORD = 'samarammar2026'; // Change this password!
         
         // Simple hash function for password storage
         function simpleHash(str) {
@@ -1514,13 +1683,23 @@
             document.getElementById('password').value = '';
         }
         
-        // Logout
-        function logout() {
-            if (confirm('Are you sure you want to logout?')) {
-                sessionStorage.removeItem('adminAuthenticated');
-                checkAuth();
-                document.getElementById('login-form').reset();
-            }
+        // Logout flow
+        function openLogoutModal() {
+            const modal = document.getElementById('logout-modal');
+            if (modal) modal.classList.add('active');
+        }
+
+        function closeLogoutModal() {
+            const modal = document.getElementById('logout-modal');
+            if (modal) modal.classList.remove('active');
+        }
+
+        function confirmLogout() {
+            sessionStorage.removeItem('adminAuthenticated');
+            closeLogoutModal();
+            checkAuth();
+            const form = document.getElementById('login-form');
+            if (form) form.reset();
         }
 
         // Toggle mobile menu
@@ -1598,6 +1777,7 @@
             // Check authentication first
             if (checkAuth()) {
                 loadData();
+                loadVisits();
                 setupEventListeners();
                 initializeAutoRefresh(); // Start auto-refresh
             }
@@ -1764,6 +1944,7 @@
                         'interior': 'Interior Design',
                         'exterior': 'Exterior Design',
                         'landscape': 'Landscape Design',
+                        'booking': 'Booking',
                         'message': 'Message'
                     };
                     if (item.type !== typeMap[navFilter]) return false;
@@ -1889,7 +2070,7 @@
                                 <i class='bx bx-detail'></i>
                                 Details
                             </button>
-                            <button class="btn btn-small btn-delete" onclick="deleteItem(${item.id})">
+                            <button class="btn btn-small btn-delete" data-id="${item.id}" onclick="openDeleteModal('single', this.dataset.id)">
                                 <i class='bx bx-trash'></i>
                             </button>
                         </div>
@@ -2005,10 +2186,22 @@
             document.getElementById('detail-modal').classList.remove('active');
         }
 
-        // Close modal on outside click
+        // Close modals on outside click
         document.getElementById('detail-modal').addEventListener('click', function(e) {
             if (e.target === this) {
                 closeModal();
+            }
+        });
+
+        document.getElementById('logout-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeLogoutModal();
+            }
+        });
+
+        document.getElementById('delete-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeDeleteModal();
             }
         });
 
@@ -2028,18 +2221,43 @@
             }
         }
 
-        // Delete item
-        async function deleteItem(id) {
-            if (!confirm('Are you sure you want to delete this request?')) return;
+        // Delete flows
+        let pendingDelete = { mode: null, id: null };
+
+        function openDeleteModal(mode, id = null) {
+            pendingDelete = { mode, id };
+            const modal = document.getElementById('delete-modal');
+            const msg = document.getElementById('delete-message');
+            if (msg) {
+                msg.textContent = mode === 'all-messages'
+                    ? 'Delete all messages? This action cannot be undone.'
+                    : 'Delete this entry? This action cannot be undone.';
+            }
+            if (modal) modal.classList.add('active');
+        }
+
+        function closeDeleteModal() {
+            const modal = document.getElementById('delete-modal');
+            if (modal) modal.classList.remove('active');
+            pendingDelete = { mode: null, id: null };
+        }
+
+        async function confirmDelete() {
             try {
                 const supabase = getSupabaseClient();
-                const { error } = await supabase.from('requests').delete().eq('id', id);
-                if (error) throw error;
+                if (pendingDelete.mode === 'all-messages') {
+                    const { error } = await supabase.from('requests').delete().eq('service', 'Message');
+                    if (error) throw error;
+                } else if (pendingDelete.mode === 'single' && pendingDelete.id) {
+                    const { error } = await supabase.from('requests').delete().eq('id', pendingDelete.id);
+                    if (error) throw error;
+                }
                 await loadData(false);
-                closeModal();
             } catch (err) {
                 console.error('Delete error:', err);
                 alert('تعذر الحذف، حاول مرة أخرى.');
+            } finally {
+                closeDeleteModal();
             }
         }
 
@@ -2080,6 +2298,7 @@
             }
             
             loadData(true);
+            loadVisits();
             
             // Restore button state after a delay
             setTimeout(() => {
@@ -2123,6 +2342,44 @@
             return [headers, ...rows].map(row => 
                 row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(',')
             ).join('\n');
+        }
+
+        // Load site visits count (soft-fail if table missing)
+        let visitsEnabled = true;
+
+        async function loadVisits() {
+            if (!visitsEnabled) return;
+            try {
+                const supabase = getSupabaseClient();
+                const { count, error } = await supabase
+                    .from('visits')
+                    .select('*', { count: 'exact', head: true });
+                if (error) throw error;
+                const visits = count || 0;
+                const el = document.getElementById('visits-count');
+                if (el) el.textContent = visits.toLocaleString();
+            } catch (err) {
+                // If table is missing, disable further calls
+                if (err?.code === '42P01') {
+                    visitsEnabled = false;
+                }
+                const el = document.getElementById('visits-count');
+                if (el) el.textContent = '—';
+            }
+        }
+
+        // Delete all messages
+        async function deleteAllMessages() {
+            if (!confirm('هل أنت متأكد من حذف جميع الرسائل؟ هذا الإجراء لا يمكن التراجع عنه.')) return;
+            try {
+                const supabase = getSupabaseClient();
+                const { error } = await supabase.from('requests').delete().eq('service', 'Message');
+                if (error) throw error;
+                await loadData(false);
+            } catch (err) {
+                console.error('Delete all messages error:', err);
+                alert('تعذر حذف الرسائل، حاول مرة أخرى.');
+            }
         }
 
         // Set API Key
