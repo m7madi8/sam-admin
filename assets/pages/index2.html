@@ -209,6 +209,33 @@
             z-index: 10;
             margin-top: 1.5rem;
         }
+
+        /* Project page links */
+        .gallery-item[data-project-link] {
+            cursor: pointer;
+        }
+        
+        .project-link-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            padding: 0.45rem 0.85rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border-radius: 8px;
+            color: var(--first-color);
+            border: 1px solid rgba(166, 124, 82, 0.35);
+            background: rgba(166, 124, 82, 0.08);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .project-link-btn:hover {
+            color: #fff;
+            background: var(--first-color);
+            transform: translateY(-1px);
+        }
         
         /* Responsive adjustments */
         @media screen and (max-width: 1200px) {
@@ -397,9 +424,9 @@
                 ]'>
                 <div class="card gallery-card h-100">
                     <img 
-                        data-src="../images/exterior-photos/منزل عيسى/d64c72e6-8f4a-48ed-bc50-c230ae598e42.jpg" 
+                        src="../images/exterior-photos/منزل عيسى/d64c72e6-8f4a-48ed-bc50-c230ae598e42.jpg" 
                         alt="منزل السيد عيسى" 
-                        class="card-img-top lazy" 
+                        class="card-img-top" 
                         loading="lazy" 
                         width="400" 
                         height="300"/>
@@ -566,6 +593,7 @@
                 class="col-12 col-sm-6 col-md-6 col-lg-4 gallery-item" 
                 data-category="interior"
                 data-completed="true" 
+                data-project-link="project-dawood-villa.html"
                 data-lightbox-images='[
                     "../images/interior-photos/تصميم فيلا السيد داوود -اريحا/الطابق الارضي/in130.webp",
                     "../images/interior-photos/تصميم فيلا السيد داوود -اريحا/الطابق الارضي/WhatsApp Image 2024-10-12 at 11.01.54 AM.webp",
@@ -586,6 +614,7 @@
                     <div class="card-body">
                         <h5 class="card-title">منزل السيد داوود</h5>
                         <p class="card-text"></p>
+                        <a class="project-link-btn" href="project-dawood-villa.html">View project</a>
                     </div>
                 </div>
             </div>
@@ -978,9 +1007,9 @@
                 ]'>
                 <div class="card gallery-card h-100">
                     <img 
-                        data-src="../images/interior-photos/مطعم بهاء/BBQ (1).jpg" 
+                        src="../images/interior-photos/مطعم بهاء/BBQ (1).jpg" 
                         alt="مطعم بهاء" 
-                        class="card-img-top lazy" 
+                        class="card-img-top" 
                         loading="lazy" 
                         width="400" 
                         height="300"/>
@@ -1031,6 +1060,7 @@
             <div 
                 class="col-12 col-sm-6 col-md-6 col-lg-4 gallery-item" 
                 data-category="landscape" 
+                data-project-link="project-lara-garden.html"
                 data-lightbox-images='[
                     "../images/landscape-photos/منزل لارا/8f879473-f60a-4d46-a41b-3cdaa7a9bb1c.jpg",
                     "../images/landscape-photos/منزل لارا/b7fe15cf-03c5-41bb-8721-17ae3a9ff89b.jpg",
@@ -1051,6 +1081,7 @@
                     <div class="card-body">
                         <h5 class="card-title">تصميم حديقة السيده لارا</h5>
                         <p class="card-text"></p>
+                        <a class="project-link-btn" href="project-lara-garden.html">View project</a>
                     </div>
                 </div>
             </div>
@@ -1100,9 +1131,9 @@
                 ]'>
                 <div class="card gallery-card h-100">
                     <img 
-                        data-src="../images/landscape-photos/حديقة السيد سامر -بيت دجن/la1.jpeg" 
+                        src="../images/landscape-photos/حديقة السيد سامر -بيت دجن/la1.jpeg" 
                         alt="تصميم حديقة السيد سامر" 
-                        class="card-img-top lazy" 
+                        class="card-img-top" 
                         loading="lazy" 
                         width="400" 
                         height="300"/>

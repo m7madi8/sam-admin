@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lara Residence Garden Retreat | Samar Ammar Interior Designer</title>
+    <meta name="description" content="A full landscape project for the Lara Residence Garden Retreat, featuring layered planting, outdoor living zones, and warm evening lighting.">
+    <link rel="icon" href="../images/beige-logo.png" sizes="128x128" type="image/png">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="../../style.css" rel="stylesheet">
+    <link href="../css/style2.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 90px;
+            background: linear-gradient(180deg, #f7f2ec 0%, #fdfaf6 45%, #f5efe7 100%);
+        }
+
+        main.container {
+            max-width: 1180px;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background-color: rgba(253, 250, 246, 0.95) !important;
+            backdrop-filter: blur(10px) !important;
+            -webkit-backdrop-filter: blur(10px) !important;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05) !important;
+            padding: 1rem 3rem !important;
+        }
+
+        .header .navigation .menu-link {
+            color: var(--first-color) !important;
+            background: none !important;
+            -webkit-background-clip: unset !important;
+            background-clip: unset !important;
+            filter: none !important;
+        }
+
+        .header #menu-icon {
+            color: var(--first-color) !important;
+            background: none !important;
+            -webkit-background-clip: unset !important;
+            background-clip: unset !important;
+            filter: none !important;
+        }
+
+        .project-hero {
+            position: relative;
+            text-align: center;
+            padding: 3.5rem 1.5rem 3rem;
+            border-radius: 28px;
+            background: linear-gradient(135deg, rgba(21, 17, 14, 0.92), rgba(57, 41, 26, 0.88));
+            color: #fefbf7;
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(25, 19, 13, 0.35);
+        }
+
+        .project-hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: url("../images/landscape-photos/منزل لارا/8f879473-f60a-4d46-a41b-3cdaa7a9bb1c.jpg") center/cover no-repeat;
+            opacity: 0.35;
+            transform: scale(1.05);
+        }
+
+        .project-hero::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.6) 100%);
+        }
+
+        .project-hero > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .project-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            padding: 0.4rem 0.9rem;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #f6e6d2;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(246, 230, 210, 0.35);
+        }
+
+        .project-title {
+            margin: 1rem 0 0.5rem;
+            font-size: clamp(2rem, 3.6vw, 3.4rem);
+            font-weight: 800;
+            color: #fef9f2;
+        }
+
+        .project-subtitle {
+            max-width: 780px;
+            margin: 0 auto;
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 1.08rem;
+        }
+
+        .project-actions {
+            margin-top: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            justify-content: center;
+        }
+
+        .project-back-btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 10px;
+            border: none;
+            background: linear-gradient(135deg, #caa36f, #a67c52);
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .project-back-btn.outline {
+            background: rgba(255, 255, 255, 0.08);
+            color: #f6e6d2;
+            border: 1px solid rgba(246, 230, 210, 0.4);
+        }
+
+        .project-back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(166, 124, 82, 0.2);
+        }
+
+        .project-section {
+            margin: 3rem auto;
+        }
+
+        .project-section h2 {
+            font-size: 1.85rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            color: #2d2d2d;
+        }
+
+        .project-carousel {
+            border-radius: 22px;
+            overflow: hidden;
+            box-shadow: 0 22px 48px rgba(30, 22, 16, 0.3);
+            border: 1px solid rgba(166, 124, 82, 0.25);
+        }
+
+        .project-carousel img {
+            max-height: 560px;
+            object-fit: cover;
+        }
+
+        .project-preview-scroll {
+            margin-top: 1.6rem;
+            position: relative;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scroll-snap-type: x mandatory;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+            overscroll-behavior-x: contain;
+            -webkit-overflow-scrolling: touch;
+            cursor: grab;
+        }
+
+        .project-preview-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .project-preview-track {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            width: max-content;
+            padding: 0.6rem 0.2rem 1rem;
+        }
+
+        .project-preview-track img {
+            height: 600px;
+            width: auto;
+            max-width: 98vw;
+            object-fit: contain;
+            border-radius: 20px;
+            box-shadow: 0 18px 40px rgba(30, 22, 16, 0.28);
+            border: 1px solid rgba(166, 124, 82, 0.25);
+            background: #fff;
+            scroll-snap-align: center;
+        }
+
+        .project-preview-scroll:active {
+            cursor: grabbing;
+        }
+
+        .scroll-hint {
+            margin-top: 0.6rem;
+            font-size: 0.9rem;
+            color: var(--text-color-light);
+            text-align: center;
+            letter-spacing: 0.04em;
+        }
+
+        .details-grid,
+        .spec-grid,
+        .highlight-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.2rem;
+        }
+
+        .detail-card,
+        .spec-item,
+        .highlight-card {
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 18px;
+            padding: 1.4rem;
+            border: 1px solid rgba(166, 124, 82, 0.2);
+            box-shadow: 0 14px 30px rgba(30, 22, 16, 0.12);
+        }
+
+        .detail-card h3,
+        .highlight-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: #3c2f23;
+        }
+
+        .detail-list {
+            padding-left: 1.1rem;
+            margin: 0;
+            color: var(--text-color);
+        }
+
+        .spec-item span {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--text-color-light);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 0.35rem;
+        }
+
+        .spec-item strong {
+            font-size: 1rem;
+            color: #2d2d2d;
+        }
+
+        .note-box {
+            background: linear-gradient(135deg, rgba(166, 124, 82, 0.12), rgba(246, 230, 210, 0.35));
+            border-radius: 18px;
+            padding: 1.8rem;
+            text-align: center;
+            color: #3c2f23;
+            border: 1px solid rgba(166, 124, 82, 0.25);
+        }
+
+        .is-hidden {
+            display: none !important;
+        }
+
+        @media screen and (max-width: 968px) {
+            .header {
+                padding: 0.8rem 1.5rem !important;
+            }
+            body {
+                padding-top: 80px;
+            }
+            .project-carousel img {
+                max-height: 420px;
+            }
+        }
+
+        @media screen and (max-width: 576px) {
+            .project-carousel img {
+                max-height: 320px;
+            }
+
+            .project-preview-track img {
+                height: 420px;
+            }
+        }
+    </style>
+</head>
+<body class="page-fade page-fade-in">
+
+
+    <header id="header1-unique" class="header scrolled">
+        <img src="../images/beige-logo.png" alt="Samar Ammar Interior, Exterior, and Landscape Designer Logo in Palestine Ramallah" id="logo" loading="eager" width="60" height="60"/>
+        <nav class="navigation">
+            <ul>
+                <li><a href="../../index.html#home" class="menu-link slide-up">home</a></li>
+                <li><a href="../../index.html#about" class="menu-link slide-up">about</a></li>
+                <li><a href="../../index.html#map2" class="menu-link slide-up">our projects</a></li>
+                <li><a href="../../index.html#faq" class="menu-link slide-up">FAQ</a></li>
+                <li><a href="../../index.html#contact-us" class="menu-link slide-up">contact us</a></li>
+            </ul>
+        </nav>
+        <i class='bx bx-menu' id="menu-icon"></i>
+    </header>
+
+    <div id="overlay">
+        <button id="close-icon" aria-label="Close menu" type="button">
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <defs>
+                    <linearGradient id="closeGrad" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#ffffff"/>
+                        <stop offset="100%" stop-color="#a67c52"/>
+                    </linearGradient>
+                </defs>
+                <line x1="12" y1="12" x2="24" y2="24" stroke="url(#closeGrad)"/>
+                <line x1="24" y1="12" x2="12" y2="24" stroke="url(#closeGrad)"/>
+            </svg>
+        </button>
+        <div id="menu">
+            <ul>
+                <li><a href="../../index.html#home" class="menu-link slide-up">home</a></li>
+                <li><a href="../../index.html#about" class="menu-link slide-up">about</a></li>
+                <li><a href="../../index.html#map2" class="menu-link slide-up">our projects</a></li>
+                <li><a href="../../index.html#faq" class="menu-link slide-up">FAQ</a></li>
+                <li><a href="../../index.html#contact-us" class="menu-link slide-up">contact us</a></li>
+            </ul>
+            <div class="menu-social">
+                <a href="https://wa.me/+972569126200" target="_blank" aria-label="WhatsApp"><i class='bx bxl-whatsapp'></i></a>
+                <a href="https://www.instagram.com/samarammarinterior?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" aria-label="Instagram"><i class='bx bxl-instagram'></i></a>
+                <a href="https://www.facebook.com/share/18o8oJW7R9/" target="_blank" aria-label="Facebook"><i class='bx bxl-facebook-circle'></i></a>
+            </div>
+            <div class="menu-footer">
+                <img src="../images/beige-logo.png" alt="Samar Ammar Interior Designer Logo" loading="lazy" width="110" height="110"/>
+            </div>
+        </div>
+    </div>
+
+    <main class="container">
+        <section class="project-hero">
+            <div class="project-badge">Landscape Project</div>
+            <h1 class="project-title">Lara Residence Garden Retreat</h1>
+            <p class="project-subtitle">
+                A calm outdoor sanctuary designed around layered planting, soft lighting, and comfortable lounge areas.
+                This concept creates a welcoming garden experience from day to night.
+            </p>
+            <div class="project-actions">
+                <a class="project-back-btn" href="index2.html#gallery-grid">Back to Gallery</a>
+                <a class="project-back-btn outline" href="booking.html">Request a Consultation</a>
+            </div>
+        </section>
+
+        <section class="project-section">
+            <h2>Gallery Highlights</h2>
+            <div class="project-preview-scroll" aria-label="Auto-scrolling highlights gallery">
+                <div class="project-preview-track">
+                    <img src="../images/landscape-photos/منزل لارا/8f879473-f60a-4d46-a41b-3cdaa7a9bb1c.jpg" alt="Garden entry view" loading="eager">
+                    <img src="../images/landscape-photos/منزل لارا/b7fe15cf-03c5-41bb-8721-17ae3a9ff89b.jpg" alt="Layered planting composition" loading="lazy">
+                    <img src="../images/landscape-photos/منزل لارا/edc76621-18c0-4d0d-9d08-080c5762fe59.jpg" alt="Outdoor lounge area" loading="lazy">
+                    <img src="../images/landscape-photos/منزل لارا/cd89f3a6-8196-45b1-9507-27c1e13c2ceb.jpg" alt="Stone pathway detail" loading="lazy">
+                    <img src="../images/landscape-photos/منزل لارا/2813dbd1-7d3d-4127-b05f-895bad9696df.jpg" alt="Garden deck seating" loading="lazy">
+                    <img src="../images/landscape-photos/منزل لارا/e069fff6-0b9c-4a62-a35e-96ecc214c275.jpg" alt="Evening lighting mood" loading="lazy">
+                    <img src="../images/landscape-photos/منزل لارا/8f879473-f60a-4d46-a41b-3cdaa7a9bb1c.jpg" alt="Garden entry view duplicate" loading="lazy" aria-hidden="true">
+                    <img src="../images/landscape-photos/منزل لارا/b7fe15cf-03c5-41bb-8721-17ae3a9ff89b.jpg" alt="Layered planting composition duplicate" loading="lazy" aria-hidden="true">
+                    <img src="../images/landscape-photos/منزل لارا/edc76621-18c0-4d0d-9d08-080c5762fe59.jpg" alt="Outdoor lounge area duplicate" loading="lazy" aria-hidden="true">
+                    <img src="../images/landscape-photos/منزل لارا/cd89f3a6-8196-45b1-9507-27c1e13c2ceb.jpg" alt="Stone pathway detail duplicate" loading="lazy" aria-hidden="true">
+                    <img src="../images/landscape-photos/منزل لارا/2813dbd1-7d3d-4127-b05f-895bad9696df.jpg" alt="Garden deck seating duplicate" loading="lazy" aria-hidden="true">
+                    <img src="../images/landscape-photos/منزل لارا/e069fff6-0b9c-4a62-a35e-96ecc214c275.jpg" alt="Evening lighting mood duplicate" loading="lazy" aria-hidden="true">
+                </div>
+            </div>
+            <div class="scroll-hint">Swipe or scroll to explore more highlights.</div>
+        </section>
+
+        <section class="project-section is-hidden">
+            <h2>Project Gallery</h2>
+            <div id="laraGardenCarousel" class="carousel slide project-carousel" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#laraGardenCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#laraGardenCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#laraGardenCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    <button type="button" data-bs-target="#laraGardenCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                    <button type="button" data-bs-target="#laraGardenCarousel" data-bs-slide-to="4" aria-label="Slide 5"></button>
+                    <button type="button" data-bs-target="#laraGardenCarousel" data-bs-slide-to="5" aria-label="Slide 6"></button>
+                    <button type="button" data-bs-target="#laraGardenCarousel" data-bs-slide-to="6" aria-label="Slide 7"></button>
+                    <button type="button" data-bs-target="#laraGardenCarousel" data-bs-slide-to="7" aria-label="Slide 8"></button>
+                    <button type="button" data-bs-target="#laraGardenCarousel" data-bs-slide-to="8" aria-label="Slide 9"></button>
+                    <button type="button" data-bs-target="#laraGardenCarousel" data-bs-slide-to="9" aria-label="Slide 10"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="../images/landscape-photos/منزل لارا/8f879473-f60a-4d46-a41b-3cdaa7a9bb1c.jpg" class="d-block w-100" alt="Lara residence garden entry view" loading="eager">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="../images/landscape-photos/منزل لارا/b7fe15cf-03c5-41bb-8721-17ae3a9ff89b.jpg" class="d-block w-100" alt="Lara residence planting layers" loading="lazy">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="../images/landscape-photos/منزل لارا/edc76621-18c0-4d0d-9d08-080c5762fe59.jpg" class="d-block w-100" alt="Outdoor lounge seating area" loading="lazy">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="../images/landscape-photos/منزل لارا/cd89f3a6-8196-45b1-9507-27c1e13c2ceb.jpg" class="d-block w-100" alt="Stone pathway and soft lighting" loading="lazy">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="../images/landscape-photos/منزل لارا/2813dbd1-7d3d-4127-b05f-895bad9696df.jpg" class="d-block w-100" alt="Garden deck and seating arrangement" loading="lazy">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="../images/landscape-photos/منزل لارا/2e410edf-d295-4a23-b9f7-d1bc1731f2dd.jpg" class="d-block w-100" alt="Outdoor dining zone" loading="lazy">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="../images/landscape-photos/منزل لارا/4ba4b32b-db2d-4d15-9b6c-5b49040293e8.jpg" class="d-block w-100" alt="Garden seating with canopy" loading="lazy">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="../images/landscape-photos/منزل لارا/15e464e7-34ca-4fb3-9380-337e77d0c235.jpg" class="d-block w-100" alt="Outdoor pergola area" loading="lazy">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="../images/landscape-photos/منزل لارا/e069fff6-0b9c-4a62-a35e-96ecc214c275.jpg" class="d-block w-100" alt="Evening lighting ambiance" loading="lazy">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="../images/landscape-photos/منزل لارا/72859b4f-c125-4287-ad88-948225bbc098.jpg" class="d-block w-100" alt="Garden overview at dusk" loading="lazy">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#laraGardenCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#laraGardenCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </section>
+
+        <section class="project-section">
+            <div class="details-grid">
+                <div class="detail-card">
+                    <h3>Project Overview</h3>
+                    <p>
+                        This garden transformation focuses on creating a balanced outdoor experience with shaded seating,
+                        layered greenery, and clear circulation paths. The layout guides visitors through intimate lounge
+                        pockets while keeping the open lawn as the central anchor.
+                    </p>
+                </div>
+                <div class="detail-card">
+                    <h3>Design Goals</h3>
+                    <ul class="detail-list">
+                        <li>Establish a calm, resort-like atmosphere for family gatherings.</li>
+                        <li>Blend hardscape materials with soft planting for visual depth.</li>
+                        <li>Introduce warm lighting for evening usability and safety.</li>
+                        <li>Define zones for dining, conversation, and relaxation.</li>
+                    </ul>
+                </div>
+                <div class="detail-card">
+                    <h3>Client Experience</h3>
+                    <p>
+                        The client wanted a garden that feels inviting in every season. We designed flexible seating and
+                        a lighting plan that highlights focal points while keeping pathways bright and comfortable.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="project-section">
+            <h2>Key Details</h2>
+            <div class="spec-grid">
+                <div class="spec-item">
+                    <span>Location</span>
+                    <strong>Ramallah, Palestine</strong>
+                </div>
+                <div class="spec-item">
+                    <span>Project Type</span>
+                    <strong>Residential Landscape</strong>
+                </div>
+                <div class="spec-item">
+                    <span>Area</span>
+                    <strong>420 m² (approx.)</strong>
+                </div>
+                <div class="spec-item">
+                    <span>Scope</span>
+                    <strong>Concept + Full Outdoor Styling</strong>
+                </div>
+                <div class="spec-item">
+                    <span>Duration</span>
+                    <strong>6 Weeks</strong>
+                </div>
+                <div class="spec-item">
+                    <span>Style</span>
+                    <strong>Modern Mediterranean</strong>
+                </div>
+            </div>
+        </section>
+
+        <section class="project-section">
+            <h2>Materials & Features</h2>
+            <div class="highlight-grid">
+                <div class="highlight-card">
+                    <h3>Stone & Timber Decking</h3>
+                    <p>Natural textures in warm tones to complement the surrounding architecture.</p>
+                </div>
+                <div class="highlight-card">
+                    <h3>Layered Planting</h3>
+                    <p>Evergreen structure with seasonal blooms for year-round vibrancy.</p>
+                </div>
+                <div class="highlight-card">
+                    <h3>Outdoor Lighting Plan</h3>
+                    <p>Low-glare fixtures to highlight paths, seating zones, and feature greenery.</p>
+                </div>
+                <div class="highlight-card">
+                    <h3>Entertaining Zones</h3>
+                    <p>Comfortable seating and dining areas designed for gatherings and quiet moments.</p>
+                </div>
+            </div>
+        </section>
+
+     
+    </main>
+
+    <footer class="gallery-footer text-center">
+        <small>All rights reserved to Samar Ammar | By <a target="_blank" href="https://m7madi8.github.io/Mohammad/" rel="nofollow">Mohammad Hroub</a></small>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const header = document.querySelector('.header');
+            if (header) {
+                header.classList.add('scrolled');
+            }
+            const logo = document.getElementById('logo');
+            const beigeLogo = '../images/beige-logo.png';
+            if (logo) {
+                logo.src = beigeLogo;
+                window.addEventListener('scroll', () => {
+                    logo.src = beigeLogo;
+                });
+            }
+
+            const previewScroll = document.querySelector('.project-preview-scroll');
+            const previewItems = document.querySelectorAll('.project-preview-track img');
+            if (previewScroll && previewItems.length > 0) {
+                let currentIndex = 0;
+                let autoTimer = null;
+                let isUserInteracting = false;
+                let resumeTimeout = null;
+
+                const scrollToIndex = (index) => {
+                    const target = previewItems[index];
+                    if (!target) return;
+                    const targetLeft = target.offsetLeft - (previewScroll.clientWidth - target.clientWidth) / 2;
+                    previewScroll.scrollTo({ left: targetLeft, behavior: 'smooth' });
+                };
+
+                const updateIndexFromScroll = () => {
+                    const scrollCenter = previewScroll.scrollLeft + previewScroll.clientWidth / 2;
+                    let closestIndex = 0;
+                    let closestDistance = Infinity;
+                    previewItems.forEach((item, idx) => {
+                        const itemCenter = item.offsetLeft + item.clientWidth / 2;
+                        const distance = Math.abs(scrollCenter - itemCenter);
+                        if (distance < closestDistance) {
+                            closestDistance = distance;
+                            closestIndex = idx;
+                        }
+                    });
+                    currentIndex = closestIndex;
+                };
+
+                const startAutoScroll = () => {
+                    clearInterval(autoTimer);
+                    autoTimer = setInterval(() => {
+                        if (isUserInteracting) return;
+                        updateIndexFromScroll();
+                        currentIndex = (currentIndex + 1) % previewItems.length;
+                        scrollToIndex(currentIndex);
+                    }, 5000);
+                };
+
+                const pauseAutoScroll = () => {
+                    isUserInteracting = true;
+                    clearTimeout(resumeTimeout);
+                };
+
+                const resumeAutoScroll = () => {
+                    clearTimeout(resumeTimeout);
+                    resumeTimeout = setTimeout(() => {
+                        updateIndexFromScroll();
+                        isUserInteracting = false;
+                    }, 200);
+                };
+
+                previewScroll.addEventListener('pointerdown', pauseAutoScroll);
+                previewScroll.addEventListener('touchstart', pauseAutoScroll, { passive: true });
+                previewScroll.addEventListener('mouseenter', pauseAutoScroll);
+                previewScroll.addEventListener('focusin', pauseAutoScroll);
+
+                previewScroll.addEventListener('pointerup', resumeAutoScroll);
+                previewScroll.addEventListener('touchend', resumeAutoScroll);
+                previewScroll.addEventListener('mouseleave', resumeAutoScroll);
+                previewScroll.addEventListener('focusout', resumeAutoScroll);
+                previewScroll.addEventListener('scroll', () => {
+                    if (isUserInteracting) {
+                        updateIndexFromScroll();
+                    }
+                }, { passive: true });
+
+                previewScroll.addEventListener('wheel', (event) => {
+                    if (Math.abs(event.deltaY) > Math.abs(event.deltaX)) {
+                        event.preventDefault();
+                        previewScroll.scrollLeft += event.deltaY;
+                        pauseAutoScroll();
+                        clearTimeout(previewScroll._wheelTimeout);
+                        previewScroll._wheelTimeout = setTimeout(resumeAutoScroll, 400);
+                    }
+                }, { passive: false });
+
+                scrollToIndex(0);
+                startAutoScroll();
+            }
+        });
+    </script>
+</body>
+</html>

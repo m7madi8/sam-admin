@@ -200,7 +200,14 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Event listeners for lightbox
     items.forEach((item, idx) => {
-        item.addEventListener('click', () => showLightbox(idx, 0));
+        item.addEventListener('click', () => {
+            const projectLink = item.getAttribute('data-project-link');
+            if (projectLink) {
+                window.location.href = projectLink;
+                return;
+            }
+            showLightbox(idx, 0);
+        });
     });
     
     closeBtn.addEventListener('click', () => {
