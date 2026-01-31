@@ -294,7 +294,7 @@
       <div class="booking-container zoom-in">
         <h2>Book an Appointment</h2>
         <p>Please fill out the form below to schedule an appointment with Samar Ammar Interior Designer</p>
-        <form id="booking-form" onsubmit="handleBookingSubmit(event)">
+        <form id="booking-form" onsubmit="handleBookingFirebaseSubmit(event)">
           <div class="input-group">
             <input type="text" name="fullName" placeholder="Full Name" required />
             <input type="email" name="email" placeholder="Email Address" required />
@@ -321,57 +321,17 @@
   </div>  
 
 
-  <script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-  <script src="../js/supabase-client.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore-compat.js"></script>
+  <script src="../js/firebase-config.js"></script>
+  <script src="../js/firebase-forms.js"></script>
   <script>
     window.addEventListener('load', () => {
       document.getElementById('loader').style.display = 'none';
       const content = document.getElementById('content');
       content.style.display = 'block';
-      // تفعيل ظهور تدريجي
       setTimeout(() => content.classList.add('show'), 50);
     });
-
-    async function handleBookingSubmit(event) {
-      event.preventDefault();
-      const form = event.target;
-      const submitBtn = form.querySelector('button[type="submit"]');
-
-      const fullName = form.fullName.value.trim();
-      const email = form.email.value.trim();
-      const phone = form.phone.value.trim();
-      const service = form.service.value;
-      const date = form.date.value;
-      const time = form.time.value;
-      const message = form.message.value.trim();
-
-      const notes = `Preferred date: ${date || '-'} | time: ${time || '-'} | message: ${message || '-'}`;
-
-      try {
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Sending...';
-
-        const supabase = getSupabaseClient();
-        const { error } = await supabase.from('requests').insert([{
-          service: 'Booking',
-          name: fullName,
-          email,
-          phone,
-          project_type: service || '',
-          notes,
-          status: 'new'
-        }]);
-
-        if (error) throw error;
-        window.location.href = 'thanks.html';
-      } catch (err) {
-        console.error(err);
-        alert('تعذر إرسال الطلب الآن، حاول مرة أخرى.');
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Send Request';
-      }
-    }
   </script>
 </body>
 </html>

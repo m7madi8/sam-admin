@@ -357,13 +357,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- Visit Tracking (Supabase) ---
+    // --- Visit Tracking (PocketBase) ---
     const VISIT_STORAGE_KEY = 'sa_visit_logged_at';
     const VISIT_TTL_MS = 12 * 60 * 60 * 1000; // 12 hours cooldown
 
     async function trackVisit() {
-        // Skip if Supabase SDK/client not available (e.g., some standalone pages)
-        if (typeof getSupabaseClient !== 'function' || !window.supabase) return;
+        // Skip if PocketBase SDK/client not available (e.g., some standalone pages)
+        if (typeof getPocketBaseClient !== 'function' || !window.PocketBase) return;
 
         try {
             // Respect cookie preference
@@ -378,18 +378,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            const supabase = getSupabaseClient();
+            const pocketBase = getPocketBaseClient();
             const payload = {
                 path: window.location.pathname + window.location.search,
                 referrer: document.referrer || null,
                 user_agent: navigator.userAgent || null,
                 language: navigator.language || null,
-                screen: window.screen ? `${window.screen.width}x${window.screen.height}` : null,
-                created_at: new Date().toISOString()
+                screen: window.screen ? `${window.screen.width}x${window.screen.height}` : null
             };
 
-            const { error } = await supabase.from('visits').insert([payload]);
-            if (error) throw error;
+            await pocketBase.collection('visits').create(payload);
 
             localStorage.setItem(VISIT_STORAGE_KEY, String(now));
         } catch (err) {

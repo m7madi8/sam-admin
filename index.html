@@ -651,7 +651,7 @@
         </div>
         <div class="contact-form">
           <h2 class="section-title">Write To Us</h2>
-          <form id="contact-form" onsubmit="handleSupabaseSubmit(event, 'Message', 'assets/pages/thanks.html')">
+          <form id="contact-form" onsubmit="handleFirebaseSubmit(event, 'Message', 'assets/pages/thanks.html')">
             <div class="input-group">
               <input type="text" name="name" placeholder="Name" required>
               <input type="email" name="email" placeholder="Email" required>
@@ -727,57 +727,11 @@
     </div>
   </div>
 
-     <script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-     <script src="assets/js/supabase-client.js"></script>
+     <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app-compat.js"></script>
+     <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore-compat.js"></script>
+     <script src="assets/js/firebase-config.js"></script>
+     <script src="assets/js/firebase-forms.js"></script>
      <script src="script.js"></script>
-     <script>
-      async function handleSupabaseSubmit(event, serviceType, redirectUrl) {
-        event.preventDefault();
-        const form = event.target;
-        const submitBtn = form.querySelector('button[type="submit"]');
-        const originalText = submitBtn?.innerHTML;
-
-        if (submitBtn) {
-          submitBtn.innerHTML = 'Sending...';
-          submitBtn.disabled = true;
-        }
-
-        const formData = new FormData(form);
-        const payload = {
-          service: serviceType,
-          name: formData.get('name') || 'N/A',
-          phone: formData.get('phone') || 'N/A',
-          email: formData.get('email') || '',
-          location: formData.get('location') || '',
-          construction_status: formData.get('construction-status') || '',
-          area: formData.get('approx-area') || '',
-          project_type: formData.get('project-type') || '',
-          notes: formData.get('notes') || formData.get('message') || '',
-          status: 'new',
-          created_at: new Date().toISOString()
-        };
-
-        try {
-          const supabase = getSupabaseClient();
-          const { error } = await supabase.from('requests').insert([payload]);
-          if (error) throw error;
-          form.reset();
-          if (redirectUrl) {
-            window.location.href = redirectUrl;
-          } else {
-            alert('Submitted successfully.');
-          }
-        } catch (err) {
-          console.error('Submission error:', err);
-          alert('Submission failed, please try again.');
-        } finally {
-          if (submitBtn) {
-            submitBtn.innerHTML = originalText || 'Send';
-            submitBtn.disabled = false;
-          }
-        }
-      }
-     </script>
     <script>
       // Cookie consent
       (function() {

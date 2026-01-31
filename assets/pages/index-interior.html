@@ -327,7 +327,7 @@
               <img src="../images/beige-logo.png" alt="Samar Ammar Logo" loading="lazy">
     </div>
     <h1>Interior Design Request</h1>
-    <form onsubmit="handleSupabaseSubmit(event, 'Interior Design', 'thanks-page-interior.html')">
+    <form onsubmit="handleFirebaseSubmit(event, 'Interior Design', 'thanks-page-interior.html')">
 
       <label for="name">Full Name</label>
       <input type="text" id="name" name="name" placeholder="Your full name" required>
@@ -363,55 +363,9 @@
       <button type="submit">Submit Request</button>
     </form>
   </div>
-  <script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-  <script src="../js/supabase-client.js"></script>
-  <script>
-    async function handleSupabaseSubmit(event, serviceType, redirectUrl) {
-      event.preventDefault();
-      const form = event.target;
-      const submitBtn = form.querySelector('button[type="submit"]');
-      const originalText = submitBtn?.innerHTML;
-
-      if (submitBtn) {
-        submitBtn.innerHTML = 'Sending...';
-        submitBtn.disabled = true;
-      }
-
-      const formData = new FormData(form);
-      const payload = {
-        service: serviceType,
-        name: formData.get('name') || 'N/A',
-        phone: formData.get('phone') || 'N/A',
-        email: formData.get('email') || '',
-        location: formData.get('location') || '',
-        construction_status: formData.get('construction-status') || '',
-        area: formData.get('approx-area') || '',
-        project_type: formData.get('project-type') || '',
-        notes: formData.get('notes') || formData.get('message') || '',
-        status: 'new',
-        created_at: new Date().toISOString()
-      };
-
-      try {
-        const supabase = getSupabaseClient();
-        const { error } = await supabase.from('requests').insert([payload]);
-        if (error) throw error;
-        form.reset();
-        if (redirectUrl) {
-          window.location.href = redirectUrl;
-        } else {
-          alert('Submitted successfully.');
-        }
-      } catch (err) {
-        console.error('Submission error:', err);
-        alert('Submission failed, please try again.');
-      } finally {
-        if (submitBtn) {
-          submitBtn.innerHTML = originalText || 'Submit Request';
-          submitBtn.disabled = false;
-        }
-      }
-    }
-  </script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore-compat.js"></script>
+  <script src="../js/firebase-config.js"></script>
+  <script src="../js/firebase-forms.js"></script>
 </body>
 </html>
