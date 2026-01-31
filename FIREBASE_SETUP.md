@@ -77,3 +77,26 @@ service cloud.firestore {
 ---
 
 بعد تنفيذ الخطوات أعلاه وتحديث `firebase-config.js`، النماذج ستعمل مع Firebase دون الحاجة لتغيير أي صفحة أخرى.
+
+## استكشاف الأخطاء: النموذج يبقى "جاري الإرسال" ولا يُرسل
+
+1. **تشغيل الموقع عبر خادم محلي (مهم)**  
+   لا تفتح الموقع بفتح الملف مباشرة (`file:///...`). Firebase لا يعمل مع `file://`.  
+   استخدم أحد الخيارات:
+   - امتداد **Live Server** في VS Code: كليك يمين على `index.html` → Open with Live Server
+   - أو من الطرفية: `npx serve .` ثم افتح الرابط الذي يظهر (مثلاً `http://localhost:3000`)
+
+2. **تفعيل Firestore وليس Realtime Database فقط**  
+   من Firebase Console: **Build** → **Firestore Database** → إن لم تكن أنشأتها من قبل، اضغط **Create database** واختر الموقع ثم اكمل. النماذج تستخدم **Firestore** وليس Realtime Database.
+
+3. **قواعد الأمان (Security Rules)**  
+   إذا ظهرت رسالة مثل "Permission denied" أو "تعذر الإرسال":
+   - ادخل إلى Firebase Console → **Firestore Database** → تبويب **Rules**
+   - تأكد من وجود قاعدة تسمح بإنشاء مستندات في مجموعة `requests` (مثل `allow create: if true;` كما في القسم 4 أعلاه)
+   - اضغط **Publish** لحفظ القواعد
+
+4. **انتهاء المهلة (Timeout)**  
+   إذا ظهرت رسالة "انتهت المهلة" أو "Request timed out":
+   - تحقق من اتصال النت
+   - تأكد أن Firestore مُنشأ ومُفعّل في المشروع
+   - جرّب من متصفح آخر أو بعد تعطيل الإضافات التي قد تحجب طلبات Firebase

@@ -1909,8 +1909,9 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/pocketbase@latest/dist/pocketbase.umd.js"></script>
-    <script src="assets/js/pocketbase-client.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore-compat.js"></script>
+    <script src="assets/js/firebase-config.js"></script>
     <script>
         // Authentication
         const DEFAULT_USERNAME = 'admin';
@@ -2212,7 +2213,14 @@
             document.getElementById('date-filter').addEventListener('change', applyFilters);
         }
 
-        // Load data from PocketBase
+        // Load data from Firebase Firestore
+        function getFirebaseDb() {
+            if (typeof window.firebaseDb === 'undefined') {
+                throw new Error('Firebase not initialized.');
+            }
+            return window.firebaseDb;
+        }
+
         async function loadData(showLoading = true) {
             const container = document.getElementById('cards-container');
             try {
@@ -2225,25 +2233,32 @@
                     `;
                 }
 
-                const pocketBase = getPocketBaseClient();
-                const data = await pocketBase.collection('requests').getFullList({
-                    sort: '-created'
-                });
+                const db = getFirebaseDb();
+                const snapshot = await db.collection('requests')
+                    .orderBy('createdAt', 'desc')
+                    .get();
 
-                allData = (data || []).map(item => ({
-                    id: item.id,
-                    type: item.service || 'Message',
-                    name: item.name || 'N/A',
-                    phone: item.phone || 'N/A',
-                    email: item.email || '',
-                    location: item.location || '',
-                    constructionStatus: item.construction_status || '',
-                    area: item.area || '',
-                    projectType: item.project_type || '',
-                    notes: item.notes || '',
-                    date: item.created_at || item.created || new Date().toISOString(),
-                    status: normalizeStatus(item.status)
-                }));
+                allData = (snapshot.docs || []).map(doc => {
+                    const item = doc.data();
+                    const createdAt = item.createdAt;
+                    const dateStr = createdAt && typeof createdAt.toDate === 'function'
+                        ? createdAt.toDate().toISOString()
+                        : (createdAt ? new Date(createdAt).toISOString() : new Date().toISOString());
+                    return {
+                        id: doc.id,
+                        type: item.service || 'Message',
+                        name: item.name || 'N/A',
+                        phone: item.phone || 'N/A',
+                        email: item.email || '',
+                        location: item.location || '',
+                        constructionStatus: item.construction_status || '',
+                        area: item.area || '',
+                        projectType: item.project_type || '',
+                        notes: item.notes || '',
+                        date: dateStr,
+                        status: normalizeStatus(item.status)
+                    };
+                });
 
                 applyFilters();
                 updateStats();
@@ -2644,11 +2659,11 @@
             }
         });
 
-        // Change status in PocketBase
+        // Change status in Firebase Firestore
         async function changeStatus(id, status) {
             try {
-                const pocketBase = getPocketBaseClient();
-                await pocketBase.collection('requests').update(id, { status });
+                const db = getFirebaseDb();
+                await db.collection('requests').doc(id).update({ status });
                 await loadData(false);
             } catch (err) {
                 console.error('Status update error:', err);
@@ -2679,18 +2694,16 @@
 
         async function confirmDelete() {
             try {
+                const db = getFirebaseDb();
                 if (pendingDelete.mode === 'all-messages') {
-                    const pocketBase = getPocketBaseClient();
-                    const records = await pocketBase.collection('requests').getFullList({
-                        filter: 'service = "Message"',
-                        fields: 'id'
-                    });
-                    await Promise.all(records.map(record =>
-                        pocketBase.collection('requests').delete(record.id)
-                    ));
+                    const snapshot = await db.collection('requests')
+                        .where('service', '==', 'Message')
+                        .get();
+                    const batch = db.batch();
+                    snapshot.docs.forEach(doc => batch.delete(doc.ref));
+                    await batch.commit();
                 } else if (pendingDelete.mode === 'single' && pendingDelete.id) {
-                    const pocketBase = getPocketBaseClient();
-                    await pocketBase.collection('requests').delete(pendingDelete.id);
+                    await db.collection('requests').doc(pendingDelete.id).delete();
                 }
                 await loadData(false);
             } catch (err) {
@@ -2784,39 +2797,25 @@
             ).join('\n');
         }
 
-        // Load site visits count (soft-fail if table missing)
-        let visitsEnabled = true;
+        // Site visits: not stored in Firebase for this project; show placeholder
+        let visitsEnabled = false;
 
         async function loadVisits() {
-            if (!visitsEnabled) return;
-            try {
-                const pocketBase = getPocketBaseClient();
-                const result = await pocketBase.collection('visits').getList(1, 1);
-                const visits = result?.totalItems || 0;
-                const el = document.getElementById('visits-count');
-                if (el) el.textContent = visits.toLocaleString();
-            } catch (err) {
-                // If table is missing, disable further calls
-                if (err?.status === 404) {
-                    visitsEnabled = false;
-                }
-                const el = document.getElementById('visits-count');
-                if (el) el.textContent = '—';
-            }
+            const el = document.getElementById('visits-count');
+            if (el) el.textContent = '—';
         }
 
-        // Delete all messages
+        // Delete all messages (Firebase Firestore)
         async function deleteAllMessages() {
             if (!confirm('هل أنت متأكد من حذف جميع الرسائل؟ هذا الإجراء لا يمكن التراجع عنه.')) return;
             try {
-                const pocketBase = getPocketBaseClient();
-                const records = await pocketBase.collection('requests').getFullList({
-                    filter: 'service = "Message"',
-                    fields: 'id'
-                });
-                await Promise.all(records.map(record =>
-                    pocketBase.collection('requests').delete(record.id)
-                ));
+                const db = getFirebaseDb();
+                const snapshot = await db.collection('requests')
+                    .where('service', '==', 'Message')
+                    .get();
+                const batch = db.batch();
+                snapshot.docs.forEach(doc => batch.delete(doc.ref));
+                await batch.commit();
                 await loadData(false);
             } catch (err) {
                 console.error('Delete all messages error:', err);
