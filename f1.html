@@ -1643,7 +1643,7 @@
             <h2>Admin Login</h2>
             <p>Please enter your credentials to access the dashboard</p>
             <div class="login-error" id="login-config-error" role="alert" aria-live="polite" style="display: none; background: #f8d7da;">
-                يرجى إعداد ملف <code>admin-auth.js</code> من <code>admin-auth.example.js</code> ثم تعيين passwordHash.
+                لم يُحمّل ملف <code>admin-auth.js</code>. تأكد من وجود الملف في <code>assets/js/admin-auth.js</code> ثم حدّث الصفحة (Ctrl+F5). إن لم يكن موجوداً، انسخ <code>admin-auth.example.js</code> إلى <code>admin-auth.js</code> وضَع username و passwordHash.
             </div>
             <div class="login-error" id="login-error" role="alert" aria-live="polite" aria-atomic="true">
                 Invalid username or password
@@ -1913,7 +1913,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
     <script src="assets/js/firebase-config.js"></script>
-    <script src="assets/js/admin-auth.js"></script>
+    <script src="assets/js/admin-auth.js?v=1"></script>
     <script>
         // Authentication: credentials from admin-auth.js (not in Git). See admin-auth.example.js.
         function simpleHash(str) {
