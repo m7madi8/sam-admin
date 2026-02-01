@@ -242,7 +242,7 @@ section {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.9rem 2rem;
+  padding: 0.65rem 1.6rem;
 }
 
 .header.scrolled {
@@ -253,7 +253,7 @@ section {
 }
 
 #logo {
-  height: 40px;
+  height: 34px;
   width: auto;
   transition: transform 0.3s ease;
 }
@@ -264,49 +264,73 @@ section {
 
 .navigation ul {
   display: flex;
-  gap: 2rem;
+  gap: 1.4rem;
 }
 
 .navigation .menu-link {
   text-transform: uppercase;
-  font-size: calc(var(--small-font-size) - 0.05rem);
+  font-size: calc(var(--small-font-size) - 0.12rem);
   font-weight: var(--font-medium);
   position: relative;
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: color 0.35s ease, transform 0.35s cubic-bezier(0.34, 1.2, 0.64, 1), filter 0.35s ease, background 0.35s ease, letter-spacing 0.35s ease, box-shadow 0.35s ease;
   background: linear-gradient(45deg, #fdfaf6 50%, var(--first-color));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   filter: drop-shadow(0 1px 3px rgba(0,0,0,0.5));
-  padding: 0.5rem 1rem;
+  padding: 0.4rem 0.75rem;
   border-radius: 25px;
 }
 
 .navigation .menu-link::after {
   content: '';
   position: absolute;
-  bottom: -2px;
+  bottom: -3px;
   left: 50%;
   width: 0;
   height: 2px;
-  background: linear-gradient(90deg, var(--first-color), #fceabb);
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  background: linear-gradient(90deg, transparent, var(--first-color), #fceabb, transparent);
+  transition: width 0.4s cubic-bezier(0.34, 1.2, 0.64, 1), box-shadow 0.4s ease, opacity 0.4s ease;
   transform: translateX(-50%);
-  border-radius: 1px;
+  border-radius: 2px;
+  opacity: 0;
 }
 
-.navigation .menu-link:hover {
-  color: var(--first-color);
-  transform: translateY(-2px);
-  filter: drop-shadow(0 3px 8px rgba(0,0,0,0.3));
-  background: rgba(166, 124, 82, 0.1);
+/* Hover: قبل السكرول – تأثير أوضح وأنسب */
+.header:not(.scrolled) .navigation .menu-link:hover {
+  color: #fff;
+  -webkit-background-clip: unset;
+  background-clip: unset;
+  background: transparent;
+  transform: translateY(-4px);
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.35));
+  letter-spacing: 0.08em;
+  box-shadow: none;
+}
+
+.header:not(.scrolled) .navigation .menu-link:hover::after {
+  width: 100%;
+  opacity: 1;
+  box-shadow: 0 0 12px rgba(252, 234, 187, 0.5);
+}
+
+/* Hover: بعد السكرول – يبقى متناسق مع الخلفية الفاتحة */
+.header.scrolled .navigation .menu-link:hover {
+  color: var(--first-color-alt);
+  transform: translateY(-3px);
+  filter: none;
+  background: rgba(166, 124, 82, 0.08);
   -webkit-background-clip: unset;
   background-clip: unset;
 }
 
+.header.scrolled .navigation .menu-link:hover::after {
+  width: 100%;
+  box-shadow: 0 2px 10px rgba(166, 124, 82, 0.25);
+}
+
 .navigation .menu-link:hover::after {
-  width: 80%;
-  box-shadow: 0 2px 8px rgba(166, 124, 82, 0.3);
+  opacity: 1;
 }
 
 .navigation .menu-link:active, .menu-link.active {
@@ -316,7 +340,7 @@ section {
 
 #menu-icon {
   display: none;
-  font-size: 2rem;
+  font-size: 1.75rem;
   cursor: pointer;
   transition: color 0.3s ease, filter 0.3s ease;
   background: linear-gradient(45deg, #fdfaf6 50%, var(--first-color));
@@ -720,24 +744,166 @@ section {
     text-shadow: 1px 1px 5px rgba(0,0,0,0.3);
 }
 
+/* ===== Premium button system ===== */
 .btn {
-    display: inline-block;
-    background-color: var(--first-color);
-    color: #fff;
-    padding: 1rem 2.5rem;
-    border-radius: 50px;
-    font-weight: var(--font-medium);
-    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.9rem 2rem;
+    border-radius: 9999px;
+    font-family: var(--body-font);
     font-size: var(--small-font-size);
-    letter-spacing: 1px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    border: 2px solid transparent;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+    transition: color 0.4s ease, background 0.4s ease, border-color 0.4s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
 }
 
-.btn:hover {
-    background-color: var(--first-color-alt);
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(166, 124, 82, 0.3);
+.btn:active {
+    transform: scale(0.97);
+}
+
+/* Primary: warm gradient + soft glow */
+.btn-primary {
+    background: linear-gradient(135deg, var(--first-color) 0%, var(--first-color-alt) 50%, #9a6f47 100%);
+    color: #fff;
+    box-shadow: 0 4px 20px rgba(166, 124, 82, 0.35), 0 2px 8px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(166, 124, 82, 0.45), 0 6px 16px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.btn-primary:hover::before {
+    opacity: 1;
+}
+
+.btn-primary:active {
+    transform: translateY(-1px) scale(0.98);
+}
+
+/* Outline: elegant border, hover fill */
+.btn-outline {
+    background: transparent;
+    color: var(--first-color);
+    border-color: var(--first-color);
+    box-shadow: 0 2px 12px rgba(166, 124, 82, 0.12);
+}
+
+.btn-outline::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--first-color) 0%, var(--first-color-alt) 100%);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: -1;
+}
+
+.btn-outline:hover {
+    color: #fff;
+    border-color: var(--first-color-alt);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 28px rgba(166, 124, 82, 0.3);
+}
+
+.btn-outline:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.btn-outline:active::before {
+    transform: scaleX(1);
+}
+
+/* Hero CTA – luxurious outline + subtle glow + shimmer */
+.hero-cta {
+    background: transparent;
+    color: #fff;
+    border: 2px solid rgba(255, 255, 255, 0.95);
+    padding: 1rem 2.5rem;
+    font-size: var(--normal-font-size);
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: none;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-cta span {
+    position: relative;
+    z-index: 1;
+}
+
+/* Shimmer sweep on hover */
+.hero-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(105deg, transparent 0%, rgba(255, 255, 255, 0.25) 45%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0.25) 55%, transparent 100%);
+    transform: translateX(-100%);
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 0;
+}
+
+/* Fill from bottom on hover */
+.hero-cta::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.96);
+    transform: translateY(100%);
+    transition: transform 0.5s cubic-bezier(0.34, 1.2, 0.64, 1);
+    z-index: 0;
+}
+
+.hero-cta:hover {
+    color: var(--first-color);
+    border-color: #fff;
+    box-shadow: 0 8px 36px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+.hero-cta:hover::before {
+    transform: translateX(100%);
+}
+
+.hero-cta:hover::after {
+    transform: translateY(0);
+}
+
+/* Down arrow */
+.hero-cta .hero-cta-arrow {
+    display: inline-block;
+    margin-left: 0.5rem;
+    width: 0.45rem;
+    height: 0.45rem;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg);
+    vertical-align: middle;
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.hero-cta:hover .hero-cta-arrow {
+    transform: rotate(45deg) translateY(3px);
 }
 
 /* About Us Section */
@@ -924,30 +1090,14 @@ section {
   margin-bottom: var(--mb-3);
 }
 
-.service-content button {
-  background-color: var(--first-color);
-  color: white;
-  padding: 0.8rem 1.8rem;
-  border-radius: 50px;
-  margin-right: var(--mb-1);
-  transition: all 0.3s ease;
-  border: 2px solid transparent;
-  text-transform: uppercase;
+.service-content .btn {
+  padding: 0.8rem 1.6rem;
   font-size: var(--smaller-font-size);
-  letter-spacing: 0.5px;
+  margin-right: 0.75rem;
 }
-.service-content button:hover {
-  background-color: var(--first-color-alt);
-  transform: translateY(-2px);
-}
-.service-content button:last-of-type {
-  background-color: transparent;
-  color: var(--first-color);
-  border: 2px solid var(--first-color);
-}
-.service-content button:last-of-type:hover {
-  background-color: var(--first-color);
-  color: white;
+
+.service-content .btn:last-of-type {
+  margin-right: 0;
 }
 
 /* Service Features */
@@ -1341,19 +1491,16 @@ section {
     resize: vertical;
     margin-bottom: 1rem;
 }
-.contact-form button {
-    width: 100%;
-    padding: 1rem;
-    background-color: var(--first-color);
-    color: white;
-    border-radius: 15px;
-    text-transform: uppercase;
-    font-weight: var(--font-medium);
-    letter-spacing: 1px;
-    transition: background-color 0.3s ease;
+.contact-form .btn-submit {
+  width: 100%;
+  padding: 1rem 2rem;
+  font-size: var(--normal-font-size);
+  letter-spacing: 0.1em;
 }
-.contact-form button:hover {
-    background-color: var(--first-color-alt);
+
+.contact-form .btn-submit:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(166, 124, 82, 0.45), 0 6px 16px rgba(0, 0, 0, 0.1);
 }
 
 /* Floating Icons */
@@ -1469,8 +1616,8 @@ section {
     #menu-icon { 
         display: block;
         position: absolute;
-        top: 1.2rem;
-        right: 1.2rem;
+        top: 1rem;
+        right: 1rem;
         z-index: 1002;
     }
     #close-icon { display: block; }
@@ -1553,8 +1700,8 @@ section {
         margin: 0 auto;
     }
     
-    .service-content button {
-        margin-bottom: 1rem;
+    .service-content .btn {
+        margin-bottom: 0.5rem;
     }
     .contact-form .input-group { flex-direction: column; }
     .whatsapp-icon { bottom: 6.5rem; right: 1.5rem; }
@@ -1577,10 +1724,8 @@ section {
         margin: 0 auto;
     }
     
-    .service-content button {
-        margin-bottom: 1rem;
-        display: block;
-        width: 100%;
+    .service-content .btn {
+        margin-bottom: 0.5rem;
     }
     #interior-design, #landscape, #exterior {
         padding: 4rem 0;
@@ -1608,7 +1753,7 @@ section {
     }
     
     #menu-icon {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
     }
 }
 

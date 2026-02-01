@@ -105,14 +105,10 @@ async function handleBookingFirebaseSubmit(event) {
   var phone = phoneEl ? phoneEl.value.trim() : '';
   var serviceEl = form.service || form.querySelector('[name="service"]');
   var service = serviceEl ? serviceEl.value : '';
-  var dateEl = form.date || form.querySelector('[name="date"]');
-  var date = dateEl ? dateEl.value : '';
-  var timeEl = form.time || form.querySelector('[name="time"]');
-  var time = timeEl ? timeEl.value : '';
   var messageEl = form.message || form.querySelector('[name="message"]');
   var message = messageEl ? messageEl.value.trim() : '';
 
-  var notes = 'Preferred date: ' + (date || '-') + ' | time: ' + (time || '-') + ' | message: ' + (message || '-');
+  var notes = 'Request for appointment. Message: ' + (message || '-');
 
   if (submitBtn) {
     submitBtn.disabled = true;

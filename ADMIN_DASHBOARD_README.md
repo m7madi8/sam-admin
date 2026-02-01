@@ -177,7 +177,6 @@ For issues or questions:
 Potential improvements:
 - User authentication and login
 - Backend API integration
-- Real-time notifications for new submissions
 - Advanced analytics and reporting
 - Email integration for client communication
 - Calendar integration for appointments

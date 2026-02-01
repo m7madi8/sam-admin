@@ -6,9 +6,7 @@
     <meta name="description" content="Admin Dashboard for managing design requests and messages">
     <title>Admin Dashboard - Samar Ammar Interior Design</title>
     <link rel="icon" href="assets/images/beige-logo.png" type="image/png">
-    <link rel="preconnect" href="https://unpkg.com">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet' media="print" onload="this.media='all'">
-    <noscript><link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'></noscript>
+    <link href="assets/css/boxicons.min.css" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -1909,13 +1907,13 @@
         </div>
     </div>
 
-    <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
     <script src="assets/js/firebase-config.js"></script>
     <script>
         // Authentication
         const DEFAULT_USERNAME = 'admin';
-        const DEFAULT_PASSWORD = 'samarammar2026'; // Change this password!
+        const DEFAULT_PASSWORD = 'sam1992';
         
         // Simple hash function for password storage
         function simpleHash(str) {
@@ -1928,9 +1926,9 @@
             return hash.toString();
         }
 
-        // Check authentication
+        // Check authentication (localStorage = تذكر الدخول حتى بعد إغلاق المتصفح)
         function checkAuth() {
-            const isAuthenticated = sessionStorage.getItem('adminAuthenticated') === 'true';
+            const isAuthenticated = localStorage.getItem('adminAuthenticated') === 'true';
             const loginContainer = document.getElementById('login-container');
             const dashboardContainer = document.getElementById('dashboard-container');
             const mobileToggle = document.getElementById('mobile-menu-toggle');
@@ -1967,8 +1965,7 @@
                 // Update password hash to current default
                 const currentPasswordHash = simpleHash(password);
                 localStorage.setItem('adminPasswordHash', currentPasswordHash);
-                
-                sessionStorage.setItem('adminAuthenticated', 'true');
+                localStorage.setItem('adminAuthenticated', 'true');
                 errorDiv.classList.remove('active');
                 checkAuth();
                 
@@ -1986,7 +1983,7 @@
             if (storedPasswordHash) {
                 const currentPasswordHash = simpleHash(password);
                 if (username === DEFAULT_USERNAME && currentPasswordHash === storedPasswordHash) {
-                    sessionStorage.setItem('adminAuthenticated', 'true');
+                    localStorage.setItem('adminAuthenticated', 'true');
                     errorDiv.classList.remove('active');
                     checkAuth();
                     
@@ -2017,7 +2014,7 @@
         }
 
         function confirmLogout() {
-            sessionStorage.removeItem('adminAuthenticated');
+            localStorage.removeItem('adminAuthenticated');
             closeLogoutModal();
             checkAuth();
             const form = document.getElementById('login-form');

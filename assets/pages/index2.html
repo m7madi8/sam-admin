@@ -215,28 +215,6 @@
             cursor: pointer;
         }
         
-        .project-link-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.4rem;
-            padding: 0.45rem 0.85rem;
-            font-size: 0.85rem;
-            font-weight: 600;
-            border-radius: 8px;
-            color: var(--first-color);
-            border: 1px solid rgba(166, 124, 82, 0.35);
-            background: rgba(166, 124, 82, 0.08);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        
-        .project-link-btn:hover {
-            color: #fff;
-            background: var(--first-color);
-            transform: translateY(-1px);
-        }
-        
         /* Responsive adjustments */
         @media screen and (max-width: 1200px) {
             .header .navigation ul {
@@ -386,18 +364,19 @@
         </div>
     </div>
 
-    <div class="sharp-header text-center">
-        <div class="circle-deco"></div>
-        <h1 class="gallery-title">Gallery</h1>
-        <p class="gallery-subtitle">A selection of our best interior, exterior, and landscape projects</p>
-        <div class="gallery-desc">Discover the beauty of our work through a curated collection of inspiring spaces.</div>
-    </div>
+    <section class="sharp-header gallery-hero" aria-labelledby="gallery-heading">
+        <div class="gallery-hero-inner">
+            <h1 id="gallery-heading" class="gallery-title">Gallery</h1>
+            <p class="gallery-subtitle">Interior · Exterior · Landscape</p>
+            <p class="gallery-desc">Precision-engineered spaces. A curated collection of our best design and execution work.</p>
+        </div>
+    </section>
     
     <nav class="d-flex justify-content-center gap-2 my-3">
         <button class="sharp-btn active" data-filter="all">All</button>
-        <button class="sharp-btn" data-filter="interior">Interior</button>
-        <button class="sharp-btn" data-filter="landscape">Landscape</button>
-        <button class="sharp-btn" data-filter="exterior">Exterior</button>
+        <button class="sharp-btn" id="interiorphotos" data-filter="interior">Interior</button>
+        <button class="sharp-btn" id="landscapephotos" data-filter="landscape">Landscape</button>
+        <button class="sharp-btn" id="exteriorphotos" data-filter="exterior">Exterior</button>
         <button class="sharp-btn" id="completedphotos" data-filter="completed">Completed</button>
     </nav>
     
@@ -614,7 +593,7 @@
                     <div class="card-body">
                         <h5 class="card-title">منزل السيد داوود</h5>
                         <p class="card-text"></p>
-                        <a class="project-link-btn" href="project-dawood-villa.html">View project</a>
+                        <a class="btn project-link-btn" href="project-dawood-villa.html">View project</a>
                     </div>
                 </div>
             </div>
@@ -1081,7 +1060,7 @@
                     <div class="card-body">
                         <h5 class="card-title">تصميم حديقة السيده لارا</h5>
                         <p class="card-text"></p>
-                        <a class="project-link-btn" href="project-lara-garden.html">View project</a>
+                        <a class="btn project-link-btn" href="project-lara-garden.html">View project</a>
                     </div>
                 </div>
             </div>

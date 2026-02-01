@@ -10,8 +10,8 @@
     projectId: "mido-wos",
     storageBucket: "mido-wos.firebasestorage.app",
     messagingSenderId: "407415975062",
-    appId: "1:407415975062:web:d4ca815cb3b44d6dc2a6b7",
-    measurementId: "G-MBWXGBR1XF"
+    appId: "1:407415975062:web:1341fe0e1b23cf80c2a6b7",
+    measurementId: "G-31QE91Y4YD"
   };
 
   if (typeof firebase === 'undefined') {
@@ -20,7 +20,9 @@
   }
 
   try {
-    firebase.initializeApp(firebaseConfig);
+    if (!firebase.apps || !firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
     window.firebaseDb = firebase.firestore();
   } catch (err) {
     console.error('Firebase init error:', err);

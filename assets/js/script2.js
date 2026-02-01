@@ -1,5 +1,26 @@
 // Gallery JavaScript
 document.addEventListener('DOMContentLoaded', function() {
+    // Inject category badge inside each card (responsive to card edges)
+    document.querySelectorAll('.gallery-item[data-category]').forEach(function(item) {
+        var card = item.querySelector('.gallery-card');
+        var category = item.getAttribute('data-category');
+        if (card && category && !card.querySelector('.gallery-card-category')) {
+            var span = document.createElement('span');
+            span.className = 'gallery-card-category gallery-card-category--' + category;
+            span.setAttribute('aria-hidden', 'true');
+            span.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+            card.insertBefore(span, card.firstChild);
+        }
+    });
+
+    // Apply filter from URL hash (#interiorphotos, #exteriorphotos, #landscapephotos)
+    var hashToFilter = { interiorphotos: 'interior', exteriorphotos: 'exterior', landscapephotos: 'landscape' };
+    var hash = (window.location.hash || '').replace(/^#/, '');
+    if (hash && hashToFilter[hash]) {
+        var filterBtn = document.querySelector('.sharp-btn[data-filter="' + hashToFilter[hash] + '"]');
+        if (filterBtn) setTimeout(function() { filterBtn.click(); }, 100);
+    }
+
     // --- Preloader ---
     const loaderWrapper = document.querySelector('.loader-wrapper');
     window.addEventListener('load', () => {
