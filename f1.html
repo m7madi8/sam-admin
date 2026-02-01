@@ -1756,7 +1756,7 @@
             <h2>Admin Login</h2>
             <p>Please enter your credentials to access the dashboard</p>
             <div class="login-error" id="login-config-error" role="alert" aria-live="polite" style="display: none; background: #f8d7da;">
-                لم يُحمّل ملف <code>admin-auth.js</code>. تأكد من وجود الملف في <code>assets/js/admin-auth.js</code> ثم حدّث الصفحة (Ctrl+F5). إن لم يكن موجوداً، انسخ <code>admin-auth.example.js</code> إلى <code>admin-auth.js</code> وضَع username و passwordHash.
+                لم يُحمّل ملف <code>admin-auth.js</code>. تأكد من وجود الملف في <code>assets/js/admin-auth.js</code> ثم حدّث الصفحة (Ctrl+F5). إن لم يكن موجوداً، انسخ <code>admin-auth.example.js</code> إلى <code>admin-auth.js</code> وضَع username و password.
             </div>
             <div class="login-error" id="login-error" role="alert" aria-live="polite" aria-atomic="true">
                 Invalid username or password
@@ -2028,19 +2028,9 @@
     <script src="assets/js/firebase-config.js"></script>
     <script src="assets/js/admin-auth.js?v=1"></script>
     <script>
-        // Authentication: credentials from admin-auth.js (not in Git). See admin-auth.example.js.
-        function simpleHash(str) {
-            let hash = 0;
-            for (let i = 0; i < str.length; i++) {
-                const char = str.charCodeAt(i);
-                hash = ((hash << 5) - hash) + char;
-                hash = hash & hash;
-            }
-            return hash.toString();
-        }
-
+        // تسجيل الدخول: اسم المستخدم وكلمة المرور من admin-auth.js
         function isAuthConfigured() {
-            return typeof window.ADMIN_AUTH !== 'undefined' && window.ADMIN_AUTH && window.ADMIN_AUTH.username && window.ADMIN_AUTH.passwordHash;
+            return typeof window.ADMIN_AUTH !== 'undefined' && window.ADMIN_AUTH && window.ADMIN_AUTH.username && window.ADMIN_AUTH.password;
         }
 
         // Check authentication (localStorage = تذكر الدخول حتى بعد إغلاق المتصفح)
@@ -2081,16 +2071,13 @@
                 if (err) { err.textContent = 'يرجى إعداد admin-auth.js (انظر admin-auth.example.js)'; err.classList.add('active'); }
                 return;
             }
-            const username = document.getElementById('username').value;
+            const username = document.getElementById('username').value.trim();
             const password = document.getElementById('password').value;
             const errorDiv = document.getElementById('login-error');
-            const inputHash = simpleHash(password);
             const expectedUsername = window.ADMIN_AUTH.username;
-            const expectedHash = window.ADMIN_AUTH.passwordHash;
-            const storedHash = localStorage.getItem('adminPasswordHash');
+            const expectedPassword = window.ADMIN_AUTH.password;
 
-            if (username === expectedUsername && (inputHash === expectedHash || (storedHash && inputHash === storedHash))) {
-                localStorage.setItem('adminPasswordHash', inputHash);
+            if (username === expectedUsername && password === expectedPassword) {
                 localStorage.setItem('adminAuthenticated', 'true');
                 errorDiv.classList.remove('active');
                 errorDiv.textContent = 'Invalid username or password';

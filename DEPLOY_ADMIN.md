@@ -12,19 +12,16 @@
 
    | الاسم | القيمة |
    |-------|--------|
-   | `ADMIN_USERNAME` | اسم المستخدم للدخول (مثلاً: `samar`) |
-   | `ADMIN_PASSWORD_HASH` | **هاش** كلمة السر (ليس النص نفسه). مثال: `1862916000` |
+   | `ADMIN_USERNAME` | اسم المستخدم (مثلاً: `samar`) |
+   | `ADMIN_PASSWORD` | كلمة المرور كما هي (مثلاً: `sam1992`) |
 
-4. **توليد الهاش:** في وحدة تحكم المتصفح (Console) شغّل:
-   ```javascript
-   function h(s){let n=0;for(let i=0;i<s.length;i++){n=((n<<5)-n)+s.charCodeAt(i);n=n&n;}return n.toString();}
-   h('كلمة_السر_الخاصة_بك')
-   ```
-   انسخ الناتج وضعه في `ADMIN_PASSWORD_HASH`.
-
-5. احفظ المتغيرات ثم **Redeploy** المشروع (Deployments → ⋮ → Redeploy).
+4. احفظ المتغيرات ثم **Redeploy** المشروع (Deployments → ⋮ → Redeploy).
 
 بعد إعادة النشر، يُنشأ ملف `assets/js/admin-auth.js` تلقائياً ولن تظهر رسالة "لم يُحمّل ملف admin-auth.js".
+
+**إذا ظهر في Console:** `admin-auth.js:1 Failed to load resource: 404`  
+- السبب: الملف غير موجود على السيرفر (لم يُنشأ عند النشر).  
+- الحل: تأكد من إضافة **ADMIN_USERNAME** و **ADMIN_PASSWORD** في Environment Variables ثم **Redeploy**. بدون هذين المتغيرين، سكربت البناء لا يكتب الملف.
 
 ---
 
@@ -70,11 +67,11 @@
 ```javascript
 window.ADMIN_AUTH = {
   username: 'samar',
-  passwordHash: '1862916000'
+  password: 'sam1992'
 };
 ```
 
-- **username:** اسم المستخدم الذي تريده للدخول.
-- **passwordHash:** ناتج دالة الهاش لكلمة السر (انظر `admin-auth.example.js` لطريقة التوليد).
+- **username:** اسم المستخدم للدخول.
+- **password:** كلمة المرور كما هي.
 
 لا ترفع هذا الملف إلى Git؛ أنشئه فقط على السيرفر بعد النشر.

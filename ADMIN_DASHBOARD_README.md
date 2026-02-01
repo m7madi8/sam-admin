@@ -91,10 +91,7 @@ The dashboard (**f1.html**) reads from this same `requests` collection. No GetFo
 تسجيل الدخول يعتمد على ملف **admin-auth.js** (لا يُرفع إلى Git):
 
 1. انسخ `assets/js/admin-auth.example.js` إلى `assets/js/admin-auth.js`.
-2. ولّد hash كلمة السر كما في التعليقات داخل الملف (دالة في وحدة التحكم).
-3. ضع الناتج في `passwordHash` داخل `admin-auth.js`.
-
-كلمة السر لا تُخزّن في الكود؛ يُخزّن فقط hash في ملف مستثنى من Git.
+2. ضع **username** و **password** داخل الملف (اسم المستخدم وكلمة المرور كما هما).
 
 ### النشر على الاستضافة (Deploy to Hosting)
 
@@ -115,7 +112,7 @@ The dashboard (**f1.html**) reads from this same `requests` collection. No GetFo
 
 ⚠️ **Important Security Considerations**:
 
-1. **Admin credentials**: Use `admin-auth.js` (from `admin-auth.example.js`). Never commit `admin-auth.js` — it is in `.gitignore`. Only the password hash is stored, not the plain password.
+1. **Admin credentials**: Use `admin-auth.js` (from `admin-auth.example.js`). Never commit `admin-auth.js` — it is in `.gitignore`. Store username and password in the file.
 
 2. **Firestore**: Keep Firestore Security Rules strict (e.g. allow create for requests; restrict read/delete to your app or backend). In Firebase Console, restrict the Web API key to your domains.
 
@@ -132,7 +129,7 @@ The dashboard (**f1.html**) reads from this same `requests` collection. No GetFo
 - Check browser console for errors.
 
 ### Login / Access Issues
-- Ensure `admin-auth.js` exists (copy from `admin-auth.example.js`) and contains a valid password hash.
+- Ensure `admin-auth.js` exists (copy from `admin-auth.example.js`) and contains username and password.
 - Check that `admin-auth.js` is not in Git (it is in .gitignore).
 
 ### Data Not Updating

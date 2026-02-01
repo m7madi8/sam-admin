@@ -1,26 +1,25 @@
 /**
- * يولد ملف admin-auth.js من متغيرات البيئة (للاستخدام على Vercel أو أي استضافة تدعم env).
- * لا يشغّل على جهازك المحلي إن لم تُضبط المتغيرات.
+ * يولد admin-auth.js من متغيرات البيئة (Vercel أو غيره). اسم المستخدم وكلمة المرور فقط.
  */
 const fs = require('fs');
 const path = require('path');
 
 const username = process.env.ADMIN_USERNAME;
-const passwordHash = process.env.ADMIN_PASSWORD_HASH;
+const password = process.env.ADMIN_PASSWORD;
 
-if (!username || !passwordHash) {
-  console.log('ADMIN_USERNAME أو ADMIN_PASSWORD_HASH غير مضبوطين — تخطي إنشاء admin-auth.js');
+if (!username || !password) {
+  console.log('ADMIN_USERNAME أو ADMIN_PASSWORD غير مضبوطين — تخطي إنشاء admin-auth.js');
   process.exit(0);
 }
 
 const outDir = path.join(__dirname, '..', 'assets', 'js');
 const outFile = path.join(outDir, 'admin-auth.js');
 const content = `/**
- * مولّد من متغيرات البيئة عند النشر — لا تعدّل يدوياً على الاستضافة.
+ * مولّد من متغيرات البيئة عند النشر.
  */
 window.ADMIN_AUTH = {
   username: ${JSON.stringify(username)},
-  passwordHash: ${JSON.stringify(passwordHash)}
+  password: ${JSON.stringify(password)}
 };
 `;
 
