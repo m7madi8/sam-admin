@@ -849,6 +849,13 @@
             border-radius: 8px;
         }
 
+        .modal-body .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
         /* Loading */
         .loading {
             text-align: center;
@@ -865,272 +872,6 @@
         @keyframes spin {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
-        }
-
-        /* Login Page */
-        @keyframes loginBoxIn {
-            from {
-                opacity: 0;
-                transform: translateY(28px) scale(0.96);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-        @keyframes loginItemIn {
-            from {
-                opacity: 0;
-                transform: translateY(12px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        @keyframes loginTextIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-                letter-spacing: 0.06em;
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-                letter-spacing: 0.02em;
-            }
-        }
-        @keyframes loginLabelIn {
-            from {
-                opacity: 0;
-                transform: translateY(8px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        @keyframes loginErrorIn {
-            from {
-                opacity: 0;
-                transform: translateY(-8px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .login-container {
-            display: flex;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, var(--bg-color) 0%, #e8dfd2 50%, #efe8e0 100%);
-            background-size: 200% 200%;
-            z-index: 10000;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-            transition: opacity 0.4s ease, visibility 0.4s ease;
-        }
-
-        .login-container.active {
-            opacity: 1;
-            visibility: visible;
-            pointer-events: auto;
-        }
-
-        .login-container.active .login-box {
-            animation: loginBoxIn 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-        }
-
-        .login-box {
-            background: var(--card-bg);
-            padding: 2.5rem;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.08), 0 0 0 1px rgba(200, 170, 136, 0.08);
-            max-width: 400px;
-            width: 100%;
-            text-align: center;
-            margin: 1rem;
-            opacity: 0;
-            transition: box-shadow 0.35s ease;
-        }
-
-        .login-container.active .login-box:hover {
-            box-shadow: 0 24px 64px rgba(0,0,0,0.1), 0 0 0 1px rgba(200, 170, 136, 0.12);
-        }
-
-        .login-box img {
-            width: auto;
-            height: 100px;
-            max-width: 180px;
-            max-height: 100px;
-            margin-bottom: 1.5rem;
-            object-fit: contain;
-            object-position: center;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-            opacity: 0;
-            animation: loginItemIn 0.45s ease 0.12s forwards;
-        }
-
-        .login-box h2 {
-            color: var(--primary-dark);
-            margin-bottom: 0.5rem;
-            font-size: 1.8rem;
-            opacity: 0;
-            letter-spacing: 0.02em;
-            transition: color 0.3s ease;
-            animation: loginTextIn 0.5s cubic-bezier(0.34, 1.2, 0.64, 1) 0.2s forwards;
-        }
-
-        .login-box p {
-            color: var(--text-color);
-            opacity: 0;
-            margin-bottom: 2rem;
-            font-size: 0.95rem;
-            transition: color 0.3s ease, opacity 0.3s ease;
-            animation: loginTextIn 0.48s ease 0.28s forwards;
-        }
-
-        .login-form {
-            text-align: left;
-            opacity: 0;
-            animation: loginItemIn 0.45s ease 0.36s forwards;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: var(--text-color);
-            font-size: 0.95rem;
-            opacity: 0;
-            transition: color 0.25s ease;
-        }
-
-        .login-container.active .login-form .form-group:nth-child(1) label {
-            animation: loginLabelIn 0.4s ease 0.4s forwards;
-        }
-        .login-container.active .login-form .form-group:nth-child(2) label {
-            animation: loginLabelIn 0.4s ease 0.44s forwards;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 0.875rem;
-            border: 2px solid var(--border-color);
-            border-radius: 10px;
-            font-size: 1rem;
-            transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
-            background: var(--bg-color);
-            -webkit-appearance: none;
-            appearance: none;
-            outline: none;
-        }
-
-        .form-group input:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 4px rgba(200, 170, 136, 0.12);
-            transform: translateY(-1px);
-        }
-
-        .form-group input:focus-visible {
-            outline: 3px solid var(--primary-color);
-            outline-offset: 2px;
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            .form-group input {
-                transition: border-color 0.1s ease;
-            }
-            .form-group input:focus {
-                transform: none;
-            }
-        }
-
-        .login-error {
-            background: #fee;
-            color: #721c24;
-            padding: 0.75rem;
-            border-radius: 10px;
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-            display: none;
-            border: 1px solid #f5c6cb;
-            transition: opacity 0.25s ease, transform 0.25s ease;
-        }
-
-        .login-error.active {
-            display: block;
-            animation: loginErrorIn 0.35s ease forwards;
-        }
-
-        .btn-login {
-            width: 100%;
-            padding: 0.875rem;
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-            outline: none;
-            opacity: 0;
-            animation: loginItemIn 0.45s ease 0.44s forwards;
-        }
-
-        .btn-login:focus-visible {
-            outline: 3px solid var(--primary-dark);
-            outline-offset: 2px;
-        }
-
-        .btn-login:hover {
-            background: var(--primary-dark);
-            box-shadow: 0 6px 20px rgba(200, 170, 136, 0.35);
-            transform: translateY(-2px);
-        }
-
-        .btn-login:active {
-            background: var(--primary-dark);
-            transform: translateY(0) scale(0.98);
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            .login-container,
-            .login-container.active .login-box,
-            .login-box img,
-            .login-box h2,
-            .login-box p,
-            .login-form,
-            .login-form .form-group label,
-            .btn-login {
-                animation: none;
-                opacity: 1;
-            }
-            .login-container {
-                transition: opacity 0.2s ease, visibility 0.2s ease;
-            }
-            .btn-login {
-                transition: background-color 0.1s ease;
-            }
-            .btn-login:hover {
-                transform: none;
-            }
         }
 
         /* Mobile Menu Toggle */
@@ -1237,54 +978,6 @@
             clip: rect(0, 0, 0, 0);
             white-space: nowrap;
             border-width: 0;
-        }
-
-        .logout-btn {
-            margin-top: 1.5rem;
-            padding: 0.875rem 1rem;
-            background: var(--danger-color);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            width: 100%;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: background-color 0.2s ease, box-shadow 0.2s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            box-shadow: 0 2px 8px rgba(220, 53, 69, 0.2);
-            outline: none;
-        }
-
-        .logout-btn:focus-visible {
-            outline: 3px solid var(--danger-color);
-            outline-offset: 2px;
-        }
-
-        .logout-btn:hover {
-            background: #c82333;
-            box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
-        }
-
-        .logout-btn:active {
-            background: #bd2130;
-        }
-
-        .logout-btn i {
-            font-size: 1.2rem;
-            pointer-events: none;
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            .logout-btn {
-                transition: background-color 0.1s ease;
-            }
-            .logout-btn:hover i {
-                transform: none;
-            }
         }
 
         /* Mobile Overlay */
@@ -1449,34 +1142,6 @@
                 font-size: 0.75rem;
             }
 
-            .logout-btn {
-                margin-top: 1rem;
-                padding: 0.75rem 0.875rem;
-                font-size: 0.875rem;
-            }
-
-            .logout-btn i {
-                font-size: 1.1rem;
-            }
-
-            .login-box {
-                padding: 2rem 1.5rem;
-                margin: 0.5rem;
-            }
-
-            .login-box img {
-                height: 90px;
-                max-width: 160px;
-                max-height: 90px;
-            }
-
-            .login-box h2 {
-                font-size: 1.5rem;
-            }
-
-            .form-group input {
-                font-size: 16px; /* Prevents zoom on iOS */
-            }
         }
 
         @media (max-width: 480px) {
@@ -1569,36 +1234,12 @@
                 font-size: 0.7rem;
             }
 
-            .logout-btn {
-                margin-top: 0.75rem;
-                padding: 0.625rem 0.75rem;
-            }
-
             .mobile-menu-toggle {
                 width: 45px;
                 height: 45px;
                 font-size: 1.25rem;
                 top: 0.75rem;
                 left: 0.75rem;
-            }
-
-            .login-box {
-                padding: 1.5rem 1rem;
-            }
-
-            .login-box img {
-                height: 70px;
-                max-width: 130px;
-                max-height: 70px;
-            }
-
-            .login-box h2 {
-                font-size: 1.25rem;
-            }
-
-            .btn-login {
-                padding: 0.75rem;
-                font-size: 0.95rem;
             }
 
             .modal-content {
@@ -1749,34 +1390,10 @@
     </style>
 </head>
 <body>
-    <!-- Login Container -->
-    <div class="login-container" id="login-container">
-        <div class="login-box">
-            <img src="assets/images/beige-logo.png" alt="Samar Ammar Interior Design Logo" loading="lazy" decoding="async">
-            <h2>Admin Login</h2>
-            <p>Please enter your credentials to access the dashboard</p>
-           
-            <div class="login-error" id="login-error" role="alert" aria-live="polite" aria-atomic="true">
-                Invalid username or password
-            </div>
-            <form class="login-form" id="login-form" onsubmit="handleLogin(event)">
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" name="username" required autocomplete="username">
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required autocomplete="current-password">
-                </div>
-                <button type="submit" class="btn-login">Login</button>
-            </form>
-        </div>
-    </div>
-
     <!-- Mobile Overlay -->
     <div class="mobile-overlay" id="mobile-overlay" onclick="closeMobileMenu()" role="button" aria-label="Close menu" tabindex="-1"></div>
 
-    <div class="dashboard-container" id="dashboard-container" style="display: none;">
+    <div class="dashboard-container" id="dashboard-container" style="display: flex;">
         <!-- Sidebar -->
         <aside class="sidebar" id="sidebar" role="navigation" aria-label="Main navigation">
             <div class="logo-section">
@@ -1835,10 +1452,6 @@
                     <div class="stat-label">Site Visits</div>
                 </div>
             </div>
-            <button class="logout-btn" onclick="openLogoutModal()" aria-label="Logout from admin dashboard">
-                <i class='bx bx-log-out' aria-hidden="true"></i> 
-                <span>Logout</span>
-            </button>
         </aside>
 
         <!-- Main Content -->
@@ -1947,25 +1560,6 @@
         </div>
     </div>
 
-    <!-- Logout Confirmation Modal -->
-    <div class="modal" id="logout-modal">
-        <div class="modal-content" style="max-width: 420px;">
-            <div class="modal-header">
-                <h3>Confirm Logout</h3>
-                <button class="close-modal" onclick="closeLogoutModal()">
-                    <i class='bx bx-x'></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p style="margin-bottom: 1.5rem; color: var(--text-color);">Are you sure you want to logout?</p>
-                <div style="display: flex; gap: 0.75rem; justify-content: flex-end; flex-wrap: wrap;">
-                    <button class="btn btn-secondary" onclick="closeLogoutModal()">Cancel</button>
-                    <button class="btn btn-primary" onclick="confirmLogout()">Logout</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Delete Confirmation Modal -->
     <div class="modal" id="delete-modal">
         <div class="modal-content" style="max-width: 440px;">
@@ -2025,75 +1619,15 @@
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
     <script src="assets/js/firebase-config.js"></script>
     <script>
-        window.ADMIN_AUTH = { username: 'samar', password: 'sam1992' };
-
-        // Check authentication (localStorage = تذكر الدخول)
         function checkAuth() {
-            const isAuthenticated = localStorage.getItem('adminAuthenticated') === 'true';
-            const loginContainer = document.getElementById('login-container');
             const dashboardContainer = document.getElementById('dashboard-container');
             const mobileToggle = document.getElementById('mobile-menu-toggle');
-
-            if (!isAuthenticated) {
-                loginContainer.classList.add('active');
-                dashboardContainer.style.display = 'none';
-                if (mobileToggle) {
-                    mobileToggle.style.display = 'none';
-                    mobileToggle.classList.remove('hidden');
-                }
-                return false;
-            }
-            loginContainer.classList.remove('active');
-            dashboardContainer.style.display = 'flex';
+            if (dashboardContainer) dashboardContainer.style.display = 'flex';
             if (window.innerWidth <= 768 && mobileToggle) {
                 mobileToggle.style.display = 'flex';
                 mobileToggle.classList.remove('hidden');
             }
             return true;
-        }
-
-        // Handle login
-        function handleLogin(event) {
-            event.preventDefault();
-            const username = document.getElementById('username').value.trim();
-            const password = document.getElementById('password').value;
-            const errorDiv = document.getElementById('login-error');
-            const expectedUsername = window.ADMIN_AUTH.username;
-            const expectedPassword = window.ADMIN_AUTH.password;
-
-            if (username === expectedUsername && password === expectedPassword) {
-                localStorage.setItem('adminAuthenticated', 'true');
-                errorDiv.classList.remove('active');
-                errorDiv.textContent = 'Invalid username or password';
-                checkAuth();
-                setTimeout(function () {
-                    loadData();
-                    loadVisits();
-                    setupEventListeners();
-                }, 100);
-                return;
-            }
-            errorDiv.classList.add('active');
-            document.getElementById('password').value = '';
-        }
-        
-        // Logout flow
-        function openLogoutModal() {
-            const modal = document.getElementById('logout-modal');
-            if (modal) modal.classList.add('active');
-        }
-
-        function closeLogoutModal() {
-            const modal = document.getElementById('logout-modal');
-            if (modal) modal.classList.remove('active');
-        }
-
-        function confirmLogout() {
-            localStorage.removeItem('adminAuthenticated');
-            closeLogoutModal();
-            checkAuth();
-            const form = document.getElementById('login-form');
-            if (form) form.reset();
         }
 
         // Toggle mobile menu
@@ -2710,12 +2244,6 @@
         document.getElementById('detail-modal').addEventListener('click', function(e) {
             if (e.target === this) {
                 closeModal();
-            }
-        });
-
-        document.getElementById('logout-modal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeLogoutModal();
             }
         });
 
