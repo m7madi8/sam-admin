@@ -1,5 +1,33 @@
 # رفع لوحة التحكم على الاستضافة
 
+## Vercel (الحل التلقائي)
+
+إذا كنت تنشر على **Vercel**، المشروع يولد ملف **admin-auth.js** تلقائياً عند كل نشر من **متغيرات البيئة**:
+
+### الخطوات على Vercel
+
+1. ادخل إلى [Vercel Dashboard](https://vercel.com/dashboard) → اختر المشروع.
+2. **Settings** → **Environment Variables**.
+3. أضف المتغيرات التالية (لجميع البيئات: Production, Preview, Development):
+
+   | الاسم | القيمة |
+   |-------|--------|
+   | `ADMIN_USERNAME` | اسم المستخدم للدخول (مثلاً: `samar`) |
+   | `ADMIN_PASSWORD_HASH` | **هاش** كلمة السر (ليس النص نفسه). مثال: `1862916000` |
+
+4. **توليد الهاش:** في وحدة تحكم المتصفح (Console) شغّل:
+   ```javascript
+   function h(s){let n=0;for(let i=0;i<s.length;i++){n=((n<<5)-n)+s.charCodeAt(i);n=n&n;}return n.toString();}
+   h('كلمة_السر_الخاصة_بك')
+   ```
+   انسخ الناتج وضعه في `ADMIN_PASSWORD_HASH`.
+
+5. احفظ المتغيرات ثم **Redeploy** المشروع (Deployments → ⋮ → Redeploy).
+
+بعد إعادة النشر، يُنشأ ملف `assets/js/admin-auth.js` تلقائياً ولن تظهر رسالة "لم يُحمّل ملف admin-auth.js".
+
+---
+
 ## لماذا تظهر رسالة "لم يُحمّل ملف admin-auth.js"؟
 
 ملف **admin-auth.js** (الذي يحتوي اسم المستخدم وهاش كلمة السر) **مستثنى من Git** لأسباب أمان، لذلك عند رفع المشروع من المستودع إلى الاستضافة **لا يُرفع هذا الملف** ويبقى غير موجود على السيرفر.

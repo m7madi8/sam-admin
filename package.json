@@ -1,0 +1,7 @@
+{
+  "name": "samar-ammar-interior-design",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/generate-admin-auth.js"
+  }
+}
