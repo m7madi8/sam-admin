@@ -980,6 +980,291 @@
             border-width: 0;
         }
 
+        /* Login Page – كلمة مرور فقط + تذكر الجهاز */
+        .login-wrap {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            background: linear-gradient(160deg, var(--bg-color) 0%, #e8dfd2 45%, #efe8e0 100%);
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+        .login-wrap.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .login-card {
+            width: 100%;
+            max-width: 380px;
+            padding: 2.5rem 2rem;
+            background: var(--card-bg);
+            border-radius: 24px;
+            box-shadow: 0 24px 56px rgba(0,0,0,0.1), 0 0 0 1px rgba(200,170,136,0.1);
+            text-align: center;
+            animation: loginCardIn 0.5s cubic-bezier(0.34, 1.2, 0.64, 1) forwards;
+        }
+        @keyframes loginCardIn {
+            from { opacity: 0; transform: translateY(24px) scale(0.97); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .login-card .logo {
+            width: auto;
+            height: 88px;
+            max-width: 160px;
+            margin: 0 auto 1.5rem;
+            display: block;
+            object-fit: contain;
+        }
+        .login-card h1 {
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        .login-card .sub {
+            font-size: 0.95rem;
+            color: var(--text-color);
+            opacity: 0.8;
+            margin-bottom: 1.75rem;
+        }
+        .login-wrap .field {
+            margin-bottom: 1.25rem;
+            text-align: left;
+        }
+        .login-wrap .field label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+        .login-wrap .field input[type="password"] {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            font-size: 1rem;
+            background: var(--bg-color);
+            transition: border-color 0.25s ease, box-shadow 0.25s ease;
+            outline: none;
+        }
+        .login-wrap .field input[type="password"]:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(200,170,136,0.12);
+        }
+        .login-remember {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            text-align: left;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: var(--text-color);
+        }
+        .login-remember input { width: 1.1rem; height: 1.1rem; accent-color: var(--primary-color); cursor: pointer; }
+        .login-remember span { user-select: none; }
+        .login-btn {
+            width: 100%;
+            padding: 0.9rem;
+            background: var(--primary-color);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+        }
+        .login-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(200,170,136,0.35);
+        }
+        .login-btn:active { transform: translateY(0); }
+        .login-err {
+            display: none;
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            background: #fee;
+            color: #721c24;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            border: 1px solid #f5c6cb;
+        }
+        .login-err.show { display: block; animation: loginErrIn 0.3s ease; }
+        @keyframes loginErrIn {
+            from { opacity: 0; transform: translateY(-6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .logout-btn {
+            margin-top: 1.25rem;
+            padding: 0.75rem 1rem;
+            background: #c82333;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            width: 100%;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: background 0.2s ease;
+        }
+        .logout-btn:hover { background: #bd2130; }
+        .logout-btn i { font-size: 1.1rem; }
+
+        /* Login container (used in HTML) */
+        .login-container {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            background: linear-gradient(160deg, var(--bg-color) 0%, #e8dfd2 45%, #efe8e0 100%);
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+        .login-container.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .login-box {
+            width: 100%;
+            max-width: 400px;
+            padding: 2.5rem 2rem;
+            background: var(--card-bg);
+            border-radius: 24px;
+            box-shadow: 0 24px 56px rgba(0,0,0,0.1), 0 0 0 1px rgba(200,170,136,0.1);
+            text-align: center;
+            animation: loginCardIn 0.5s cubic-bezier(0.34, 1.2, 0.64, 1) forwards;
+        }
+        @keyframes loginFadeUp {
+            from { opacity: 0; transform: translateY(14px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .login-box img {
+            width: auto;
+            height: 80px;
+            max-width: 140px;
+            margin: 0 auto 1.25rem;
+            display: block;
+            object-fit: contain;
+            opacity: 0;
+            animation: loginFadeUp 0.45s cubic-bezier(0.34, 1.2, 0.64, 1) 0.15s forwards;
+        }
+        .login-box h2 {
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            opacity: 0;
+            animation: loginFadeUp 0.45s cubic-bezier(0.34, 1.2, 0.64, 1) 0.25s forwards;
+        }
+        .login-box > p {
+            font-size: 0.95rem;
+            color: var(--text-color);
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: loginFadeUp 0.45s cubic-bezier(0.34, 1.2, 0.64, 1) 0.35s forwards;
+        }
+        .login-form .form-group {
+            margin-bottom: 1.25rem;
+            text-align: left;
+            opacity: 0;
+            animation: loginFadeUp 0.45s cubic-bezier(0.34, 1.2, 0.64, 1) forwards;
+        }
+        .login-form .form-group:nth-child(1) { animation-delay: 0.45s; }
+        .login-form .form-group:nth-child(2) { animation-delay: 0.55s; }
+        .login-box > p { opacity: 0.8; }
+        .login-form .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+        .login-form .form-group input {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            font-size: 1rem;
+            background: var(--bg-color);
+            transition: border-color 0.25s ease, box-shadow 0.25s ease;
+            outline: none;
+        }
+        .login-form .form-group input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(200,170,136,0.12);
+        }
+        .login-remember {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            text-align: left;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: var(--text-color);
+            opacity: 0;
+            animation: loginFadeUp 0.45s cubic-bezier(0.34, 1.2, 0.64, 1) 0.65s forwards;
+        }
+        .login-remember input { width: 1.1rem; height: 1.1rem; accent-color: var(--primary-color); cursor: pointer; }
+        .login-remember span { user-select: none; }
+        .btn-login {
+            width: 100%;
+            padding: 0.9rem;
+            background: var(--primary-color);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+            opacity: 0;
+            animation: loginFadeUp 0.5s cubic-bezier(0.34, 1.2, 0.64, 1) 0.8s forwards;
+        }
+        .btn-login:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(200,170,136,0.35);
+        }
+        .btn-login:active { transform: translateY(0); }
+        .login-error {
+            display: none;
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            background: #fee;
+            color: #721c24;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            border: 1px solid #f5c6cb;
+        }
+        .login-error.show { display: block; animation: loginErrIn 0.3s ease; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .login-box, .login-box img, .login-box h2, .login-box > p,
+            .login-form .form-group, .login-remember, .btn-login {
+                animation: none;
+                opacity: 1;
+            }
+        }
+
         /* Mobile Overlay */
         .mobile-overlay {
             display: none;
@@ -1390,10 +1675,35 @@
     </style>
 </head>
 <body>
+    <!-- Login Container -->
+    <div class="login-container" id="login-container">
+        <div class="login-box">
+            <img src="assets/images/beige-logo.png" alt="Samar Ammar Interior Design Logo" loading="lazy" decoding="async">
+            <h2>Admin Login</h2>
+            <p>Please enter your credentials to access the dashboard</p>
+            <div class="login-error" id="login-error" role="alert" aria-live="polite" aria-atomic="true">Invalid username or password</div>
+            <form class="login-form" id="login-form" autocomplete="off" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="admin_user" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="admin_pass" required autocomplete="new-password">
+                </div>
+                <label class="login-remember">
+                    <input type="checkbox" id="remember-device" name="remember" autocomplete="off">
+                    <span>Remember this device</span>
+                </label>
+                <button type="submit" class="btn-login">Login</button>
+            </form>
+        </div>
+    </div>
+
     <!-- Mobile Overlay -->
     <div class="mobile-overlay" id="mobile-overlay" onclick="closeMobileMenu()" role="button" aria-label="Close menu" tabindex="-1"></div>
 
-    <div class="dashboard-container" id="dashboard-container" style="display: flex;">
+    <div class="dashboard-container" id="dashboard-container" style="display: none;">
         <!-- Sidebar -->
         <aside class="sidebar" id="sidebar" role="navigation" aria-label="Main navigation">
             <div class="logo-section">
@@ -1452,6 +1762,10 @@
                     <div class="stat-label">Site Visits</div>
                 </div>
             </div>
+            <button class="logout-btn" onclick="openLogoutModal()" aria-label="Logout from admin dashboard">
+                <i class='bx bx-log-out' aria-hidden="true"></i>
+                <span>Logout</span>
+            </button>
         </aside>
 
         <!-- Main Content -->
@@ -1545,6 +1859,25 @@
         </main>
     </div>
 
+    <!-- Logout Confirmation Modal -->
+    <div class="modal" id="logout-modal">
+        <div class="modal-content" style="max-width: 420px;">
+            <div class="modal-header">
+                <h3>Confirm Logout</h3>
+                <button class="close-modal" onclick="closeLogoutModal()">
+                    <i class='bx bx-x'></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p style="margin-bottom: 1.5rem; color: var(--text-color);">Are you sure you want to logout?</p>
+                <div style="display: flex; gap: 0.75rem; justify-content: flex-end; flex-wrap: wrap;">
+                    <button class="btn btn-secondary" onclick="closeLogoutModal()">Cancel</button>
+                    <button class="btn btn-primary" onclick="confirmLogout()">Logout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal -->
     <div class="modal" id="detail-modal">
         <div class="modal-content">
@@ -1618,16 +1951,89 @@
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
     <script src="assets/js/firebase-config.js"></script>
+    <script src="assets/js/admin-auth.js"></script>
     <script>
+        const AUTH_STORAGE_KEY = 'adminRemember';
+
         function checkAuth() {
+            const loginContainer = document.getElementById('login-container');
             const dashboardContainer = document.getElementById('dashboard-container');
             const mobileToggle = document.getElementById('mobile-menu-toggle');
+            const isRemembered = localStorage.getItem(AUTH_STORAGE_KEY) === 'true';
+            if (isRemembered) {
+                if (loginContainer) { loginContainer.classList.add('hidden'); }
+                if (dashboardContainer) dashboardContainer.style.display = 'flex';
+                if (window.innerWidth <= 768 && mobileToggle) {
+                    mobileToggle.style.display = 'flex';
+                    mobileToggle.classList.remove('hidden');
+                }
+                return true;
+            }
+            if (loginContainer) loginContainer.classList.remove('hidden');
+            if (dashboardContainer) dashboardContainer.style.display = 'none';
+            if (mobileToggle) mobileToggle.style.display = 'none';
+            clearLoginFields();
+            return false;
+        }
+
+        function clearLoginFields() {
+            var u = document.getElementById('username');
+            var p = document.getElementById('password');
+            if (u) u.value = '';
+            if (p) p.value = '';
+            var err = document.getElementById('login-error');
+            if (err) { err.classList.remove('show'); err.textContent = ''; }
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            var usernameEl = document.getElementById('username');
+            var passwordEl = document.getElementById('password');
+            var rememberEl = document.getElementById('remember-device');
+            var errEl = document.getElementById('login-error');
+            var username = usernameEl ? usernameEl.value.trim() : '';
+            var password = passwordEl ? passwordEl.value : '';
+            var remember = rememberEl ? rememberEl.checked : false;
+            var auth = typeof window.ADMIN_AUTH !== 'undefined' ? window.ADMIN_AUTH : { username: 'samar', password: 'sam1992' };
+            if (username !== auth.username || password !== auth.password) {
+                if (errEl) { errEl.textContent = 'Invalid username or password'; errEl.classList.add('show'); }
+                return;
+            }
+            if (errEl) errEl.classList.remove('show');
+            if (remember) localStorage.setItem(AUTH_STORAGE_KEY, 'true');
+            var loginContainer = document.getElementById('login-container');
+            var dashboardContainer = document.getElementById('dashboard-container');
+            var mobileToggle = document.getElementById('mobile-menu-toggle');
+            if (loginContainer) loginContainer.classList.add('hidden');
             if (dashboardContainer) dashboardContainer.style.display = 'flex';
             if (window.innerWidth <= 768 && mobileToggle) {
                 mobileToggle.style.display = 'flex';
                 mobileToggle.classList.remove('hidden');
             }
-            return true;
+            loadData();
+            loadVisits();
+            setupEventListeners();
+            initializeAutoRefresh();
+        }
+
+        function openLogoutModal() {
+            var modal = document.getElementById('logout-modal');
+            if (modal) modal.classList.add('active');
+        }
+        function closeLogoutModal() {
+            var modal = document.getElementById('logout-modal');
+            if (modal) modal.classList.remove('active');
+        }
+        function confirmLogout() {
+            localStorage.removeItem(AUTH_STORAGE_KEY);
+            closeLogoutModal();
+            var loginContainer = document.getElementById('login-container');
+            var dashboardContainer = document.getElementById('dashboard-container');
+            var mobileToggle = document.getElementById('mobile-menu-toggle');
+            if (loginContainer) loginContainer.classList.remove('hidden');
+            if (dashboardContainer) dashboardContainer.style.display = 'none';
+            if (mobileToggle) mobileToggle.style.display = 'none';
+            clearLoginFields();
         }
 
         // Toggle mobile menu
@@ -2258,6 +2664,12 @@
                 closeStatusModal();
             }
         });
+        var logoutModalEl = document.getElementById('logout-modal');
+        if (logoutModalEl) {
+            logoutModalEl.addEventListener('click', function(e) {
+                if (e.target === this) closeLogoutModal();
+            });
+        }
 
         // Change status in Firebase Firestore
         async function changeStatus(id, status) {
