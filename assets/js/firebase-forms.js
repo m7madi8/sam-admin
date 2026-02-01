@@ -3,7 +3,7 @@
  * Requires: firebase-app, firebase-firestore, firebase-config.js loaded first
  */
 
-var FIREBASE_SUBMIT_TIMEOUT_MS = 15000;
+const FIREBASE_SUBMIT_TIMEOUT_MS = 15000;
 
 function getFirebaseDb() {
   if (typeof window.firebaseDb === 'undefined') {
@@ -21,7 +21,7 @@ function getServerTimestamp() {
 
 function timeoutPromise(promise, ms) {
   return new Promise(function (resolve, reject) {
-    var t = setTimeout(function () {
+    const t = setTimeout(function () {
       reject(new Error('Request timed out. Create Firestore Database in Firebase Console (Build → Firestore Database → Create database), then set Security Rules to allow create on requests.'));
     }, ms);
     promise.then(function (r) {
@@ -39,9 +39,9 @@ function timeoutPromise(promise, ms) {
  */
 async function handleFirebaseSubmit(event, serviceType, redirectUrl) {
   event.preventDefault();
-  var form = event.target;
-  var submitBtn = form.querySelector('button[type="submit"]');
-  var originalText = submitBtn ? submitBtn.innerHTML : 'Send';
+  const form = event.target;
+  const submitBtn = form.querySelector('button[type="submit"]');
+  const originalText = submitBtn ? submitBtn.innerHTML : 'Send';
 
   if (submitBtn) {
     submitBtn.innerHTML = 'Sending...';
@@ -49,8 +49,8 @@ async function handleFirebaseSubmit(event, serviceType, redirectUrl) {
   }
 
   try {
-    var formData = new FormData(form);
-    var payload = {
+    const formData = new FormData(form);
+    const payload = {
       service: serviceType,
       name: formData.get('name') || 'N/A',
       phone: formData.get('phone') || 'N/A',
@@ -64,7 +64,7 @@ async function handleFirebaseSubmit(event, serviceType, redirectUrl) {
       createdAt: getServerTimestamp()
     };
 
-    var db = getFirebaseDb();
+    const db = getFirebaseDb();
     await timeoutPromise(db.collection('requests').add(payload), FIREBASE_SUBMIT_TIMEOUT_MS);
     form.reset();
     if (redirectUrl) {
@@ -74,7 +74,7 @@ async function handleFirebaseSubmit(event, serviceType, redirectUrl) {
     }
   } catch (err) {
     console.error('Firebase submission error:', err);
-    var msg = err && err.message ? err.message : 'Submission failed, please try again.';
+    let msg = err && err.message ? err.message : 'Submission failed, please try again.';
     if (msg.indexOf('permission') !== -1 || msg.indexOf('PERMISSION_DENIED') !== -1) {
       msg = 'Permission denied. In Firestore → Rules, add: allow create: if true; for collection requests.';
     }
@@ -95,20 +95,20 @@ async function handleFirebaseSubmit(event, serviceType, redirectUrl) {
  */
 async function handleBookingFirebaseSubmit(event) {
   event.preventDefault();
-  var form = event.target;
-  var submitBtn = form.querySelector('button[type="submit"]');
+  const form = event.target;
+  const submitBtn = form.querySelector('button[type="submit"]');
 
-  var fullName = (form.fullName || form.querySelector('[name="fullName"]')) ? (form.fullName || form.querySelector('[name="fullName"]')).value.trim() : '';
-  var emailEl = form.email || form.querySelector('[name="email"]');
-  var email = emailEl ? emailEl.value.trim() : '';
-  var phoneEl = form.phone || form.querySelector('[name="phone"]');
-  var phone = phoneEl ? phoneEl.value.trim() : '';
-  var serviceEl = form.service || form.querySelector('[name="service"]');
-  var service = serviceEl ? serviceEl.value : '';
-  var messageEl = form.message || form.querySelector('[name="message"]');
-  var message = messageEl ? messageEl.value.trim() : '';
+  const fullName = (form.fullName || form.querySelector('[name="fullName"]')) ? (form.fullName || form.querySelector('[name="fullName"]')).value.trim() : '';
+  const emailEl = form.email || form.querySelector('[name="email"]');
+  const email = emailEl ? emailEl.value.trim() : '';
+  const phoneEl = form.phone || form.querySelector('[name="phone"]');
+  const phone = phoneEl ? phoneEl.value.trim() : '';
+  const serviceEl = form.service || form.querySelector('[name="service"]');
+  const service = serviceEl ? serviceEl.value : '';
+  const messageEl = form.message || form.querySelector('[name="message"]');
+  const message = messageEl ? messageEl.value.trim() : '';
 
-  var notes = 'Request for appointment. Message: ' + (message || '-');
+  const notes = 'Request for appointment. Message: ' + (message || '-');
 
   if (submitBtn) {
     submitBtn.disabled = true;
@@ -116,7 +116,7 @@ async function handleBookingFirebaseSubmit(event) {
   }
 
   try {
-    var db = getFirebaseDb();
+    const db = getFirebaseDb();
     await timeoutPromise(db.collection('requests').add({
       service: 'Booking',
       name: fullName,
@@ -130,7 +130,7 @@ async function handleBookingFirebaseSubmit(event) {
     window.location.href = 'thanks.html';
   } catch (err) {
     console.error('Booking submission error:', err);
-    var msg = err && err.message ? err.message : 'تعذر إرسال الطلب الآن، حاول مرة أخرى.';
+    let msg = err && err.message ? err.message : 'تعذر إرسال الطلب الآن، حاول مرة أخرى.';
     if (String(msg).indexOf('permission') !== -1 || String(msg).indexOf('PERMISSION_DENIED') !== -1) {
       msg = 'Permission denied. تحقق من قواعد الأمان في Firestore.';
     }

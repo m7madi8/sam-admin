@@ -1,6 +1,10 @@
 /**
  * Firebase configuration – loaded after firebase-app-compat.js and firebase-firestore-compat.js
  * Uses your project config; Firestore is used for all form submissions.
+ *
+ * أمان: مفتاح API هنا ظاهر في الواجهة (معتاد في Firebase). حمّ بياناتك عبر:
+ * - قواعد أمان Firestore صارمة (اقرأ فقط/اكتب فقط حسب الحاجة).
+ * - في Firebase Console: قيّد مفتاح الويب بالنطاقات المسموحة (API key restrictions).
  */
 (function () {
   const firebaseConfig = {

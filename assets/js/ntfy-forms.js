@@ -1,14 +1,15 @@
 /**
  * ntfy-forms.js
  * يلتقط كل الفورمات في الصفحة ويرسل إشعاراً إلى ntfy.sh عند الإرسال.
- * استبدل TOPIC_NAME باسم موضوعك من ntfy.sh (مثلاً: samarammar-site)
+ * استبدل NTFY_TOPIC باسم موضوعك من ntfy.sh (مثلاً: samarammar-site).
+ * للإنتاج: استخدم topic سري (غير متوقع) لتفادي إرسال أي شخص إشعارات لموضوعك.
  */
 (function () {
   'use strict';
 
-  // اسم الموضوع (Topic) من ntfy.sh - غيّره ليتوافق مع اشتراكك
+  // اسم الموضوع (Topic) من ntfy.sh – غيّره ليتوافق مع اشتراكك (يفضّل topic سري في الإنتاج)
   const NTFY_TOPIC = 'sam-admin';
-  const NTFY_URL = 'https://ntfy.sh/sam-admin';
+  const NTFY_URL = 'https://ntfy.sh/' + NTFY_TOPIC;
   const NOTIFICATION_TITLE = 'إشعار من الموقع';
 
   /**

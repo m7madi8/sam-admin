@@ -13,16 +13,19 @@
     <meta name="author" content="Samar Ammar Interior Designer">
     <meta name="robots" content="index, follow">
     
-    <!-- Open Graph Meta Tags -->
+    <!-- Open Graph Meta Tags (same domain as canonical) -->
     <meta property="og:title" content="Samar Ammar Interior Designer - Professional Design Services">
     <meta property="og:description" content="Transform your space with our innovative interior, exterior, and landscape design solutions in Palestine.">
-    <meta property="og:image" content="assets/images/beige-logo.png">
-    <meta property="og:url" content="https://samarammar.com">
+    <meta property="og:image" content="https://samarammarinterior.com/assets/images/beige-logo.png">
+    <meta property="og:url" content="https://samarammarinterior.com">
     <meta property="og:type" content="website">
-    
     
     <!-- Canonical URL -->
     <link rel="canonical" href="https://samarammarinterior.com">
+    
+    <!-- Preconnect for faster loading -->
+    <link rel="preconnect" href="https://unpkg.com" crossorigin>
+    <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
     
     <link rel="stylesheet" href="style.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -34,9 +37,9 @@
       "@context": "https://schema.org",
       "@type": "LocalBusiness",
       "name": "Samar Ammar Interior Designer",
-      "image": "https://samarammar.com/assets/images/beige-logo.png",
-      "@id": "https://samarammar.com",
-      "url": "https://samarammar.com",
+      "image": "https://samarammarinterior.com/assets/images/beige-logo.png",
+      "@id": "https://samarammarinterior.com",
+      "url": "https://samarammarinterior.com",
       "telephone": "+972569126200",
       "address": {
         "@type": "PostalAddress",
@@ -641,10 +644,10 @@
           <h2 class="section-title">Write To Us</h2>
           <form id="contact-form" onsubmit="handleFirebaseSubmit(event, 'Message', 'assets/pages/thanks.html')">
             <div class="input-group">
-              <input type="text" name="name" placeholder="Name" required>
-              <input type="email" name="email" placeholder="Email" required>
+              <input type="text" name="name" placeholder="Name" required aria-label="Name">
+              <input type="email" name="email" placeholder="Email" required aria-label="Email">
             </div>
-            <textarea name="message" placeholder="Message" required rows="5" cols="40"></textarea>
+            <textarea name="message" placeholder="Message" required rows="5" cols="40" aria-label="Message"></textarea>
             <button type="submit" class="btn btn-outline btn-submit">Send</button>
           </form>
         </div>
@@ -715,12 +718,13 @@
     </div>
   </div>
 
-     <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app-compat.js"></script>
-     <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore-compat.js"></script>
-     <script src="assets/js/firebase-config.js"></script>
+    <!-- Optional: set before scripts to override PocketBase URL. Example: window.POCKETBASE_URL = 'https://your-pb.example.com'; -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore-compat.js"></script>
+    <script src="assets/js/firebase-config.js"></script>
     <script src="assets/js/firebase-forms.js"></script>
-    <script src="assets/js/ntfy-forms.js"></script>
-    <script src="script.js"></script>
+    <script src="assets/js/ntfy-forms.js" defer></script>
+    <script src="script.js" defer></script>
     <script>
       // Cookie consent
       (function() {

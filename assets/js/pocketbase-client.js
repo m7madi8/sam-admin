@@ -1,5 +1,8 @@
 // PocketBase client singleton
-const POCKETBASE_URL = 'https://your-pocketbase-url.com';
+// Override URL by setting window.POCKETBASE_URL before this script loads (e.g. in index.html).
+const POCKETBASE_URL = typeof window !== 'undefined' && window.POCKETBASE_URL
+    ? window.POCKETBASE_URL
+    : 'https://your-pocketbase-url.com';
 
 let pocketBaseClientInstance = null;
 
