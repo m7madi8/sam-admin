@@ -2024,24 +2024,15 @@
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
     <script src="assets/js/firebase-config.js"></script>
-    <script src="assets/js/admin-auth.js?v=1"></script>
     <script>
-        // تسجيل الدخول: اسم المستخدم وكلمة المرور من admin-auth.js
-        function isAuthConfigured() {
-            return typeof window.ADMIN_AUTH !== 'undefined' && window.ADMIN_AUTH && window.ADMIN_AUTH.username && window.ADMIN_AUTH.password;
-        }
+        window.ADMIN_AUTH = { username: 'samar', password: 'sam1992' };
 
-        // Check authentication (localStorage = تذكر الدخول حتى بعد إغلاق المتصفح)
+        // Check authentication (localStorage = تذكر الدخول)
         function checkAuth() {
             const isAuthenticated = localStorage.getItem('adminAuthenticated') === 'true';
             const loginContainer = document.getElementById('login-container');
             const dashboardContainer = document.getElementById('dashboard-container');
             const mobileToggle = document.getElementById('mobile-menu-toggle');
-            const configError = document.getElementById('login-config-error');
-
-            if (configError) {
-                configError.style.display = isAuthConfigured() ? 'none' : 'block';
-            }
 
             if (!isAuthenticated) {
                 loginContainer.classList.add('active');
@@ -2064,11 +2055,6 @@
         // Handle login
         function handleLogin(event) {
             event.preventDefault();
-            if (!isAuthConfigured()) {
-                const err = document.getElementById('login-error');
-                if (err) { err.textContent = 'يرجى إعداد admin-auth.js (انظر admin-auth.example.js)'; err.classList.add('active'); }
-                return;
-            }
             const username = document.getElementById('username').value.trim();
             const password = document.getElementById('password').value;
             const errorDiv = document.getElementById('login-error');
