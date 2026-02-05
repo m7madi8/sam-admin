@@ -1,9 +1,42 @@
 /**
  * Firebase form handlers – shared for contact, service requests, and booking
  * Requires: firebase-app, firebase-firestore, firebase-config.js loaded first
+ *
+ * الفورمات تُحفَظ في Firestore (الداشبورد) وتُرسَل أيضاً إلى الإيميل عبر Web3Forms.
+ * للحصول على Access Key: ادخل إلى https://web3forms.com وأدخل إيميلك (sam.ammar1992@gmail.com)
+ * واحصل على المفتاح، ثم ضعه في window.WEB3FORMS_ACCESS_KEY قبل تحميل هذا الملف.
  */
-
 const FIREBASE_SUBMIT_TIMEOUT_MS = 15000;
+
+var WEB3FORMS_ACCESS_KEY = typeof window !== 'undefined' && window.WEB3FORMS_ACCESS_KEY
+  ? window.WEB3FORMS_ACCESS_KEY
+  : '';
+
+/**
+ * يرسل بيانات الفورم إلى إيميلك عبر Web3Forms (يعمل بالتوازي مع حفظ Firestore)
+ */
+function sendToEmail(data) {
+  if (!WEB3FORMS_ACCESS_KEY) return;
+  var body = {
+    access_key: WEB3FORMS_ACCESS_KEY,
+    from_name: 'Samar Ammar Interior Design',
+    subject: '[Samar Ammar] ' + (data.service || 'طلب جديد'),
+    name: data.name || 'N/A',
+    email: data.email || '',
+    phone: data.phone || 'N/A',
+    service: data.service || '',
+    location: data.location || '',
+    area: data.area || '',
+    project_type: data.project_type || '',
+    construction_status: data.construction_status || '',
+    notes: data.notes || ''
+  };
+  fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify(body)
+  }).catch(function (e) { console.warn('[Web3Forms] فشل إرسال الإيميل:', e); });
+}
 
 function getFirebaseDb() {
   if (typeof window.firebaseDb === 'undefined') {
@@ -64,6 +97,7 @@ async function handleFirebaseSubmit(event, serviceType, redirectUrl) {
       createdAt: getServerTimestamp()
     };
 
+    sendToEmail(payload);
     const db = getFirebaseDb();
     await timeoutPromise(db.collection('requests').add(payload), FIREBASE_SUBMIT_TIMEOUT_MS);
     form.reset();
@@ -115,18 +149,20 @@ async function handleBookingFirebaseSubmit(event) {
     submitBtn.textContent = 'Sending...';
   }
 
+  var bookingPayload = {
+    service: 'Booking',
+    name: fullName,
+    email: email,
+    phone: phone,
+    project_type: service || '',
+    notes: notes,
+    status: 'new',
+    createdAt: getServerTimestamp()
+  };
   try {
+    sendToEmail(bookingPayload);
     const db = getFirebaseDb();
-    await timeoutPromise(db.collection('requests').add({
-      service: 'Booking',
-      name: fullName,
-      email: email,
-      phone: phone,
-      project_type: service || '',
-      notes: notes,
-      status: 'new',
-      createdAt: getServerTimestamp()
-    }), FIREBASE_SUBMIT_TIMEOUT_MS);
+    await timeoutPromise(db.collection('requests').add(bookingPayload), FIREBASE_SUBMIT_TIMEOUT_MS);
     window.location.href = 'thanks.html';
   } catch (err) {
     console.error('Booking submission error:', err);

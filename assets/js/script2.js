@@ -13,8 +13,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Apply filter from URL hash (#interiorphotos, #exteriorphotos, #landscapephotos)
-    var hashToFilter = { interiorphotos: 'interior', exteriorphotos: 'exterior', landscapephotos: 'landscape' };
+    // Apply filter from URL hash (#interiorphotos, #exteriorphotos, #landscapephotos, #commercialphotos)
+    var hashToFilter = { interiorphotos: 'interior', exteriorphotos: 'exterior', landscapephotos: 'landscape', commercialphotos: 'commercial' };
     var hash = (window.location.hash || '').replace(/^#/, '');
     if (hash && hashToFilter[hash]) {
         var filterBtn = document.querySelector('.sharp-btn[data-filter="' + hashToFilter[hash] + '"]');
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
             let visibleIndex = 0;
             
             // Update body classes for section headers
-            document.body.classList.remove('showing-interior', 'showing-exterior', 'showing-landscape');
+            document.body.classList.remove('showing-interior', 'showing-exterior', 'showing-landscape', 'showing-commercial');
             if (filter !== 'all') {
                 document.body.classList.add(`showing-${filter}`);
             }
@@ -221,9 +221,23 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Event listeners for lightbox
     items.forEach((item, idx) => {
-        item.addEventListener('click', () => {
+        item.addEventListener('click', function(e) {
             const projectLink = item.getAttribute('data-project-link');
             if (projectLink) {
+                if (projectLink.indexOf('project-view.html') !== -1) {
+                    e.preventDefault();
+                    const titleEl = item.querySelector('.card-title');
+                    const title = titleEl ? titleEl.textContent.trim() : 'Project';
+                    let images = [];
+                    try {
+                        const raw = item.getAttribute('data-lightbox-images') || '[]';
+                        images = JSON.parse(raw);
+                    } catch (e) { images = []; }
+                    const category = item.getAttribute('data-category') || '';
+                    sessionStorage.setItem('projectViewTitle', title);
+                    sessionStorage.setItem('projectViewImages', JSON.stringify(images));
+                    sessionStorage.setItem('projectViewCategory', category);
+                }
                 window.location.href = projectLink;
                 return;
             }

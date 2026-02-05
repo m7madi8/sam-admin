@@ -472,6 +472,12 @@
             gap: 1rem;
         }
 
+        .header-actions a.btn {
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+        }
+
         .btn {
             padding: 0.75rem 1.5rem;
             border: none;
@@ -849,11 +855,67 @@
             border-radius: 8px;
         }
 
+        .modal-body .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .modal-body .form-group:last-of-type {
+            margin-bottom: 0;
+        }
+
         .modal-body .form-group label {
             display: block;
             font-weight: 600;
             margin-bottom: 0.5rem;
             color: var(--text-color);
+            font-size: 0.9rem;
+        }
+
+        .modal-body .form-group input,
+        .modal-body .form-group select,
+        .modal-body .form-group textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: inherit;
+            background: var(--bg-color);
+            color: var(--text-color);
+            transition: border-color 0.25s ease, box-shadow 0.25s ease;
+            outline: none;
+        }
+
+        .modal-body .form-group input:focus,
+        .modal-body .form-group select:focus,
+        .modal-body .form-group textarea:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(200,170,136,0.12);
+        }
+
+        .modal-body .form-group select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 1.25rem;
+            padding-right: 2.5rem;
+        }
+
+        .modal-body .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .modal-body .form-actions {
+            display: flex;
+            gap: 0.75rem;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
         }
 
         /* Loading */
@@ -1797,6 +1859,10 @@
                         <i class='bx bx-calendar' aria-hidden="true"></i>
                         <span>Booking Page</span>
                     </a>
+                    <a class="btn btn-primary" href="assets/pages/add-booking.html" aria-label="Add booking">
+                        <i class='bx bx-plus-circle' aria-hidden="true"></i>
+                        <span>Add Booking</span>
+                    </a>
                     <button class="btn btn-secondary" onclick="openDeleteModal('all-messages')" aria-label="Delete all messages">
                         <i class='bx bx-trash' aria-hidden="true"></i>
                         <span>Delete Messages</span>
@@ -2268,7 +2334,9 @@
                         projectType: item.project_type || '',
                         notes: item.notes || '',
                         date: dateStr,
-                        status: normalizeStatus(item.status)
+                        status: normalizeStatus(item.status),
+                        appointmentDate: item.appointmentDate || '',
+                        appointmentTime: item.appointmentTime || ''
                     };
                 });
 
@@ -2480,6 +2548,12 @@
                                 <div class="value">${item.notes.substring(0, 100)}${item.notes.length > 100 ? '...' : ''}</div>
                             </div>
                             ` : ''}
+                            ${(item.type === 'Booking' && (item.appointmentDate || item.appointmentTime)) ? `
+                            <div class="card-field">
+                                <label>Appointment</label>
+                                <div class="value">${item.appointmentDate || '-'} ${item.appointmentTime ? item.appointmentTime : ''}</div>
+                            </div>
+                            ` : ''}
                         </div>
                         <div class="card-actions">
                             <button class="btn btn-small btn-call" onclick="call('${item.phone}')">
@@ -2620,6 +2694,12 @@
                     <div class="value">${item.notes}</div>
                 </div>
                 ` : ''}
+                ${(item.type === 'Booking' && (item.appointmentDate || item.appointmentTime)) ? `
+                <div class="detail-field">
+                    <label>Appointment Date & Time</label>
+                    <div class="value">${item.appointmentDate || '-'} ${item.appointmentTime ? 'at ' + item.appointmentTime : ''}</div>
+                </div>
+                ` : ''}
                 <div class="detail-field">
                     <label>Submission Date</label>
                     <div class="value">${dateStr}</div>
@@ -2664,6 +2744,7 @@
                 closeStatusModal();
             }
         });
+
         var logoutModalEl = document.getElementById('logout-modal');
         if (logoutModalEl) {
             logoutModalEl.addEventListener('click', function(e) {

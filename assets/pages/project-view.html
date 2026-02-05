@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project | Samar Ammar Interior Designer</title>
+    <link rel="icon" href="../images/beige-logo.png" sizes="128x128" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link href="../../style.css" rel="stylesheet">
+    <link href="../css/style2.css" rel="stylesheet">
+    <style>
+        body { padding-top: 90px; background: linear-gradient(180deg, #f7f2ec 0%, #fdfaf6 45%, #f5efe7 100%); }
+        main.container { max-width: 1180px; }
+        .header {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            background-color: rgba(253, 250, 246, 0.95) !important;
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); padding: 1rem 3rem !important;
+        }
+        .header .navigation .menu-link, .header #menu-icon {
+            color: var(--first-color) !important; background: none !important;
+            -webkit-background-clip: unset !important; background-clip: unset !important; filter: none !important;
+        }
+        .project-hero {
+            position: relative; text-align: center; padding: 3.5rem 1.5rem 3rem; border-radius: 28px;
+            background: linear-gradient(135deg, rgba(21, 17, 14, 0.92), rgba(57, 41, 26, 0.88));
+            color: #fefbf7; overflow: hidden; box-shadow: 0 30px 60px rgba(25, 19, 13, 0.35);
+        }
+        .project-hero::after {
+            content: ""; position: absolute; inset: 0;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.6) 100%);
+        }
+        .project-hero > * { position: relative; z-index: 2; }
+        .project-badge {
+            display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.4rem 0.9rem; border-radius: 999px;
+            font-size: 0.85rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+            color: #f6e6d2; background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(246, 230, 210, 0.35);
+        }
+        .project-title { margin: 1rem 0 0.5rem; font-size: clamp(2rem, 3.6vw, 3.4rem); font-weight: 800; color: #fef9f2; }
+        .project-subtitle { max-width: 780px; margin: 0 auto; color: rgba(255, 255, 255, 0.85); font-size: 1.08rem; }
+        .project-actions { margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; }
+        .project-back-btn {
+            padding: 0.6rem 1.2rem; border-radius: 10px; border: none;
+            background: linear-gradient(135deg, #caa36f, #a67c52); color: #fff; text-decoration: none; font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .project-back-btn.outline { background: rgba(255, 255, 255, 0.08); color: #f6e6d2; border: 1px solid rgba(246, 230, 210, 0.4); }
+        .project-back-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(166, 124, 82, 0.2); }
+        .project-section { margin: 3rem auto; }
+        .project-section h2 { font-size: 1.85rem; font-weight: 700; margin-bottom: 1.2rem; color: #2d2d2d; }
+        .project-preview-scroll {
+            position: relative; overflow-x: auto; scroll-behavior: smooth; scroll-snap-type: x mandatory;
+            -ms-overflow-style: none; scrollbar-width: none; overscroll-behavior-x: contain; -webkit-overflow-scrolling: touch;
+            cursor: grab;
+        }
+        .project-preview-scroll::-webkit-scrollbar { display: none; }
+        .project-preview-track { display: flex; align-items: center; gap: 1.2rem; width: max-content; padding: 0.6rem 0.2rem 1rem; }
+        .project-preview-track img {
+            height: 560px; width: auto; max-width: 98vw; object-fit: contain; border-radius: 20px;
+            box-shadow: 0 18px 40px rgba(30, 22, 16, 0.28); border: 1px solid rgba(166, 124, 82, 0.25);
+            background: #fff; scroll-snap-align: center;
+        }
+        .scroll-hint { margin-top: 0.6rem; font-size: 0.9rem; color: var(--text-color-light); text-align: center; letter-spacing: 0.04em; }
+        .no-project { text-align: center; padding: 4rem 2rem; }
+        .no-project a { color: var(--first-color); font-weight: 600; }
+        @media (max-width: 968px) { .header { padding: 0.8rem 1.5rem !important; } body { padding-top: 80px; } }
+        @media (max-width: 576px) { .project-preview-track img { height: 420px; } }
+    </style>
+</head>
+<body class="page-fade page-fade-in">
+    <header id="header1-unique" class="header scrolled">
+        <img src="../images/beige-logo.png" alt="Samar Ammar Interior Designer Logo" id="logo" loading="eager" width="60" height="60"/>
+        <nav class="navigation">
+            <ul>
+                <li><a href="../../index.html#home" class="menu-link slide-up">home</a></li>
+                <li><a href="../../index.html#about" class="menu-link slide-up">about</a></li>
+                <li><a href="../../index.html#map2" class="menu-link slide-up">our projects</a></li>
+                <li><a href="../../index.html#faq" class="menu-link slide-up">FAQ</a></li>
+                <li><a href="../../index.html#contact-us" class="menu-link slide-up">contact us</a></li>
+            </ul>
+        </nav>
+        <i class='bx bx-menu' id="menu-icon"></i>
+    </header>
+
+    <div id="overlay">
+        <button id="close-icon" aria-label="Close menu" type="button">
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <defs>
+                    <linearGradient id="closeGrad" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#a67c52"/>
+                    </linearGradient>
+                </defs>
+                <line x1="12" y1="12" x2="24" y2="24" stroke="url(#closeGrad)"/>
+                <line x1="24" y1="12" x2="12" y2="24" stroke="url(#closeGrad)"/>
+            </svg>
+        </button>
+        <div id="menu">
+            <ul>
+                <li><a href="../../index.html#home" class="menu-link slide-up">home</a></li>
+                <li><a href="../../index.html#about" class="menu-link slide-up">about</a></li>
+                <li><a href="../../index.html#map2" class="menu-link slide-up">our projects</a></li>
+                <li><a href="../../index.html#faq" class="menu-link slide-up">FAQ</a></li>
+                <li><a href="../../index.html#contact-us" class="menu-link slide-up">contact us</a></li>
+            </ul>
+            <div class="menu-social">
+                <a href="https://wa.me/+972569126200" target="_blank" aria-label="WhatsApp"><i class='bx bxl-whatsapp'></i></a>
+                <a href="https://www.instagram.com/samarammarinterior" target="_blank" aria-label="Instagram"><i class='bx bxl-instagram'></i></a>
+                <a href="https://www.facebook.com/share/18o8oJW7R9/" target="_blank" aria-label="Facebook"><i class='bx bxl-facebook-circle'></i></a>
+            </div>
+            <div class="menu-footer">
+                <img src="../images/beige-logo.png" alt="Samar Ammar Interior Designer Logo" loading="lazy" width="110" height="110"/>
+            </div>
+        </div>
+    </div>
+
+    <main class="container">
+        <div id="no-project" class="no-project" style="display: none;">
+            <h2>No project selected</h2>
+            <p>Choose a project from the gallery to view its details and photos.</p>
+            <a href="index2.html">Back to Gallery</a>
+        </div>
+
+        <div id="project-content" style="display: none;">
+            <section class="project-hero">
+                <div class="project-badge" id="project-badge">Project</div>
+                <h1 class="project-title" id="project-title"></h1>
+                <p class="project-subtitle">A curated selection of design and execution photos for this project.</p>
+                <div class="project-actions">
+                    <a class="project-back-btn" href="index2.html#gallery-grid">Back to Gallery</a>
+                    <a class="project-back-btn outline" href="booking.html">Request a Consultation</a>
+                </div>
+            </section>
+
+            <section class="project-section">
+                <h2>Project Gallery</h2>
+                <div class="project-preview-scroll" aria-label="Project photos">
+                    <div class="project-preview-track" id="project-preview-track"></div>
+                </div>
+                <div class="scroll-hint">Swipe or scroll to explore all photos.</div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="gallery-footer text-center">
+        <small>All rights reserved to Samar Ammar | By <a target="_blank" href="https://m7madi8.github.io/Mohammad/" rel="nofollow">Mohammad Hroub</a></small>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../script.js"></script>
+    <script>
+        (function() {
+            var title = sessionStorage.getItem('projectViewTitle');
+            var imagesJson = sessionStorage.getItem('projectViewImages');
+            var category = sessionStorage.getItem('projectViewCategory') || '';
+
+            var noProject = document.getElementById('no-project');
+            var projectContent = document.getElementById('project-content');
+            var projectTitleEl = document.getElementById('project-title');
+            var projectBadgeEl = document.getElementById('project-badge');
+            var track = document.getElementById('project-preview-track');
+
+            if (!title || !imagesJson) {
+                noProject.style.display = 'block';
+                return;
+            }
+
+            var images = [];
+            try { images = JSON.parse(imagesJson); } catch (e) { images = []; }
+
+            document.title = (title || 'Project') + ' | Samar Ammar Interior Designer';
+            projectTitleEl.textContent = title;
+            projectBadgeEl.textContent = category ? (category.charAt(0).toUpperCase() + category.slice(1)) + ' Project' : 'Project';
+            projectContent.style.display = 'block';
+
+            if (track && images.length) {
+                images.forEach(function(src, i) {
+                    var img = document.createElement('img');
+                    img.src = src;
+                    img.alt = title + ' – Photo ' + (i + 1);
+                    img.loading = i < 3 ? 'eager' : 'lazy';
+                    track.appendChild(img);
+                });
+            }
+
+            var header = document.querySelector('.header');
+            if (header) header.classList.add('scrolled');
+        })();
+    </script>
+</body>
+</html>

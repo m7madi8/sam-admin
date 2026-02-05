@@ -319,6 +319,25 @@
     select:focus {
       background-color: rgba(255, 255, 255, 0.95);
     }
+
+    .lang-toggle {
+      display: inline-block;
+      margin: 0 0 20px 0;
+      padding: 8px 14px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-family: 'Cairo', sans-serif;
+      font-size: 14px;
+      cursor: pointer;
+      transition: 0.3s ease;
+      box-shadow: 0 2px 8px rgba(200, 170, 136, 0.3);
+    }
+    .lang-toggle:hover { background: var(--accent-dark); }
+    .container { position: relative; }
+    [dir="rtl"] .container { text-align: right; }
+    [dir="rtl"] select { background-position: left 15px center; padding-right: 15px; padding-left: 45px; }
   </style>
 </head>
 <body>
@@ -327,46 +346,49 @@
               <img src="../images/beige-logo.png" alt="Samar Ammar Logo" loading="lazy">
     </div>
     <h1>Interior Design Request</h1>
+    <button type="button" id="lang-toggle" class="lang-toggle" aria-label="Switch language">العربية</button>
     <form onsubmit="handleFirebaseSubmit(event, 'Interior Design', 'thanks-page-interior.html')">
 
-      <label for="name">Full Name</label>
-      <input type="text" id="name" name="name" placeholder="Your full name" required>
+      <label for="name" data-i18n="i18n-name-label">Full Name</label>
+      <input type="text" id="name" name="name" data-i18n="i18n-name-ph" placeholder="Your full name" required>
 
-      <label for="phone">Phone Number</label>
-      <input type="tel" id="phone" name="phone" placeholder="Your phone number" required>
+      <label for="phone" data-i18n="i18n-phone-label">Phone Number</label>
+      <input type="tel" id="phone" name="phone" data-i18n="i18n-phone-ph" placeholder="Your phone number" required>
 
-      <label for="location">Location</label>
-      <input type="text" id="location" name="location" placeholder="City / Area" required>
+      <label for="location" data-i18n="i18n-location-label">Location</label>
+      <input type="text" id="location" name="location" data-i18n="i18n-location-ph" placeholder="City / Area" required>
 
-      <label for="construction-status">Construction Status</label>
+      <label for="construction-status" data-i18n="i18n-status-label">Construction Status</label>
       <select id="construction-status" name="construction-status" required>
-        <option value="" disabled selected>Select status</option>
+        <option value="" disabled selected data-i18n="i18n-status-ph">Select status</option>
         <option value="empty-land">Empty Land</option>
         <option value="renovation">Renovation</option>
         <option value="from-scratch">From Scratch</option>
         <option value="structure-only">Concrete Structure (عظم)</option>
       </select>
 
-      <label for="approx-area">Approximate Area (m²)</label>
-      <input type="number" id="approx-area" name="approx-area" placeholder="e.g. 150" required>
+      <label for="approx-area" data-i18n="i18n-area-label">Approximate Area (m²)</label>
+      <input type="number" id="approx-area" name="approx-area" data-i18n="i18n-area-ph" placeholder="e.g. 150" required>
 
-      <label for="project-type">Project Type</label>
+      <label for="project-type" data-i18n="i18n-type-label">Project Type</label>
       <select id="project-type" name="project-type" required>
-        <option value="" disabled selected>Select type</option>
+        <option value="" disabled selected data-i18n="i18n-type-ph">Select type</option>
         <option value="residential">Residential</option>
         <option value="commercial">Commercial</option>
       </select>
 
-      <label for="notes">Additional Notes</label>
-      <textarea id="notes" name="notes" placeholder="Any additional information..."></textarea>
+      <label for="notes" data-i18n="i18n-notes-label">Additional Notes</label>
+      <textarea id="notes" name="notes" data-i18n="i18n-notes-ph" placeholder="Any additional information..."></textarea>
 
-      <button type="submit">Submit Request</button>
+      <button type="submit" data-i18n="i18n-submit">Submit Request</button>
     </form>
   </div>
   <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore-compat.js"></script>
   <script src="../js/firebase-config.js"></script>
+  <script src="../js/form-email-config.js"></script>
   <script src="../js/firebase-forms.js"></script>
   <script src="../js/ntfy-forms.js"></script>
+  <script src="../js/service-forms-i18n.js"></script>
 </body>
 </html>

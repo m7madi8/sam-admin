@@ -53,6 +53,7 @@
     forms.forEach(function (form, index) {
       form.addEventListener('submit', function (e) {
         e.preventDefault();
+        e.stopImmediatePropagation();
 
         var message = getNotificationMessage(form, index);
         var originalOnSubmit = form.onsubmit;
